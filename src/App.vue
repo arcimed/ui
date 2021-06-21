@@ -1,43 +1,8 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
-      >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
-    </v-app-bar>
-
-    <v-main>
+    <Navbar @openDialog="toggleForm"/>
+    <v-main class="ma-10">
+      <createAccount @closeDialog="toggleForm" v-if="login"></createAccount>
       <router-view/>
     </v-main>
   </v-app>
@@ -45,11 +10,28 @@
 
 <script>
 
-export default {
-  name: 'App',
+import Navbar from './components/Navbar';
+import CreateAccount from './components/CreateAccount';
+import Vue from 'vue';
+import VueSession from 'vue-session'
+Vue.use(VueSession)
 
-  data: () => ({
-    //
-  }),
-};
+export default Vue.extend({
+  name: 'App',
+  components: { CreateAccount, Navbar },
+  data() {
+    return {
+      login: false,
+    };
+  },
+  methods: {
+    toggleForm() {
+      this.login = !this.login;
+    },
+  },
+  beforeMount() {
+    this.$http.defaults.headers.common['Authorization'] = this.$session.get('token')
+    this.$http.defaults.headers.post['Content-Type'] = 'application/json';
+  }
+});
 </script>
