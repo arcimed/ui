@@ -21,9 +21,12 @@ const routes = [
     component: () => import('../views/AddArticle.vue')
   },
   {
-    path: '/menuArticle',
+    path: '/menuArticle/:id',
     name: 'menuArticle',
-    component: () => import('../views/ArticleMenu.vue')
+    component: () => import('../views/ArticleMenu.vue'),
+    props: (route) => ({
+      ...route.params
+    })
   }
 ]
 

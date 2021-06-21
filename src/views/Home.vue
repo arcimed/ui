@@ -1,7 +1,7 @@
 <template>
   <div class="row">
-    <div v-for="resto in restos" :key="resto.name">
-      <restocard :resto="resto"></restocard>
+    <div v-for="restaurant in restaurants" :key="restaurant.name">
+      <RestaurantCard :restaurant="restaurant"></RestaurantCard>
     </div>
   </div>
 </template>
@@ -9,24 +9,21 @@
 <script>
 
 import Vue from 'vue'
-import restocard from '../components/RestoCard.vue'
+import RestaurantCard from '../components/RestaurantCard.vue'
+import { mapGetters } from 'vuex'
 
 export default Vue.extend({
   name: 'Home',
   components: {
-    restocard,
+    RestaurantCard,
   },
-  data() {
-    return {
-      restos: [],
-    };
+  mounted() {
+    this.$store.dispatch('restaurants/setRestaurants', this);
   },
-  created: function () {
-    this.$http
-        .get(`http://localhost:3000/api/restaurant/all`)
-        .then((response) => {
-          this.restos = response.data.data
-        });
+  computed: {
+    ...mapGetters('restaurants', {
+      restaurants: 'allRestaurants',
+    })
   }
 })
 

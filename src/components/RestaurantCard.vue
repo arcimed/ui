@@ -1,5 +1,5 @@
 <template>
-  <v-card :loading="loading" class="mx-4 my-4" max-width="200">
+  <v-card class="mx-4 my-4" max-width="200">
     <template slot="progress">
       <v-progress-linear
           color="deep-purple"
@@ -10,24 +10,22 @@
 
     <v-img height="125" src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
 
-    <v-card-title>{{ resto.name }}</v-card-title>
+    <v-card-title>{{ restaurant.name }}</v-card-title>
 
     <v-card-text>
       <div class="my-4 text-subtitle-1">
-        {{ resto.city }}
+        {{ restaurant.city }}
       </div>
 
-      <div>{{ resto.address }}</div>
+      <div>{{ restaurant.address }}</div>
     </v-card-text>
 
     <v-divider class="mx-4"></v-divider>
 
     <v-card-actions>
-      <router-link to="/menuArticle">
-        <v-btn color="deep-purple lighten-2" text @click="reserve">
-          commander
-        </v-btn>
-      </router-link>
+      <v-btn color="deep-purple lighten-2" text @click="menuArticleRestaurant(restaurant.id)">
+        commander
+      </v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -35,18 +33,12 @@
 <script>
 
 export default {
-  props: ['resto'],
-  data: () => ({
-    loading: false,
-    selection: 1,
-  }),
-
+  props: ['restaurant'],
   methods: {
-    reserve () {
-      this.loading = true
-      setTimeout(() => (this.loading = false), 2000)
-    },
-  },
+    menuArticleRestaurant(restaurantId) {
+      this.$router.push({ name: 'menuArticle', params: {id: restaurantId }})
+    }
+  }
 }
 
 </script>

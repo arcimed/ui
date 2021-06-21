@@ -1,7 +1,10 @@
 <template>
   <div class="row">
-    <div v-for="key in articles" :key="key.name">
-      <articleCard :article="key"></articleCard>
+    {{ restaurant.name }}
+
+    <div v-for="article in articles" :key="article.name">
+      <br>
+      <articleCard :article="article"></articleCard>
     </div>
   </div>
 </template>
@@ -10,22 +13,29 @@
 
 import articleCard from "@/components/ArticleCard";
 
+import { mapGetters } from "vuex";
+
 export default {
 name: "articleMenu",
+  props: {
+    id: {
+      required: true
+    }
+  },
   components: {
     articleCard,
   },
-  data() {
-    return {
-      articles: [],
-    };
+  mounted() {
+    this.$store.dispatch('articles/setArticles', this.id);
+    this.$store.dispatch('restaurants/setRestaurant', this.id);
   },
-  created: function () {
-    this.$http
-        .get(`api/article/all`)
-        .then((response) => {
-          this.articles = response.data
-        });
+  computed: {
+    ...mapGetters('restaurants', {
+      restaurant: 'restaurant',
+    }),
+    ...mapGetters('articles', {
+      articles: 'restaurantArticles',
+    })
   }
 }
 
