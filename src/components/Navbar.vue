@@ -62,6 +62,7 @@ export default {
         this.$router.go()
       } else {
         this.$router.push({ name: 'Home'})
+        this.$router.go()
       }
     }
   }
