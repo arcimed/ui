@@ -1,8 +1,6 @@
 <template>
-  <validation-observer
-      ref="observer"
-      v-slot="{ invalid }"
-  >
+  <validation-observer ref="observer" v-slot="{ invalid }">
+
     <form @submit.prevent="submit">
       <validation-provider
           v-slot="{ errors }"
@@ -41,6 +39,7 @@
         clear
       </v-btn>
     </form>
+
   </validation-observer>
 </template>
 

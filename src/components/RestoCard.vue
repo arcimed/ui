@@ -1,9 +1,5 @@
 <template>
-  <v-card
-      :loading="loading"
-      class="mx-4 my-4"
-      max-width="200"
-  >
+  <v-card :loading="loading" class="mx-4 my-4" max-width="200">
     <template slot="progress">
       <v-progress-linear
           color="deep-purple"
@@ -12,10 +8,7 @@
       ></v-progress-linear>
     </template>
 
-    <v-img
-        height="125"
-        src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-    ></v-img>
+    <v-img height="125" src="https://cdn.vuetifyjs.com/images/cards/cooking.png"></v-img>
 
     <v-card-title>{{ resto.name }}</v-card-title>
 
@@ -31,18 +24,16 @@
 
     <v-card-actions>
       <router-link to="/menuArticle">
-      <v-btn
-          color="deep-purple lighten-2"
-          text
-          @click="reserve"
-      >
-        commander
-      </v-btn>
-        </router-link>
+        <v-btn color="deep-purple lighten-2" text @click="reserve">
+          commander
+        </v-btn>
+      </router-link>
     </v-card-actions>
   </v-card>
 </template>
+
 <script>
+
 export default {
   props: ['resto'],
   data: () => ({
@@ -57,8 +48,5 @@ export default {
     },
   },
 }
+
 </script>
-
-<style scoped>
-
-</style>

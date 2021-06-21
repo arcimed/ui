@@ -1,8 +1,8 @@
 <template>
   <v-app>
-    <Navbar @openDialog="toggleForm"/>
+    <Navbar @showLogRegisterModal="logRegisterModal"/>
     <v-main class="ma-10">
-      <createAccount @closeDialog="toggleForm" v-if="login"></createAccount>
+      <createAccount @hideLogRegisterModal="logRegisterModal" v-if="login"></createAccount>
       <router-view/>
     </v-main>
   </v-app>
@@ -14,6 +14,7 @@ import Navbar from './components/Navbar';
 import CreateAccount from './components/CreateAccount';
 import Vue from 'vue';
 import VueSession from 'vue-session'
+
 Vue.use(VueSession)
 
 export default Vue.extend({
@@ -25,7 +26,7 @@ export default Vue.extend({
     };
   },
   methods: {
-    toggleForm() {
+    logRegisterModal() {
       this.login = !this.login;
     },
   },
@@ -34,4 +35,5 @@ export default Vue.extend({
     this.$http.defaults.headers.post['Content-Type'] = 'application/json';
   }
 });
+
 </script>

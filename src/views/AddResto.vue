@@ -1,8 +1,6 @@
 <template>
-  <validation-observer
-      ref="observer"
-      v-slot="{ invalid }"
-  >
+  <validation-observer ref="observer" v-slot="{ invalid }">
+
     <form @submit.prevent="submit">
       <validation-provider
           v-slot="{ errors }"
@@ -53,10 +51,12 @@
         clear
       </v-btn>
     </form>
+
   </validation-observer>
 </template>
 
 <script>
+
 import { required, digits, email, max, regex } from 'vee-validate/dist/rules'
 import { extend, ValidationObserver, ValidationProvider, setInteractionMode } from 'vee-validate'
 
@@ -120,8 +120,5 @@ export default {
     },
   },
 }
+
 </script>
-
-<style scoped>
-
-</style>

@@ -7,6 +7,7 @@
 </template>
 
 <script>
+
 import Vue from 'vue'
 import restocard from '../components/RestoCard.vue'
 
@@ -28,4 +29,5 @@ export default Vue.extend({
         });
   }
 })
+
 </script>

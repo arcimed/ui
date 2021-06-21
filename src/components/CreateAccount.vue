@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" persistent max-width="600px" min-width="360px" @click:outside="closeDialog">
+  <v-dialog v-model="dialog" persistent max-width="600px" min-width="360px" @click:outside="hideLogRegisterModal">
     <div>
       <v-tabs v-model="tab" show-arrows background-color="deep-purple accent-4" icons-and-text dark grow>
         <v-tabs-slider color="purple darken-4"></v-tabs-slider>
@@ -87,8 +87,8 @@ export default {
       dialog: true,
       tab: 0,
       tabs: [
-        {name:"Login", icon:"mdi-account"},
-        {name:"Register", icon:"mdi-account-outline"}
+        { name:"Login", icon:"mdi-account" },
+        { name:"Register", icon:"mdi-account-outline" }
       ],
       valid: true,
       showLoader: false,
@@ -163,21 +163,18 @@ export default {
             }
           })
           .catch((error) => {
-            this.isError = true;
             console.log(error)
-
             this.$toast.open({
               message: 'Informations d\'identification invalides!',
               type: 'warning'
             });
           });
 
-      this.$emit('closeDialog');
+      this.$emit('hideLogRegisterModal');
     },
     createAccount() {
-      this.showLoader = true;
-
       this.errorMessage = [];
+      this.showLoader = true;
 
       if (this.user.firstname.length < 5) {
         this.errorMessage.push(
@@ -199,25 +196,16 @@ export default {
           });
       }
 
-      this.$emit('closeDialog');
+      this.$emit('hideLogRegisterModal');
     },
 
     ValidateEmail(mail) {
       return /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(mail);
     },
 
-    closeDialog() {
-      this.$emit('closeDialog');
+    hideLogRegisterModal() {
+      this.$emit('hideLogRegisterModal');
     }
   },
 };
 </script>
-
-<style>
-.form-signup {
-  width: 100%;
-  max-width: 500px;
-  padding: 15px;
-  margin: auto;
-}
-</style>

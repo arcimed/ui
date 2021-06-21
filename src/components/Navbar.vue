@@ -16,11 +16,12 @@
       <v-btn @click="destroySession" v-if="this.$session.exists()">
         <span class="mr-2">Déconnection</span>
       </v-btn>
-      <v-btn @click="openDialog" v-else>
+      <v-btn @click="showLogRegisterModal" v-else>
         <span class="mr-2">Connection/Inscription</span>
       </v-btn>
 
     </v-app-bar>
+
     <v-navigation-drawer v-model="drawer" absolute temporary>
       <v-list nav dense>
         <v-list-item-group active-class="deep-purple--text text--accent-4">
@@ -50,11 +51,8 @@ export default {
     }
   },
   methods: {
-    openDialog() {
-      this.$emit('openDialog');
-    },
-    isConnected() {
-      return this.$session.exists();
+    showLogRegisterModal() {
+      this.$emit('showLogRegisterModal');
     },
     destroySession() {
       this.$session.destroy()

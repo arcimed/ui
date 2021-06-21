@@ -7,6 +7,7 @@
 </template>
 
 <script>
+
 import articleCard from "@/components/ArticleCard";
 
 export default {
@@ -27,8 +28,5 @@ name: "articleMenu",
         });
   }
 }
+
 </script>
-
-<style scoped>
-
-</style>
