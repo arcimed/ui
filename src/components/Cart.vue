@@ -35,13 +35,26 @@
     </v-list>
 
     <v-btn class="mt-3" :disabled="!restaurantsCart.length" @click="checkout(restaurantsCart)"> Commander </v-btn>
+    <stripe-checkout
+        ref="checkoutRef"
+        mode="payment"
+        :pk="publishableKey"
+        :line-items="lineItems"
+        :success-url="successURL"
+        :cancel-url="cancelURL"
+        @loading="v => loading = v"
+    />
   </v-container>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import {mapGetters} from "vuex";
+import {StripeCheckout} from '@vue-stripe/vue-stripe';
 
 export default {
+  components: {
+    StripeCheckout,
+  },
   computed: {
     ...mapGetters('cart', {
       restaurantsCart: 'restaurantsCart',
@@ -50,15 +63,25 @@ export default {
       restaurants: 'restaurants',
     })
   },
-  data () {
+  data() {
     return {
+      lineItems: [
+        {
+          price: "price_1J5CDbAIdUhQ9rssRBJyqwjl", // The id of the one-time price you created in your Stripe dashboard
+          quantity: 1,
+        },
+      ],
+      publishableKey: "pk_test_51J5BqhAIdUhQ9rssf4vDCQMstDTpRc57tWVmhcfivnSCsh9I7IbbdbFXHTfksvvoh5wJkyuypgt2tcRtjU3l3VFp00LNrCkFCO",
+      loading: false,
+      successURL: 'http://localhost:8080/',
+      cancelURL: 'http://localhost:8080/',
       headersArticles: [
         {
           text: 'Articles',
           align: 'start',
           value: 'name',
         },
-        { text: 'Prix', value: 'price' },
+        {text: 'Prix', value: 'price'},
       ],
       headersMenus: [
         {
@@ -66,14 +89,15 @@ export default {
           align: 'start',
           value: 'name',
         },
-        { text: 'Prix', value: 'price' },
+        {text: 'Prix', value: 'price'},
       ]
     }
   },
   methods: {
-    checkout (restaurantsCart) {
-      let userId = this.$session.get('user').id;
-      this.$store.dispatch('cart/checkout', { restaurantsCart, userId})
+    checkout(restaurantsCart) {
+      this.$refs.checkoutRef.redirectToCheckout();
+      // let userId = this.$session.get('user').id;
+      // this.$store.dispatch('cart/checkout', { restaurantsCart, userId})
     }
   }
 }
