@@ -8,23 +8,19 @@
 
 <script>
 
-import Vue from 'vue'
 import RestaurantCard from '../components/RestaurantCard.vue'
 import { mapGetters } from 'vuex'
 
-export default Vue.extend({
+export default {
   name: 'Home',
   components: {
     RestaurantCard,
-  },
-  mounted() {
-    this.$store.dispatch('restaurants/setRestaurants', this);
   },
   computed: {
     ...mapGetters('restaurants', {
       restaurants: 'restaurants',
     })
   }
-})
+}
 
 </script>
