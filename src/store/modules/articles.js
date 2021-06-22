@@ -24,7 +24,21 @@ const actions = {
             .catch((error) => {
                 console.log(error);
             });
-    }
+    },
+    deleteArticle: (store, articleId) => {
+        axios.delete(`api/article/delete/` + articleId)
+            .then((response) => {
+                store.commit('deleteArticle', articleId)
+            }).catch()
+    },
+    editArticles: (store, {article, idArticle}) => {
+        axios.put(`api/article/edit/` + idArticle, article)
+            .then(() => {
+                store.commit('editArticles', {article, idArticle})
+            })
+            .catch((error) => {
+            });
+    },
 }
 
 const mutations = {
@@ -33,7 +47,16 @@ const mutations = {
     },
     addArticles (state, article) {
         state.articles.push(article)
-    }
+    },
+    deleteArticle: (state, articleId) => {
+        state.articles.splice(state.articles.findIndex(article => parseInt(article.id) === articleId), 1)
+    },
+    editArticles(state, {article, idArticle}) {
+        let stateId = state.articles.findIndex(article => parseInt(article.id) === idArticle);
+        state.articles[stateId].name = article.name;
+        state.articles[stateId].price = article.price;
+        state.articles[stateId].typesArticlesId = article.typesArticlesId;
+    },
 }
 
 export default {

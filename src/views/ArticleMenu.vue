@@ -1,7 +1,11 @@
 <template>
   <v-container>
     <v-row class="mb-10">
-      <Button :name="nameButton" :routeName="home"/>
+      <Button :name="retourButton" :routeName="home"/>
+      <v-spacer></v-spacer>
+      <v-btn @click="addArticle" v-if="restaurant.restaurateurId === parseInt(this.$session.get('user').id)">
+        Ajout d'article
+      </v-btn>
     </v-row>
 
     <p class="display-4">{{ restaurant.name }}</p>
@@ -32,7 +36,7 @@ name: "articleMenu",
   data() {
     return {
       home: "Home",
-      nameButton: "< Retour"
+      retourButton: "< Retour"
     }
   },
   props: {
@@ -59,6 +63,11 @@ name: "articleMenu",
     restaurant() {
       return this.$store.getters['restaurants/restaurants'].find(restaurant => parseInt(restaurant.id) === parseInt(this.id))
     }
+  },
+  methods:{
+    addArticle() {
+      this.$router.push({name: 'AddArticle', params: {id: this.id}})
+    },
   }
 }
 

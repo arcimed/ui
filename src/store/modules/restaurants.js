@@ -30,8 +30,6 @@ const actions = {
             .then((response) => {
                 store.commit('deleteRestaurants', restaurantId)
             }).catch()
-
-        store.commit('deleteRestaurant', restaurantId)
     },
     setRestaurants(store) {
         axios.get(`api/restaurant/all`)

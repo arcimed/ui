@@ -21,16 +21,29 @@
       >
         <v-col cols="6">
           <v-select
-              v-model="article.typeArticlesId"
-              :items="items"
-              item-text="state"
-              item-value="abbr"
+              v-model="article.typesArticlesId"
+              :items="type"
+              item-text="name"
+              item-value="id"
               label="Select"
               persistent-hint
               return-object
               single-line
           ></v-select>
         </v-col>
+      </validation-provider>
+      <validation-provider
+          v-slot="{ errors }"
+          name="Prix"
+          rules="required|max:10"
+      >
+        <v-text-field
+            v-model="article.price"
+            :counter="10"
+            :error-messages="errors"
+            label="Prix"
+            required
+        ></v-text-field>
       </validation-provider>
       <v-btn
           class="mr-4"
@@ -87,15 +100,30 @@ export default {
   data: () => ({
     article: {
       name: '',
-      typeArticlesId: '',
+      typesArticlesId: '',
       restaurantsId: '',
-    }
+      price: ''
+    },
+    type: {}
   }),
-
+  props: {
+    id: {
+      required: true
+    }
+  },
+  mounted() {
+      axios.get(`api/article/types/` )
+          .then((response) => {
+            this.type = response.data.data
+          }).catch()
+  },
   methods: {
     submit () {
+      this.article.restaurantsId = this.id
+      this.article.typesArticlesId = String(this.article.typesArticlesId.id)
       this.$refs.observer.validate()
       this.$store.dispatch('articles/addArticles', this.article);
+      this.$router.push({name: 'menuArticle', params: {id: this.id}})
     },
     clear () {
       this.name = ''
@@ -103,6 +131,7 @@ export default {
       this.city = ''
       this.$refs.observer.reset()
     },
+
   },
 }
 </script>
