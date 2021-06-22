@@ -14,6 +14,7 @@
         <span class="font-weight-black">{{ this.$session.get('user').firstname }}</span>
         <v-icon class="ml-4" @click="myOrders">mdi-account</v-icon>
       </v-toolbar-title>
+      <notification-bell class="pr-4" :iconColor="white" :size="size" :ding="true" :animated="true"/>
       <v-btn @click="destroySession" v-if="this.$session.exists()">
         <span class="mr-2">Déconnection</span>
       </v-btn>
@@ -40,7 +41,12 @@
 
 <script>
 
+import NotificationBell from 'vue-notification-bell'
+
 export default {
+  components: {
+    NotificationBell
+  },
   data() {
     return {
       drawer: false,
@@ -48,7 +54,9 @@ export default {
         { icon: 'mdi-home', text: 'Produits', route: '/' },
         { icon: 'mdi-cart', text: 'Panier', route: '/cart' },
       ],
-      snackbar: false
+      snackbar: false,
+      white: "white",
+      size: 20,
     }
   },
   methods: {
