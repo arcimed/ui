@@ -15,11 +15,24 @@ const actions = {
                 store.commit('setArticles', response.data.data)
             }).catch()
     },
+    addArticles (store, article) {
+        axios
+            .post(`api/article/create`, article)
+            .then(() => {
+                store.commit('addArticles', article)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
 }
 
 const mutations = {
     setArticles (state, articles) {
         state.articles = articles
+    },
+    addArticles (state, article) {
+        state.articles.push(article)
     }
 }
 

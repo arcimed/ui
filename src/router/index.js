@@ -16,6 +16,14 @@ const routes = [
     component: () => import('../views/AddResto.vue')
   },
   {
+    path: '/EditRestaurant/:id',
+    name: 'EditRestaurant',
+    component: () => import('../views/EditResto.vue'),
+    props: (route) => ({
+      ...route.params
+    })
+  },
+  {
     path: '/AddArticle',
     name: 'AddArticle',
     component: () => import('../views/AddArticle.vue')

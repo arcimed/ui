@@ -17,16 +17,20 @@
       </validation-provider>
       <validation-provider
           v-slot="{ errors }"
-          name="city"
-          rules="required|max:30"
+          name="type"
       >
-        <v-text-field
-            v-model="article.typeArticlesId"
-            :counter="10"
-            :error-messages="errors"
-            label="Type"
-            required
-        ></v-text-field>
+        <v-col cols="6">
+          <v-select
+              v-model="article.typeArticlesId"
+              :items="items"
+              item-text="state"
+              item-value="abbr"
+              label="Select"
+              persistent-hint
+              return-object
+              single-line
+          ></v-select>
+        </v-col>
       </validation-provider>
       <v-btn
           class="mr-4"
@@ -91,15 +95,7 @@ export default {
   methods: {
     submit () {
       this.$refs.observer.validate()
-      this.article.restaurateurId = this.$session.get('userid')
-      axios
-          .post(`api/article/create`, this.article)
-          .then(() => {
-            this.showLoader = false;
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+      this.$store.dispatch('articles/addArticles', this.article);
     },
     clear () {
       this.name = ''

@@ -12,7 +12,7 @@
     </v-list-item>
 
     <v-card-actions>
-      <v-btn outlined rounded text>
+      <v-btn outlined rounded text >
         Selectionner
       </v-btn>
     </v-card-actions>

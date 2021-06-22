@@ -97,20 +97,16 @@ export default {
       name: '',
       address: '',
       city: '',
+      restaurateurId : ''
     }
   }),
 
   methods: {
     submit () {
+      this.resto.restaurateurId = parseInt(this.$session.get('user').id)
       this.$refs.observer.validate()
-      this.$http
-          .post(`api/restaurant/create`, this.resto)
-          .then(() => {
-            this.showLoader = false;
-          })
-          .catch((error) => {
-            console.log(error);
-          });
+      this.$store.dispatch('restaurants/addRestaurant', this.resto);
+      this.$router.push({name: 'Home'})
     },
     clear () {
       this.name = ''

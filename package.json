@@ -7,11 +7,12 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@mdi/js": "^5.9.55",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
-    "vue-session": "^1.0.0",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
+    "vue-session": "^1.0.0",
     "vue-toast-notification": "^0.6.2",
     "vuetify": "^2.4.0",
     "vuex": "^3.4.0"

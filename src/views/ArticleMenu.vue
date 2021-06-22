@@ -21,7 +21,7 @@
 
 <script>
 
-import  articleCard from "@/components/ArticleCard";
+import articleCard from "@/components/ArticleCard";
 import menuCard from "@/components/MenuCard";
 import Button from "@/components/Button";
 
