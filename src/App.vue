@@ -33,6 +33,9 @@ export default Vue.extend({
   beforeMount() {
     this.$http.defaults.headers.common['Authorization'] = this.$session.get('token')
     this.$http.defaults.headers.post['Content-Type'] = 'application/json';
+  },
+  mounted() {
+    this.$store.dispatch('restaurants/setRestaurants', this);
   }
 });
 

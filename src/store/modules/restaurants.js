@@ -1,13 +1,11 @@
 import axios from "axios";
 
 const state = () => ({
-    restaurants: [],
-    restaurant: {}
+    restaurants: []
 })
 
 const getters = {
-    allRestaurants: state => state.restaurants,
-    restaurant: state => state.restaurant
+    restaurants: state => state.restaurants
 }
 
 const actions = {
@@ -21,13 +19,6 @@ const actions = {
                 store.commit('setRestaurants', response.data.data)
             }).catch()
     },
-
-    setRestaurant(store, id) {
-        axios.get(`api/restaurant/` + id)
-            .then((response) => {
-                store.commit('setRestaurant', response.data.data)
-            }).catch(error => console.log(error))
-    }
 }
 
 const mutations = {
@@ -37,10 +28,6 @@ const mutations = {
 
     addRestaurant(state, name) {
         state.restaurants.push({name: name})
-    },
-
-    setRestaurant (state, restaurant) {
-        state.restaurant = restaurant
     },
 }
 

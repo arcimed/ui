@@ -22,7 +22,7 @@ export default Vue.extend({
   },
   computed: {
     ...mapGetters('restaurants', {
-      restaurants: 'allRestaurants',
+      restaurants: 'restaurants',
     })
   }
 })

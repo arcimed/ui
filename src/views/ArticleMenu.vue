@@ -21,7 +21,7 @@
 
 <script>
 
-import articleCard from "@/components/ArticleCard";
+import  articleCard from "@/components/ArticleCard";
 import menuCard from "@/components/MenuCard";
 import Button from "@/components/Button";
 
@@ -48,18 +48,17 @@ name: "articleMenu",
   mounted() {
     this.$store.dispatch('menus/setMenus', this.id);
     this.$store.dispatch('articles/setArticles', this.id);
-    this.$store.dispatch('restaurants/setRestaurant', this.id);
   },
   computed: {
-    ...mapGetters('restaurants', {
-      restaurant: 'restaurant',
-    }),
     ...mapGetters('articles', {
       articles: 'restaurantArticles',
     }),
     ...mapGetters('menus', {
       menus: 'restaurantMenus',
-    })
+    }),
+    restaurant() {
+      return this.$store.getters['restaurants/restaurants'].find(restaurant => parseInt(restaurant.id) === parseInt(this.id))
+    }
   }
 }
 
