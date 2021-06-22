@@ -1,18 +1,20 @@
 <template>
   <v-card class="mx-auto" max-width="344">
-    <v-img src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg" height="200px"></v-img>
+    <v-img src="https://assets.lightspeedhq.fr/img/2019/04/45199c86-6291056e-c205d230-ultimate-guide-to-menu-design.jpg" height="200px"></v-img>
 
     <v-card-title>
       {{ menu.name }}
+
+      <v-spacer></v-spacer>
     </v-card-title>
 
     <v-card-subtitle>
-      Menu
+      Prix: {{ roundPrice(menu.price) }} €
     </v-card-subtitle>
 
     <v-card-actions>
       <v-card-actions>
-        <v-btn outlined rounded text>
+        <v-btn outlined rounded text @click="addMenuToCart(menu)">
           Selectionner
         </v-btn>
       </v-card-actions>
@@ -30,7 +32,7 @@
         <v-list dense>
           <v-subheader>Contenu</v-subheader>
           <v-list-item-group color="primary">
-            <v-list-item v-for="article in menu.Articles">
+            <v-list-item v-for="article in menu.Articles" :key="article.id">
               <v-list-item-content>
                 <v-list-item-title v-text="article.name"></v-list-item-title>
               </v-list-item-content>
@@ -45,12 +47,21 @@
 
 <script>
 
+import functions from "@/functions";
+import { mapActions } from "vuex";
+
 export default {
   name: "menuCard",
   props: ['menu'],
   data: () => ({
     show: false,
   }),
+  methods: {
+    roundPrice: functions.roundPrice,
+    ...mapActions('cart', [
+      'addMenuToCart'
+    ]),
+  }
 }
 
 </script>
