@@ -2,11 +2,11 @@
   <v-card class="mx-auto" max-width="344" outlined color="grey lighten-4">
     <v-card-title>
       Order {{ order.id }}
-      <v-spacer></v-spacer>
+      <br>
       Restaurant : {{ order.Restaurant.name }}
     </v-card-title>
 
-    <v-data-table
+    <v-data-table v-if="order.Articles.length > 0"
           :headers="headersArticles"
           :items="order.Articles"
           item-key="name"
@@ -15,7 +15,7 @@
           :footer-props="{
       showFirstLastPage: true,
     }"></v-data-table>
-    <v-data-table
+    <v-data-table v-if="order.Menus.length > 0"
         :headers="headersMenus"
         :items="order.Menus"
         item-key="name"

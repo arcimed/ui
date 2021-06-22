@@ -6,6 +6,20 @@ const state = () => ({
 
 const getters = {
     restaurantsCart: state => state.restaurantsCart,
+    totalCartPrice: state => {
+        let price = 0;
+
+        state.restaurantsCart.forEach(restaurantCart => {
+            restaurantCart.articlesCart.forEach(articleCart => {
+                price+= articleCart.price
+            })
+            restaurantCart.menusCart.forEach(menuCart => {
+                price+= menuCart.price
+            })
+        })
+
+        return price.toFixed(2);
+    },
 }
 
 const actions = {

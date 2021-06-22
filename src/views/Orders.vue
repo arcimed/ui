@@ -1,7 +1,7 @@
 <template>
   <div class="row">
     <div v-for="order in orders" :key="order.id">
-      <OrderCard :order="order"></OrderCard>
+      <OrderCard class="ma-6" :order="order"></OrderCard>
     </div>
   </div>
 </template>

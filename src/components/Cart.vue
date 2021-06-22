@@ -11,7 +11,7 @@
         <v-list-item-content>
           <v-list-item-title>{{ restaurantCart.restaurant.name }}</v-list-item-title>
 
-          <v-data-table
+          <v-data-table v-if="restaurantCart.articlesCart > 0"
               :headers="headersArticles"
               :items="restaurantCart.articlesCart"
               item-key="name"
@@ -20,7 +20,7 @@
               :footer-props="{
             showFirstLastPage: true,
           }"></v-data-table>
-          <v-data-table
+          <v-data-table v-if="restaurantCart.menusCart > 0"
               :headers="headersMenus"
               :items="restaurantCart.menusCart"
               item-key="name"
@@ -34,10 +34,13 @@
       </v-list-item>
     </v-list>
 
-    <v-btn class="mt-3" :disabled="!restaurantsCart.length" @click="checkout(restaurantsCart)"> Commander </v-btn>
+    Total: {{ totalPriceCart }} €
+
+    <v-btn class="mt-3" :disabled="!restaurantsCart.length" @click="checkout(restaurantsCart, totalPriceCart)"> Commander </v-btn>
     <stripe-checkout
         ref="checkoutRef"
         mode="payment"
+        :customer-email="customerEmail"
         :pk="publishableKey"
         :line-items="lineItems"
         :success-url="successURL"
@@ -58,6 +61,7 @@ export default {
   computed: {
     ...mapGetters('cart', {
       restaurantsCart: 'restaurantsCart',
+      totalPriceCart: 'totalCartPrice',
     }),
     ...mapGetters('restaurants', {
       restaurants: 'restaurants',
@@ -65,16 +69,17 @@ export default {
   },
   data() {
     return {
+      customerEmail: 'ben@gmail.com',
       lineItems: [
         {
-          price: "price_1J5CDbAIdUhQ9rssRBJyqwjl", // The id of the one-time price you created in your Stripe dashboard
+          price: "price_1J5CDbAIdUhQ9rssRBJyqwjl",
           quantity: 1,
         },
       ],
       publishableKey: "pk_test_51J5BqhAIdUhQ9rssf4vDCQMstDTpRc57tWVmhcfivnSCsh9I7IbbdbFXHTfksvvoh5wJkyuypgt2tcRtjU3l3VFp00LNrCkFCO",
       loading: false,
-      successURL: 'http://localhost:8080/',
-      cancelURL: 'http://localhost:8080/',
+      successURL: 'https://localhost:8080/my-orders',
+      cancelURL: 'https://localhost:8080/',
       headersArticles: [
         {
           text: 'Articles',
@@ -90,14 +95,62 @@ export default {
           value: 'name',
         },
         {text: 'Prix', value: 'price'},
-      ]
+      ],
+      configReq: {
+        headers: {
+          'Authorization': `Bearer sk_test_51J5BqhAIdUhQ9rssiLVudyGEkjcUp8VsDla0qtmmw1ZwZ2tvfSPbPcH2YuvGsM2bd0ViicWw5qXsXidSqwc1U9WU001UVEfV5t`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Headers': 'Origin, Content-Type, Authorization, X-Auth-Token',
+          'Access-Control-Allow-Methods': 'GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS'
+        }
+      }
     }
   },
   methods: {
-    checkout(restaurantsCart) {
-      this.$refs.checkoutRef.redirectToCheckout();
-      // let userId = this.$session.get('user').id;
-      // this.$store.dispatch('cart/checkout', { restaurantsCart, userId})
+    async checkout(restaurantsCart, totalPriceCart) {
+
+      await this.checkIfPriceAlreadyExist(totalPriceCart).then(result => {
+
+        if (!result) {
+          const params = new URLSearchParams()
+          params.append('unit_amount', parseInt(totalPriceCart*100))
+          params.append('currency', 'eur')
+          params.append('product', 'prod_JidUmPpwcZe3Bt')
+
+
+          this.$http
+              .post('https://api.stripe.com/v1/prices', params, this.configReq)
+              .then(response => {
+                this.$refs.checkoutRef.lineItems[0].price = response.data.id
+              })
+
+        } else {
+          this.$refs.checkoutRef.lineItems[0].price = result
+        }
+
+        let userId = this.$session.get('user').id;
+        this.$store.dispatch('cart/checkout', {restaurantsCart , userId})
+
+        setTimeout(() => {  this.$refs.checkoutRef.redirectToCheckout(); }, 1000);
+
+      })
+    },
+
+    async checkIfPriceAlreadyExist(totalPriceCart) {
+      return await this.$http
+          .get('https://api.stripe.com/v1/prices', this.configReq)
+          .then(response => {
+            let result = false;
+
+                response.data.data.forEach(priceObj => {
+                    if (parseInt(priceObj.unit_amount) === parseInt(totalPriceCart*100)) {
+                      result = priceObj.id;
+                    }
+                })
+
+            return result;
+          }).catch(error => {return false})
     }
   }
 }

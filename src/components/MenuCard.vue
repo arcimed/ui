@@ -9,7 +9,7 @@
     </v-card-title>
 
     <v-card-subtitle>
-      Prix: {{ roundPrice(menu.price) }} €
+      Prix: {{ (menu.price).toFixed(2) }} €
     </v-card-subtitle>
 
     <v-card-actions>
@@ -47,7 +47,6 @@
 
 <script>
 
-import functions from "@/functions";
 import { mapActions } from "vuex";
 
 export default {
@@ -57,7 +56,6 @@ export default {
     show: false,
   }),
   methods: {
-    roundPrice: functions.roundPrice,
     ...mapActions('cart', [
       'addMenuToCart'
     ]),
