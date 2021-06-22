@@ -35,7 +35,12 @@ const routes = [
     props: (route) => ({
       ...route.params
     })
-  }
+  },
+  {
+    path: '/my-orders',
+    name: 'MyOrders',
+    component: () => import('../views/Orders.vue')
+  },
 ]
 
 const router = new VueRouter({

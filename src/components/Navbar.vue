@@ -2,7 +2,7 @@
   <nav>
     <v-app-bar color="deep-purple" dark>
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
-      <v-toolbar-title>
+      <v-toolbar-title @click="home">
         <span class="font-weight-light">Cesi</span>
         <span>TonPlat</span>
       </v-toolbar-title>
@@ -12,6 +12,7 @@
       <v-toolbar-title v-if="this.$session.exists()" class="mr-5">
         <span>Bonjour, </span>
         <span class="font-weight-black">{{ this.$session.get('user').firstname }}</span>
+        <v-icon class="ml-4" @click="myOrders">mdi-account</v-icon>
       </v-toolbar-title>
       <v-btn @click="destroySession" v-if="this.$session.exists()">
         <span class="mr-2">Déconnection</span>
@@ -63,6 +64,20 @@ export default {
       } else {
         this.$router.push({ name: 'Home'})
         this.$router.go()
+      }
+    },
+    myOrders() {
+      if(this.$route.name === 'MyOrders') {
+        this.$router.go()
+      } else {
+        this.$router.push({name: 'MyOrders'});
+      }
+    },
+    home() {
+      if(this.$route.name === 'Home') {
+        this.$router.go()
+      } else {
+        this.$router.push({name: 'Home'});
       }
     }
   }

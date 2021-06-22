@@ -1,9 +1,18 @@
 <template>
   <v-app>
     <Navbar @showLogRegisterModal="logRegisterModal"/>
-    <v-main class="ma-10">
+    <v-main>
       <createAccount @hideLogRegisterModal="logRegisterModal" v-if="login"></createAccount>
-      <router-view/>
+      <v-container>
+        <v-row>
+          <v-col class="ma-10">
+            <router-view/>
+          </v-col>
+          <v-col>
+            <Cart/>
+          </v-col>
+        </v-row>
+      </v-container>
     </v-main>
   </v-app>
 </template>
@@ -12,6 +21,7 @@
 
 import Navbar from './components/Navbar';
 import CreateAccount from './components/CreateAccount';
+import Cart from "@/components/Cart";
 import Vue from 'vue';
 import VueSession from 'vue-session'
 
@@ -19,7 +29,7 @@ Vue.use(VueSession)
 
 export default Vue.extend({
   name: 'App',
-  components: { CreateAccount, Navbar },
+  components: { CreateAccount, Navbar, Cart },
   data() {
     return {
       login: false,
