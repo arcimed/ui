@@ -11,16 +11,17 @@ const getters = {
 const actions = {
     addRestaurant: (store, restaurant) => {
         axios.post(`api/restaurant/create`, restaurant)
-            .then(() => {
-                store.commit('addRestaurant', restaurant)
+            .then((response) => {
+                store.commit('addRestaurant', response.data.data)
             })
             .catch((error) => {
             });
     },
     editRestaurant: (store, {restaurant, idRestaurant}) => {
         axios.put(`api/restaurant/edit/` + idRestaurant, restaurant)
-            .then(() => {
-                store.commit('editRestaurant', {restaurant, idRestaurant})
+            .then((response) => {
+                response = response.data.data
+                store.commit('editRestaurant', {response, idRestaurant})
             })
             .catch((error) => {
             });

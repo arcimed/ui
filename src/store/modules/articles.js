@@ -18,8 +18,8 @@ const actions = {
     addArticles (store, article) {
         axios
             .post(`api/article/create`, article)
-            .then(() => {
-                store.commit('addArticles', article)
+            .then((response) => {
+                store.commit('addArticles', response.data.data)
             })
             .catch((error) => {
                 console.log(error);
@@ -28,13 +28,15 @@ const actions = {
     deleteArticle: (store, articleId) => {
         axios.put(`api/article/delete/` + articleId)
             .then((response) => {
+
                 store.commit('deleteArticle', articleId)
             }).catch()
     },
     editArticles: (store, {article, idArticle}) => {
         axios.put(`api/article/edit/` + idArticle, article)
-            .then(() => {
-                store.commit('editArticles', {article, idArticle})
+            .then((response) => {
+                response = response.data.data
+                store.commit('editArticles', {response, idArticle})
             })
             .catch((error) => {
             });

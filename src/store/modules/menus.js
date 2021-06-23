@@ -18,8 +18,8 @@ const actions = {
     addMenus (store, menu) {
         axios
             .post(`api/menu/create`, menu)
-            .then(() => {
-                store.commit('addMenus', menu)
+            .then((response) => {
+                store.commit('addMenus', response.data.data)
             })
             .catch((error) => {
                 console.log(error);
@@ -33,8 +33,9 @@ const actions = {
     },
     editMenu: (store, {menu, idMenu}) => {
         axios.put(`/api/menu/edit/` + idMenu, menu)
-            .then(() => {
-                store.commit('editMenu', {menu, idMenu})
+            .then((response) => {
+                response = response.data.data
+                store.commit('editMenu', {response, idMenu})
             })
             .catch((error) => {
             });
