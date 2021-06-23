@@ -15,10 +15,6 @@
             required
         ></v-text-field>
       </validation-provider>
-      <validation-provider
-          v-slot="{ errors }"
-          name="type"
-      >
         <v-col cols="6">
           <v-select
               v-model="article.typesArticlesId"
@@ -31,7 +27,6 @@
               single-line
           ></v-select>
         </v-col>
-      </validation-provider>
       <validation-provider
           v-slot="{ errors }"
           name="Prix"
@@ -104,7 +99,7 @@ export default {
       restaurantsId: '',
       price: ''
     },
-    type: {}
+    type: []
   }),
   props: {
     id: {

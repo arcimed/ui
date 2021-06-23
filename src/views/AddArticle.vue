@@ -104,7 +104,7 @@ export default {
       restaurantsId: '',
       price: ''
     },
-    type: {}
+    type: []
   }),
   props: {
     id: {
