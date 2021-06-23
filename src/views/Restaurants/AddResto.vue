@@ -5,7 +5,7 @@
       <validation-provider
           v-slot="{ errors }"
           name="Name"
-          rules="required|max:10"
+          rules="required|max:50"
       >
         <v-text-field
             v-model="resto.name"
@@ -18,7 +18,7 @@
       <validation-provider
           v-slot="{ errors }"
           name="city"
-          rules="required|max:30"
+          rules="required|max:50"
       >
         <v-text-field
             v-model="resto.city"

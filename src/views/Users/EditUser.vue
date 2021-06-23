@@ -147,18 +147,14 @@ name: "EditUser",
     submit () {
       this.$refs.observer.validate()
       axios.put(`api/user/edit/` + this.id, this.user)
-          .then(() => {
-            this.temp.firstname = this.user.firstname
-            this.temp.lastname = this.user.lastname
-            this.temp.email = this.user.email
-            this.temp.address = this.user.address
-            this.temp.city = this.user.city
-            this.$session.destroy()
-            this.$session.set('user', this.temp)
+          .then((response) => {
+            this.$session.remove('user')
+            this.$session.set('user', response.data.data)
           })
           .catch((error) => {
           });
       this.$router.push({name: 'user'})
+      this.$router.go()
     },
     clear () {
       this.firstname = ''

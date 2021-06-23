@@ -5,7 +5,7 @@
       <validation-provider
           v-slot="{ errors }"
           name="Name"
-          rules="required|max:10"
+          rules="required|max:50"
       >
         <v-text-field
             v-model="article.name"
@@ -33,7 +33,7 @@
           rules="required|max:10"
       >
         <v-text-field
-            type="number"
+            type="tel"
             v-model="article.price"
             :counter="10"
             :error-messages="errors"
