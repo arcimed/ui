@@ -16,7 +16,33 @@
         <span>Bonjour, </span>
         <span class="font-weight-black">{{ this.$session.get('user').firstname }}</span>
       </v-toolbar-title>
-      <v-icon class="mr-4" @click="myOrders">mdi-account</v-icon>
+        <div class="text-center">
+          <v-menu offset-y>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                  class="mx-2"
+                  fab
+                  dark
+                  small
+                  color="primary"
+                  v-bind="attrs"
+                  v-on="on"
+              >
+                <v-icon class="mr-4" style="margin-left: 15px">mdi-account</v-icon>
+              </v-btn>
+            </template>
+            <v-list>
+              <v-list-item
+                  v-for="(item, index) in items"
+                  :key="index"
+                  :to="item.route"
+              >
+                <v-list-item-title>{{ item.title }}</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </div>
+
 
       <v-btn @click="openNotifications" text class="mr-4">
         <notification-bell
@@ -72,6 +98,10 @@ export default {
       snackbar: false,
       white: "white",
       size: 20,
+      items: [
+        { title: 'Orders', route: '/my-orders'},
+        { title: 'User', route: '/user' },
+      ],
     }
   },
   methods: {

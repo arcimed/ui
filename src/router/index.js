@@ -81,6 +81,19 @@ const routes = [
     name: 'MyRestaurantOrders',
     component: () => import('../views/Restaurants/Orders.vue')
   },
+  {
+    path: '/user',
+    name: 'user',
+    component: () => import('../views/Users/User.vue')
+  },
+  {
+    path: '/EditUser/:id',
+    name: 'EditUser',
+    component: () => import('../views/Users/EditUser.vue'),
+    props: (route) => ({
+      ...route.params
+    })
+  },
 ]
 
 const router = new VueRouter({

@@ -64,7 +64,6 @@ export default {
       this.$router.push({name: 'menuArticle', params: {id: restaurantId}})
     },
     editRestaurant(restaurantId) {
-      console.log(restaurantId)
       this.$router.push({name: 'EditRestaurant', params: {id: restaurantId}})
     },
     deleteRestaurant(restaurantId) {
