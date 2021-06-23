@@ -42,8 +42,8 @@
     </v-card-title>
 
     <v-card-actions>
-      <v-btn outlined rounded text>
-        Selectionner
+      <v-btn outlined rounded text @click="deleteOrder(order.id)">
+        Supprimer
       </v-btn>
     </v-card-actions>
   </v-card>
@@ -88,6 +88,10 @@ export default {
       })
 
       return totalPrice;
+    },
+
+    deleteOrder(orderId) {
+      this.$store.dispatch('orders/deleteOrder', orderId)
     }
   }
 }

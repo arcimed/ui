@@ -15,11 +15,23 @@ const actions = {
                 store.commit('setOrders', response.data.data)
             }).catch()
     },
+    deleteOrder (store, orderId) {
+        axios.delete(`api/order/delete/` + orderId)
+            .then((response) => {
+                if (response.data.result) {
+                    store.commit('deleteOrder', orderId)
+                }
+            }).catch()
+    }
 }
 
 const mutations = {
     setOrders (state, orders) {
-        state.orders = orders
+        state.orders = orders;
+    },
+    deleteOrder (state, orderId) {
+        let index = state.orders.findIndex(order => order.id === orderId);
+        state.orders.splice(index, 1);
     }
 }
 

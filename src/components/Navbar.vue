@@ -2,9 +2,12 @@
   <nav>
     <v-app-bar color="deep-purple" dark>
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
+
       <v-toolbar-title @click="home">
-        <span class="font-weight-light">Cesi</span>
-        <span>TonPlat</span>
+        <v-btn @click="openNotifications" text class="mr-4">
+          <span :ripple="false" class="font-weight-light"> Cesi</span>
+          <span>TonPlat</span>
+        </v-btn>
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
@@ -14,7 +17,18 @@
         <span class="font-weight-black">{{ this.$session.get('user').firstname }}</span>
       </v-toolbar-title>
       <v-icon class="mr-4" @click="myOrders">mdi-account</v-icon>
-      <notification-bell class="pr-4" :iconColor="white" :size="size" :ding="true" :animated="true"/>
+
+      <v-btn @click="openNotifications" text class="mr-4">
+        <notification-bell
+            class="pr-2"
+            :count="count"
+            :iconColor="white"
+            :size="size"
+            :ding="true"
+            :animated="true"
+        />
+      </v-btn>
+
       <v-btn @click="destroySession" v-if="this.$session.exists()">
         <span class="mr-2">Déconnection</span>
       </v-btn>
@@ -49,6 +63,7 @@ export default {
   },
   data() {
     return {
+      count: 1,
       drawer: false,
       links: [
         { icon: 'mdi-home', text: 'Produits', route: '/' },
@@ -60,6 +75,9 @@ export default {
     }
   },
   methods: {
+    openNotifications() {
+      console.log('3')
+    },
     showLogRegisterModal() {
       this.$emit('showLogRegisterModal');
     },
