@@ -158,7 +158,7 @@ export default {
         this.$store.dispatch('cart/checkout', {restaurantsCart , userId})
 
         setTimeout(() => {
-          this.$refs.checkoutRef.successUrl = String('https://localhost:8080/my-orders/' + this.orderRegistered.idOrder);
+          this.$refs.checkoutRef.successUrl = String('https://localhost:8080/my-orders/' + this.orderRegistered.ordersIds);
           this.$refs.checkoutRef.redirectToCheckout();
           }, 1000);
       })

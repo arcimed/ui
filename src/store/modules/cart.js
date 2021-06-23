@@ -44,30 +44,38 @@ const actions = {
     },
 
     checkout ({ state, commit }, {restaurantsCart, userId}) {
-        restaurantsCart.forEach(restaurantCart => {
+        let ordersIds = '';
+        let len = restaurantsCart.length
+
+        restaurantsCart.forEach(function(restaurant, idx, array) {
             let articlesCartIds = [];
             let menusCartIds = [];
 
-            restaurantCart.articlesCart.forEach(articleCart => {
+            restaurant.articlesCart.forEach(articleCart => {
                 articlesCartIds.push(articleCart.id)
             })
 
-            restaurantCart.menusCart.forEach(menuCart => {
+            restaurant.menusCart.forEach(menuCart => {
                 menusCartIds.push(menuCart.id)
             })
 
             axios.post(`api/order/create`,
                 {
                     userId: userId,
-                    restaurantsId: restaurantCart.restaurant.id,
+                    restaurantsId: restaurant.restaurant.id,
                     articlesIds: articlesCartIds,
                     menusIds: menusCartIds
                 })
-                .then(response =>{
-                    commit('setOrderRegistered', { idOrder: response.data.data.id })
-                    commit('removeRestaurantCart', { idRestaurant: restaurantCart.restaurant.id })
+                .then(response => {
+                    commit('removeRestaurantCart', {idRestaurant: restaurant.restaurant.id})
+                    ordersIds += String(response.data.data.id) + ',';
+
+                    if (idx === (len-1)){
+                        commit('setOrderRegistered', { ordersIds: ordersIds.substring(0,ordersIds.length-1)})
+                    }
                 }).catch()
         })
+
     },
 }
 
@@ -108,8 +116,8 @@ const mutations = {
             state.restaurantsCart.splice(index, 1)
         }
     },
-    setOrderRegistered(state, idOrder) {
-        state.orderRegistered = idOrder;
+    setOrderRegistered(state, ordersIds) {
+        state.orderRegistered = ordersIds;
     }
 }
 
