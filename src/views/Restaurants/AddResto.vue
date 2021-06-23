@@ -9,7 +9,7 @@
       >
         <v-text-field
             v-model="resto.name"
-            :counter="10"
+            :counter="50"
             :error-messages="errors"
             label="Name"
             required
@@ -22,7 +22,7 @@
       >
         <v-text-field
             v-model="resto.city"
-            :counter="10"
+            :counter="50"
             :error-messages="errors"
             label="city"
             required

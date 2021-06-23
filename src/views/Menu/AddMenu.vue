@@ -9,7 +9,7 @@
       >
         <v-text-field
             v-model="menu.name"
-            :counter="10"
+            :counter="50"
             :error-messages="errors"
             label="Name"
             required
@@ -39,6 +39,7 @@
           rules="required|max:10"
       >
         <v-text-field
+            type="number"
             v-model="menu.price"
             :counter="10"
             :error-messages="errors"

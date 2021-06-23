@@ -9,7 +9,7 @@
       >
         <v-text-field
             v-model="article.name"
-            :counter="10"
+            :counter="50"
             :error-messages="errors"
             label="Name"
             required
@@ -32,6 +32,7 @@
           name="Prix"
           rules="required|max:10">
         <v-text-field
+            type="number"
             v-model="article.price"
             :counter="10"
             :error-messages="errors"
@@ -115,6 +116,7 @@ export default {
     submit () {
       this.article.restaurantsId = this.id
       this.article.typesArticlesId = String(this.article.typesArticlesId.id)
+      this.article.price = parseFloat(this.article.price)
       this.$refs.observer.validate()
       this.$store.dispatch('articles/addArticles', this.article);
       this.$router.push({name: 'menuArticle', params: {id: this.id}})

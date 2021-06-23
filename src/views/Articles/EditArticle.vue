@@ -9,7 +9,7 @@
       >
         <v-text-field
             v-model="article.name"
-            :counter="10"
+            :counter="50"
             :error-messages="errors"
             label="Name"
             required
@@ -33,6 +33,7 @@
           rules="required|max:10"
       >
         <v-text-field
+            type="number"
             v-model="article.price"
             :counter="10"
             :error-messages="errors"
@@ -123,6 +124,7 @@ export default {
       let restaurantId = this.temp.Restaurant.id
       this.article.restaurantsId = restaurantId
       this.article.typesArticlesId = String(this.article.typesArticlesId.id)
+      this.article.price = parseFloat(this.article.price)
       this.$refs.observer.validate()
       let article = this.article
       let idArticle = this.temp.id
