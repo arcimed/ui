@@ -158,7 +158,6 @@ export default {
         this.$store.dispatch('cart/checkout', {restaurantsCart , userId})
 
         setTimeout(() => {  this.$refs.checkoutRef.redirectToCheckout(); }, 1000);
-
       })
     },
 

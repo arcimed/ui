@@ -1,14 +1,14 @@
 <template>
   <div class="row">
     <div v-for="order in orders" :key="order.id">
-      <OrderCard class="ma-6" :order="order"></OrderCard>
+      <OrderCard :isRestaurateur="false" class="ma-6" :order="order"></OrderCard>
     </div>
   </div>
 </template>
 
 <script>
 
-import OrderCard from '../components/Card/OrderCard.vue'
+import OrderCard from '../../components/Card/OrderCard.vue'
 import { mapGetters } from 'vuex'
 
 export default {

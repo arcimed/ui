@@ -2,10 +2,12 @@ import axios from "axios";
 
 const state = () => ({
     orders: [],
+    restaurateurRestaurantsOrders: [],
 })
 
 const getters = {
-    orders: state => state.orders
+    orders: state => state.orders,
+    restaurateurRestaurantsOrders:  state => state.restaurateurRestaurantsOrders
 }
 
 const actions = {
@@ -15,13 +17,20 @@ const actions = {
                 store.commit('setOrders', response.data.data)
             }).catch()
     },
-    deleteOrder (store, orderId) {
-        axios.delete(`api/order/delete/` + orderId)
+    setRestaurateurOrders (store, userId) {
+        axios.get(`api/orders/restaurateur/` + userId)
             .then((response) => {
-                if (response.data.result) {
-                    store.commit('deleteOrder', orderId)
-                }
+                store.commit('setRestaurateurRestaurantsOrders', response.data.data)
             }).catch()
+    },
+    changeStatusOrder (store, { restaurantId, orderId, status }) {
+        axios.put(`api/order/changestatus/` + orderId, {
+            ordersStatusId: status
+        }).then((response) => {
+            if (response.data.result) {
+                store.commit('changeStatusOrder', { restaurantId, orderId, status })
+            }
+        }).catch()
     }
 }
 
@@ -29,9 +38,12 @@ const mutations = {
     setOrders (state, orders) {
         state.orders = orders;
     },
-    deleteOrder (state, orderId) {
-        let index = state.orders.findIndex(order => order.id === orderId);
-        state.orders.splice(index, 1);
+    changeStatusOrder (state, { restaurantId, orderId, status }) {
+        let restaurant = state.restaurateurRestaurantsOrders.find(restaurant => restaurant.restaurant.id === restaurantId)
+        restaurant.orders.find(orders => orders.id === orderId).ordersStatusId = status;
+    },
+    setRestaurateurRestaurantsOrders (state, dataRestaurantsOrders) {
+        state.restaurateurRestaurantsOrders = dataRestaurantsOrders;
     }
 }
 
