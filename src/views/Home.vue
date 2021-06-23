@@ -8,7 +8,7 @@
 
 <script>
 
-import RestaurantCard from '../components/RestaurantCard.vue'
+import RestaurantCard from '../components/Card/RestaurantCard.vue'
 import { mapGetters } from 'vuex'
 
 export default {

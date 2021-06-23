@@ -19,8 +19,8 @@
 
 <script>
 
-import Navbar from './components/Navbar';
-import CreateAccount from './components/CreateAccount';
+import Navbar from './components/Account/Navbar';
+import CreateAccount from './components/Account/CreateAccount';
 import Cart from "@/components/Cart";
 import Vue from 'vue';
 import VueSession from 'vue-session'

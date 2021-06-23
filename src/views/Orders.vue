@@ -8,7 +8,7 @@
 
 <script>
 
-import OrderCard from '../components/OrderCard.vue'
+import OrderCard from '../components/Card/OrderCard.vue'
 import { mapGetters } from 'vuex'
 
 export default {
