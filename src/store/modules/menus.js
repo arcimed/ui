@@ -26,7 +26,7 @@ const actions = {
             });
     },
     deleteMenu: (store, menuId) => {
-        axios.delete(`api/menu/delete/` + menuId)
+        axios.put(`api/menu/delete/` + menuId)
             .then((response) => {
                 store.commit('deleteMenu', menuId)
             }).catch()

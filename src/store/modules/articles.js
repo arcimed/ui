@@ -26,7 +26,7 @@ const actions = {
             });
     },
     deleteArticle: (store, articleId) => {
-        axios.delete(`api/article/delete/` + articleId)
+        axios.put(`api/article/delete/` + articleId)
             .then((response) => {
                 store.commit('deleteArticle', articleId)
             }).catch()

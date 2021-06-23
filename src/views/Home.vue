@@ -1,7 +1,12 @@
 <template>
-  <div class="row">
-    <div v-for="restaurant in restaurants" :key="restaurant.name">
-      <RestaurantCard :restaurant="restaurant"></RestaurantCard>
+  <div>
+    <v-btn @click="addRestaurant">
+      Ajout de restaurant
+    </v-btn>
+    <div class="row">
+      <div v-for="restaurant in restaurants" :key="restaurant.name">
+        <RestaurantCard :restaurant="restaurant"></RestaurantCard>
+      </div>
     </div>
   </div>
 </template>
@@ -20,6 +25,11 @@ export default {
     ...mapGetters('restaurants', {
       restaurants: 'restaurants',
     })
+  },
+  methods:{
+    addRestaurant() {
+      this.$router.push({name: 'AddRestaurant'})
+    },
   }
 }
 

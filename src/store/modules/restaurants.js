@@ -26,9 +26,9 @@ const actions = {
             });
     },
     deleteRestaurant: (store, restaurantId) => {
-        axios.delete(`api/restaurant/delete/` + restaurantId)
+        axios.put(`api/restaurant/delete/` + restaurantId)
             .then((response) => {
-                store.commit('deleteRestaurants', restaurantId)
+                store.commit('deleteRestaurant', restaurantId)
             }).catch()
     },
     setRestaurants(store) {

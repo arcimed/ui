@@ -51,9 +51,7 @@
 </template>
 
 <script>
-import {
-  mdiDelete,
-} from '@mdi/js'
+import {mdiDelete,} from '@mdi/js'
 export default {
   props: ['restaurant', 'right'],
   data: () => ({
@@ -66,6 +64,7 @@ export default {
       this.$router.push({name: 'menuArticle', params: {id: restaurantId}})
     },
     editRestaurant(restaurantId) {
+      console.log(restaurantId)
       this.$router.push({name: 'EditRestaurant', params: {id: restaurantId}})
     },
     deleteRestaurant(restaurantId) {
