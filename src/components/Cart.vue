@@ -80,6 +80,7 @@ export default {
     ...mapGetters('cart', {
       restaurantsCart: 'restaurantsCart',
       totalPriceCart: 'totalCartPrice',
+      orderRegistered: 'orderRegistered',
     }),
     ...mapGetters('restaurants', {
       restaurants: 'restaurants',
@@ -96,8 +97,17 @@ export default {
       ],
       publishableKey: "pk_test_51J5BqhAIdUhQ9rssf4vDCQMstDTpRc57tWVmhcfivnSCsh9I7IbbdbFXHTfksvvoh5wJkyuypgt2tcRtjU3l3VFp00LNrCkFCO",
       loading: false,
-      successURL: 'https://localhost:8080/my-orders',
+      successURL: 'https://localhost:8080/',
       cancelURL: 'https://localhost:8080/',
+      configReq: {
+        headers: {
+          'Authorization': `Bearer sk_test_51J5BqhAIdUhQ9rssiLVudyGEkjcUp8VsDla0qtmmw1ZwZ2tvfSPbPcH2YuvGsM2bd0ViicWw5qXsXidSqwc1U9WU001UVEfV5t`,
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Headers': 'Origin, Content-Type, Authorization, X-Auth-Token',
+          'Access-Control-Allow-Methods': 'GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS'
+        }
+      },
       headersArticles: [
         {
           text: 'Articles',
@@ -114,16 +124,7 @@ export default {
           value: 'name',
         },
         { text: 'Prix' },
-      ],
-      configReq: {
-        headers: {
-          'Authorization': `Bearer sk_test_51J5BqhAIdUhQ9rssiLVudyGEkjcUp8VsDla0qtmmw1ZwZ2tvfSPbPcH2YuvGsM2bd0ViicWw5qXsXidSqwc1U9WU001UVEfV5t`,
-          'Content-Type': 'application/x-www-form-urlencoded',
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Headers': 'Origin, Content-Type, Authorization, X-Auth-Token',
-          'Access-Control-Allow-Methods': 'GET, POST, PUT, PATCH, DELETE, HEAD, OPTIONS'
-        }
-      }
+      ]
     }
   },
   methods: {
@@ -143,7 +144,6 @@ export default {
           params.append('currency', 'eur')
           params.append('product', 'prod_JidUmPpwcZe3Bt')
 
-
           this.$http
               .post('https://api.stripe.com/v1/prices', params, this.configReq)
               .then(response => {
@@ -157,7 +157,10 @@ export default {
         let userId = this.$session.get('user').id;
         this.$store.dispatch('cart/checkout', {restaurantsCart , userId})
 
-        setTimeout(() => {  this.$refs.checkoutRef.redirectToCheckout(); }, 1000);
+        setTimeout(() => {
+          this.$refs.checkoutRef.successUrl = String('https://localhost:8080/my-orders/' + this.orderRegistered.idOrder);
+          this.$refs.checkoutRef.redirectToCheckout();
+          }, 1000);
       })
     },
 

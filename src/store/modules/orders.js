@@ -24,11 +24,20 @@ const actions = {
             }).catch()
     },
     changeStatusOrder (store, { restaurantId, orderId, status }) {
-        axios.put(`api/order/changestatus/` + orderId, {
+        axios.put(`api/order/edit/` + orderId, {
             ordersStatusId: status
         }).then((response) => {
             if (response.data.result) {
                 store.commit('changeStatusOrder', { restaurantId, orderId, status })
+            }
+        }).catch()
+    },
+    setPaidOrder (store, orderId) {
+        axios.put(`api/order/edit/` + orderId, {
+            isPaid: true
+        }).then((response) => {
+            if (response.data.result) {
+                store.commit('setPaidOrder', orderId)
             }
         }).catch()
     }
@@ -44,6 +53,9 @@ const mutations = {
     },
     setRestaurateurRestaurantsOrders (state, dataRestaurantsOrders) {
         state.restaurateurRestaurantsOrders = dataRestaurantsOrders;
+    },
+    setPaidOrder (state, orderId) {
+        state.orders.find(order => order.id === parseInt(orderId)).isPaid = true;
     }
 }
 

@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div v-for="order in orders" :key="order.id">
+    <div v-for="order in ordersSort" :key="order.id">
       <OrderCard :isRestaurateur="false" class="ma-6" :order="order"></OrderCard>
     </div>
   </div>
@@ -10,19 +10,30 @@
 
 import OrderCard from '../../components/Card/OrderCard.vue'
 import { mapGetters } from 'vuex'
+const _ = require('lodash')
 
 export default {
-  name: 'Home',
+  props: ['paidOrderId'],
   components: {
     OrderCard,
   },
-  mounted() {
+  async mounted() {
     this.$store.dispatch('orders/setOrders', this.$session.get('user').id);
+
+    if (this.paidOrderId !== undefined) {
+      await this.$store.dispatch('orders/setPaidOrder', this.paidOrderId)
+
+      this.$router.push({name: "MyOrders"})
+    }
   },
   computed: {
     ...mapGetters('orders', {
       orders: 'orders',
-    })
+    }),
+
+    ordersSort: function () {
+      return _.orderBy(this.orders, 'updatedAt', 'desc')
+    }
   }
 }
 

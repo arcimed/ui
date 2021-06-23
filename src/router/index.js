@@ -69,6 +69,14 @@ const routes = [
     component: () => import('../views/Users/Orders.vue')
   },
   {
+    path: '/my-orders/:paidOrderId',
+    name: 'PaidOrder',
+    component: () => import('../views/Users/Orders.vue'),
+    props: (route) => ({
+      ...route.params
+    })
+  },
+  {
     path: '/my-restaurant-orders',
     name: 'MyRestaurantOrders',
     component: () => import('../views/Restaurants/Orders.vue')

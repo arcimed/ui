@@ -1,11 +1,13 @@
 import axios from "axios";
 
 const state = () => ({
-    restaurantsCart: []
+    restaurantsCart: [],
+    orderRegistered: null
 })
 
 const getters = {
     restaurantsCart: state => state.restaurantsCart,
+    orderRegistered: state => state.orderRegistered,
     totalCartPrice: state => {
         let price = 0;
 
@@ -62,6 +64,7 @@ const actions = {
                     menusIds: menusCartIds
                 })
                 .then(response =>{
+                    commit('setOrderRegistered', { idOrder: response.data.data.id })
                     commit('removeRestaurantCart', { idRestaurant: restaurantCart.restaurant.id })
                 }).catch()
         })
@@ -105,15 +108,8 @@ const mutations = {
             state.restaurantsCart.splice(index, 1)
         }
     },
-    removeMenuToCart(state, {restaurantCartId , menuId}) {
-        let index = state.restaurantsCart.findIndex(restaurantsCart => restaurantsCart.restaurant.id === restaurantCartId);
-        let indexMenu = state.restaurantsCart[index].menusCart.findIndex(menuCart => menuCart.id === menuId);
-
-        state.restaurantsCart[index].menusCart.splice(indexMenu, 1)
-
-        if (state.restaurantsCart[index].menusCart.length < 1 && state.restaurantsCart[index].menusCart.length < 1) {
-            state.restaurantsCart.splice(index, 1)
-        }
+    setOrderRegistered(state, idOrder) {
+        state.orderRegistered = idOrder;
     }
 }
 
