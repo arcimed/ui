@@ -55,7 +55,6 @@
         </v-btn>
       </div>
     </v-card-actions>
-
     <v-card-actions v-else>
       <v-btn v-if="!order.isPaid" outlined rounded text @click="checkout(calculteTotalPrice(order), order.id)">
         Payer

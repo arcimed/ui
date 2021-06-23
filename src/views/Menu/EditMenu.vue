@@ -120,7 +120,6 @@ export default {
   },
   created() {
     this.temp = this.$store.getters['menus/restaurantMenus'].find(article => parseInt(article.id) === parseInt(this.id))
-    console.log(this.temp)
     this.menu.name = this.temp.name
     this.menu.price = this.temp.price
     this.temp.Articles.forEach(element => this.menu.articlesIds.push(element.MenuArticles.articlesId))
