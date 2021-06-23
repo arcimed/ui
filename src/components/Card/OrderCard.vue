@@ -45,7 +45,6 @@
 
     <v-card-text>Statut: {{ getStatusOrders(order.ordersStatusId) }} </v-card-text>
 
-    <p>{{order}}</p>
     <v-card-actions v-if="isRestaurateur">
       <div v-if="order.ordersStatusId === statusOrders.created">
         <v-btn outlined rounded text @click="changeStatusOrder(order.Restaurant.id, order.id, statusOrders.validate)" >
