@@ -125,13 +125,14 @@ export default {
   },
   methods: {
     submit () {
+      let restaurantId = this.temp.Restaurant.id
       this.article.restaurantsId = this.id
       this.article.typesArticlesId = String(this.article.typesArticlesId.id)
       this.$refs.observer.validate()
       let article = this.article
       let idArticle = this.temp.id
       this.$store.dispatch('articles/editArticles', {article, idArticle});
-      this.$router.push({name: 'menuArticle', params: {id: this.id}})
+      this.$router.push({name: 'menuArticle', params: {id: restaurantId}})
     },
     clear () {
       this.name = ''
