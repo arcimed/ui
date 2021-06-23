@@ -33,9 +33,8 @@ const actions = {
     },
     editMenu: (store, {menu, idMenu}) => {
         axios.put(`/api/menu/edit/` + idMenu, menu)
-            .then((response) => {
-                response = response.data.data
-                store.commit('editMenu', {response, idMenu})
+            .then(() => {
+                store.commit('editMenu', {menu, idMenu})
             })
             .catch((error) => {
             });

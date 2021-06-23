@@ -19,9 +19,8 @@ const actions = {
     },
     editRestaurant: (store, {restaurant, idRestaurant}) => {
         axios.put(`api/restaurant/edit/` + idRestaurant, restaurant)
-            .then((response) => {
-                response = response.data.data
-                store.commit('editRestaurant', {response, idRestaurant})
+            .then(() => {
+                store.commit('editRestaurant', {restaurant, idRestaurant})
             })
             .catch((error) => {
             });
