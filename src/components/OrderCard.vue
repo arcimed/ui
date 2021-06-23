@@ -6,27 +6,39 @@
       Restaurant : {{ order.Restaurant.name }}
     </v-card-title>
 
-    <v-data-table v-if="order.Articles.length > 0"
-          :headers="headersArticles"
-          :items="order.Articles"
-          item-key="name"
-          class="elevation-1 ma-6 my-border"
-          :hide-default-footer="true"
-          :footer-props="{
-      showFirstLastPage: true,
-    }"></v-data-table>
-    <v-data-table v-if="order.Menus.length > 0"
-        :headers="headersMenus"
-        :items="order.Menus"
-        item-key="name"
+    <v-data-table
+        v-if="order.Articles.length > 0"
+        :headers="headersArticles"
         class="elevation-1 ma-6 my-border"
         :hide-default-footer="true"
-        :footer-props="{
-      showFirstLastPage: true,
-    }"></v-data-table>
+        :items="order.Articles"
+    >
+      <template v-slot:item="row">
+        <tr>
+          <td class="align-center">{{ row.item.name }}</td>
+          <td>{{ row.item.TypesArticle.name }}</td>
+          <td>{{ row.item.price.toFixed(2) }}</td>
+        </tr>
+      </template>
+    </v-data-table>
+
+    <v-data-table
+        v-if="order.Menus.length > 0"
+        :headers="headersMenus"
+        class="elevation-1 ma-6 my-border"
+        :hide-default-footer="true"
+        :items="order.Menus"
+    >
+      <template v-slot:item="row">
+        <tr>
+          <td class="align-center">{{ row.item.name }}</td>
+          <td>{{ row.item.price.toFixed(2) }}</td>
+        </tr>
+      </template>
+    </v-data-table>
 
     <v-card-title>
-      Price {{ calculteTotalPrice() }} €
+      Price {{ calculteTotalPrice().toFixed(2) }} €
     </v-card-title>
 
     <v-card-actions>
@@ -50,7 +62,8 @@ export default {
           align: 'start',
           value: 'name',
         },
-        { text: 'Prix', value: 'price' },
+        { text: 'Type' },
+        { text: 'Prix' },
       ],
       headersMenus: [
         {
@@ -58,7 +71,7 @@ export default {
           align: 'start',
           value: 'name',
         },
-        { text: 'Prix', value: 'price' },
+        { text: 'Prix' },
       ]
     }
   },

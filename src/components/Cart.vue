@@ -22,7 +22,7 @@
               <tr>
                 <td class="align-center">{{ row.item.name }}</td>
                 <td>{{ row.item.TypesArticle.id }}</td>
-                <td>{{ row.item.price }}</td>
+                <td>{{ row.item.price.toFixed(2) }}</td>
                 <td>
                   <v-icon @click="deleteArticle(restaurantCart.restaurant.id, row.item.id)">mdi-delete</v-icon>
                 </td>
@@ -40,7 +40,7 @@
             <template v-slot:item="row">
               <tr>
                 <td class="align-center">{{ row.item.name }}</td>
-                <td>{{ row.item.price }}</td>
+                <td>{{ row.item.price.toFixed(2) }}</td>
                 <td>
                   <v-icon @click="deleteMenu(restaurantCart.restaurant.id, row.item.id)">mdi-delete</v-icon>
                 </td>
