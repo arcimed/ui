@@ -46,7 +46,10 @@
     <v-card-text>Statut: {{ getStatusOrders(order.ordersStatusId) }} </v-card-text>
 
     <v-card-actions v-if="isRestaurateur">
-      <div v-if="order.ordersStatusId === statusOrders.created">
+      <div v-if="!order.isPaid">
+        <v-card-text> En cours de paiement par le client. </v-card-text>
+      </div>
+      <div v-else-if="order.ordersStatusId === statusOrders.created">
         <v-btn outlined rounded text @click="changeStatusOrder(order.Restaurant.id, order.id, statusOrders.validate)" >
           Valider
         </v-btn>
@@ -70,7 +73,6 @@
           @loading="v => loading = v"
       />
     </v-card-actions>
-
   </v-card>
 </template>
 
