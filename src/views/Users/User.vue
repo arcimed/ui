@@ -56,6 +56,8 @@ name: "User",
       axios.put(`api/restaurant/delete/` + this.$session.get('user').id)
           .then(() => {
             this.$session.destroy()
+            this.$router.push({name: 'home'})
+            this.$router.go()
           }).catch()
 
     }
