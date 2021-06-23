@@ -11,24 +11,42 @@
         <v-list-item-content>
           <v-list-item-title>{{ restaurantCart.restaurant.name }}</v-list-item-title>
 
-          <v-data-table v-if="restaurantCart.articlesCart.length > 0"
+          <v-data-table
+              v-if="restaurantCart.articlesCart.length > 0"
               :headers="headersArticles"
+              class="elevation-1"
+              :hide-default-footer="true"
               :items="restaurantCart.articlesCart"
-              item-key="name"
-              class="elevation-1"
-              :hide-default-footer="true"
-              :footer-props="{
-            showFirstLastPage: true,
-          }"></v-data-table>
-          <v-data-table v-if="restaurantCart.menusCart.length > 0"
+          >
+            <template v-slot:item="row">
+              <tr>
+                <td class="align-center">{{ row.item.name }}</td>
+                <td>{{ row.item.TypesArticle.id }}</td>
+                <td>{{ row.item.price }}</td>
+                <td>
+                  <v-icon @click="deleteArticle(restaurantCart.restaurant.id, row.item.id)">mdi-delete</v-icon>
+                </td>
+              </tr>
+            </template>
+          </v-data-table>
+
+          <v-data-table
+              v-if="restaurantCart.menusCart.length > 0"
               :headers="headersMenus"
-              :items="restaurantCart.menusCart"
-              item-key="name"
               class="elevation-1"
               :hide-default-footer="true"
-              :footer-props="{
-            showFirstLastPage: true,
-          }"></v-data-table>
+              :items="restaurantCart.menusCart"
+          >
+            <template v-slot:item="row">
+              <tr>
+                <td class="align-center">{{ row.item.name }}</td>
+                <td>{{ row.item.price }}</td>
+                <td>
+                  <v-icon @click="deleteMenu(restaurantCart.restaurant.id, row.item.id)">mdi-delete</v-icon>
+                </td>
+              </tr>
+            </template>
+          </v-data-table>
 
         </v-list-item-content>
       </v-list-item>
@@ -86,7 +104,8 @@ export default {
           align: 'start',
           value: 'name',
         },
-        {text: 'Prix', value: 'price'},
+        {text: 'Type'},
+        {text: 'Prix'},
       ],
       headersMenus: [
         {
@@ -94,7 +113,7 @@ export default {
           align: 'start',
           value: 'name',
         },
-        {text: 'Prix', value: 'price'},
+        {text: 'Prix'},
       ],
       configReq: {
         headers: {
@@ -108,6 +127,12 @@ export default {
     }
   },
   methods: {
+    deleteArticle(restaurantCartId, articleId) {
+      this.$store.dispatch('cart/deleteArticleToCart', {restaurantCartId , articleId})
+    },
+    deleteMenu(restaurantCartId, menuId) {
+      this.$store.dispatch('cart/deleteMenuToCart', {restaurantCartId , menuId})
+    },
     async checkout(restaurantsCart, totalPriceCart) {
 
       await this.checkIfPriceAlreadyExist(totalPriceCart).then(result => {
