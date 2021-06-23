@@ -4,6 +4,8 @@
       Order {{ order.id }}
       <br>
       Restaurant : {{ order.Restaurant.name }}
+      <br>
+      Client : {{ order.Restaurant.name }}
     </v-card-title>
 
     <v-data-table
@@ -41,21 +43,44 @@
       Price {{ calculteTotalPrice().toFixed(2) }} €
     </v-card-title>
 
-    <v-card-actions>
-      <v-btn outlined rounded text @click="deleteOrder(order.id)">
-        Supprimer
+    <v-card-text>Statut: {{ getStatusOrders(order.ordersStatusId) }} </v-card-text>
+
+    <v-card-actions v-if="isRestaurateur">
+      <div v-if="order.ordersStatusId === statusOrders.created">
+        <v-btn outlined rounded text @click="changeStatusOrder(order.Restaurant.id, order.id, statusOrders.validate)" >
+          Valider
+        </v-btn>
+        <v-btn outlined rounded text @click="changeStatusOrder(order.Restaurant.id, order.id, statusOrders.refused)">
+          Refuser
+        </v-btn>
+      </div>
+    </v-card-actions>
+
+    <v-card-actions v-else>
+      <v-btn v-if="!order.isPay" outlined rounded text @click="validateOrder(order.id)">
+        Payer
       </v-btn>
     </v-card-actions>
+
   </v-card>
 </template>
 
 <script>
 
+import { getStatusOrders, statusOrders } from "@/config/statusOrders";
+
 export default {
   name: "articleCard",
-  props: ['order'],
+  props: {
+    order: {
+      required: true
+    },
+    isRestaurateur: {}
+  },
   data () {
     return {
+      statusOrders: statusOrders,
+      getStatusOrders: getStatusOrders,
       headersArticles: [
         {
           text: 'Articles',
@@ -90,8 +115,8 @@ export default {
       return totalPrice;
     },
 
-    deleteOrder(orderId) {
-      this.$store.dispatch('orders/deleteOrder', orderId)
+    changeStatusOrder(restaurantId, orderId, status) {
+      this.$store.dispatch('orders/changeStatusOrder', { restaurantId, orderId, status })
     }
   }
 }
