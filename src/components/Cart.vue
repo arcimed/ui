@@ -104,8 +104,8 @@ export default {
           align: 'start',
           value: 'name',
         },
-        {text: 'Type'},
-        {text: 'Prix'},
+        { text: 'Type' , value: 'typesArticlesId' },
+        { text: 'Prix', value: 'price' },
       ],
       headersMenus: [
         {
@@ -113,7 +113,7 @@ export default {
           align: 'start',
           value: 'name',
         },
-        {text: 'Prix'},
+        { text: 'Prix' },
       ],
       configReq: {
         headers: {

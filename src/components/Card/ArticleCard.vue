@@ -43,7 +43,7 @@
 <script>
 
 import { mapActions } from 'vuex'
-import {mdiDelete} from "@mdi/js";
+import { mdiDelete } from "@mdi/js";
 
 export default {
   name: "articleCard",

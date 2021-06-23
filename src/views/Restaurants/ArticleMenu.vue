@@ -27,8 +27,8 @@
 
 <script>
 
-import articleCard from "@/components/articleCard";
-import menuCard from "@/components/MenuCard";
+import articleCard from "@/components/Card/ArticleCard";
+import menuCard from "@/components/Card/MenuCard";
 import Button from "@/components/Button";
 
 import { mapGetters } from "vuex";
