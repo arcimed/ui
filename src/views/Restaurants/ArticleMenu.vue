@@ -10,7 +10,7 @@
     <v-btn @click="addMenu" v-if="restaurant.restaurateurId === parseInt(this.$session.get('user').id)">
       Ajout de menu
     </v-btn>
-    <v-row class="pa-6" v-for="menu in menus" :key="menu.name">
+    <v-row class="pa-6" v-for="menu in menus" :key="menu.id">
       <menuCard :menu="menu"></menuCard>
     </v-row>
 

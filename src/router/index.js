@@ -56,6 +56,14 @@ const routes = [
     })
   },
   {
+    path: '/EditMenu/:id',
+    name: 'EditMenu',
+    component: () => import('../views/Menu/EditMenu.vue'),
+    props: (route) => ({
+      ...route.params
+    })
+  },
+  {
     path: '/my-orders',
     name: 'MyOrders',
     component: () => import('../views/Orders.vue')

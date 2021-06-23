@@ -8,7 +8,7 @@
           rules="required|max:10"
       >
         <v-text-field
-            v-model="article.name"
+            v-model="menu.name"
             :counter="10"
             :error-messages="errors"
             label="Name"
@@ -21,14 +21,15 @@
       >
         <v-col cols="6">
           <v-select
-              v-model="article.typesArticlesId"
-              :items="type"
+              v-model="menu.articlesIds"
+              :items="article"
+              label="Select"
               item-text="name"
               item-value="id"
-              label="Select"
+              multiple
+              chips
+              hint="What are the target regions"
               persistent-hint
-              return-object
-              single-line
           ></v-select>
         </v-col>
       </validation-provider>
@@ -38,7 +39,7 @@
           rules="required|max:10"
       >
         <v-text-field
-            v-model="article.price"
+            v-model="menu.price"
             :counter="10"
             :error-messages="errors"
             label="Prix"
@@ -98,13 +99,13 @@ export default {
     ValidationObserver,
   },
   data: () => ({
-    article: {
+    menu: {
       name: '',
-      typesArticlesId: '',
+      articlesIds: [],
       restaurantsId: '',
       price: ''
     },
-    type: []
+    article: []
   }),
   props: {
     id: {
@@ -112,17 +113,17 @@ export default {
     }
   },
   mounted() {
-    axios.get(`api/article/types/` )
+    axios.get(`api/articlesbyrestaurant/` + this.id)
         .then((response) => {
-          this.type = response.data.data
+          this.article = response.data.data
         }).catch()
   },
   methods: {
     submit () {
-      this.article.restaurantsId = this.id
-      this.article.typesArticlesId = String(this.article.typesArticlesId.id)
+      this.menu.restaurantsId = this.id
+      this.menu.price = parseFloat(this.menu.price)
       this.$refs.observer.validate()
-      this.$store.dispatch('articles/addArticles', this.article);
+      this.$store.dispatch('menus/addMenus', this.menu);
       this.$router.push({name: 'menuArticle', params: {id: this.id}})
     },
     clear () {

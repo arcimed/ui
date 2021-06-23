@@ -8,31 +8,38 @@
           rules="required|max:10"
       >
         <v-text-field
-            v-model="article.name"
+            v-model="menu.name"
             :counter="10"
             :error-messages="errors"
             label="Name"
             required
         ></v-text-field>
       </validation-provider>
+      <validation-provider
+          v-slot="{ errors }"
+          name="type"
+      >
         <v-col cols="6">
           <v-select
-              v-model="article.typesArticlesId"
-              :items="type"
+              v-model="menu.articlesIds"
+              :items="article"
+              label="Select"
               item-text="name"
               item-value="id"
-              label="Select"
+              multiple
+              chips
+              hint="What are the target regions"
               persistent-hint
-              return-object
-              single-line
           ></v-select>
         </v-col>
+      </validation-provider>
       <validation-provider
           v-slot="{ errors }"
           name="Prix"
-          rules="required|max:10">
+          rules="required|max:10"
+      >
         <v-text-field
-            v-model="article.price"
+            v-model="menu.price"
             :counter="10"
             :error-messages="errors"
             label="Prix"
@@ -92,13 +99,13 @@ export default {
     ValidationObserver,
   },
   data: () => ({
-    article: {
+    menu: {
       name: '',
-      typesArticlesId: '',
+      articlesIds: [],
       restaurantsId: '',
       price: ''
     },
-    type: []
+    article: []
   }),
   props: {
     id: {
@@ -106,18 +113,27 @@ export default {
     }
   },
   mounted() {
-      axios.get(`api/article/types/` )
-          .then((response) => {
-            this.type = response.data.data
-          }).catch()
+    axios.get(`api/articlesbyrestaurant/` + this.temp.Restaurant.id)
+        .then((response) => {
+          this.article = response.data.data
+        }).catch()
+  },
+  created() {
+    this.temp = this.$store.getters['menus/restaurantMenus'].find(article => parseInt(article.id) === parseInt(this.id))
+    console.log(this.temp)
+    this.menu.name = this.temp.name
+    this.menu.price = this.temp.price
+    this.temp.Articles.forEach(element => this.menu.articlesIds.push(element.MenuArticles.articlesId))
+    this.menu.restaurantsId = this.temp.Restaurant.id
   },
   methods: {
     submit () {
-      this.article.restaurantsId = this.id
-      this.article.typesArticlesId = String(this.article.typesArticlesId.id)
+
       this.$refs.observer.validate()
-      this.$store.dispatch('articles/addArticles', this.article);
-      this.$router.push({name: 'menuArticle', params: {id: this.id}})
+      let menu = this.menu
+      let idMenu = this.temp.id
+      this.$store.dispatch('menus/editMenu', {menu, idMenu});
+      this.$router.push({name: 'menuArticle', params: {id: this.menu.restaurantsId}})
     },
     clear () {
       this.name = ''

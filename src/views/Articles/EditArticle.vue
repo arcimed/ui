@@ -121,7 +121,7 @@ export default {
   methods: {
     submit () {
       let restaurantId = this.temp.Restaurant.id
-      this.article.restaurantsId = this.id
+      this.article.restaurantsId = restaurantId
       this.article.typesArticlesId = String(this.article.typesArticlesId.id)
       this.$refs.observer.validate()
       let article = this.article

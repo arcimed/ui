@@ -13,16 +13,37 @@
     </v-card-subtitle>
 
     <v-card-actions>
-      <v-card-actions>
+      <v-card-actions style="display: block">
         <v-btn outlined rounded text @click="addMenuToCart(menu)">
           Selectionner
         </v-btn>
-      </v-card-actions>
-      <v-spacer></v-spacer>
+        <div class="my-4 text-subtitle-1" style="display: flex">
+          <v-btn v-if="menu.Restaurant.restaurateurId === parseInt(this.$session.get('user').id)" outlined rounded text
+                 @click="editMenu(menu.id)">
+            Editer
+          </v-btn>
+          <v-btn
+              color="primary"
+              depressed
+              v-if="menu.Restaurant.restaurateurId === parseInt(this.$session.get('user').id)"
+              style="margin-left: 10px"
+              @click="deleteMenu(menu.id)"
+          >
+            <v-icon left>
+              {{ icons.mdiDelete }}
+            </v-icon>
+            Delete
+          </v-btn>
+        </div>
+        <v-spacer></v-spacer>
+        <div class="my-4 text-subtitle-1" style="display: flex">
+          <v-btn icon @click="show = !show" style="display: contents">
+            <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+          </v-btn>
+        </div>
+      </v-card-actions >
 
-      <v-btn icon @click="show = !show">
-        <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
-      </v-btn>
+
     </v-card-actions>
 
     <v-expand-transition>
@@ -48,17 +69,27 @@
 <script>
 
 import { mapActions } from "vuex";
+import {mdiDelete} from "@mdi/js";
 
 export default {
   name: "menuCard",
   props: ['menu'],
   data: () => ({
     show: false,
+    icons: {
+      mdiDelete,
+    },
   }),
   methods: {
     ...mapActions('cart', [
       'addMenuToCart'
     ]),
+    editMenu(menuId) {
+      this.$router.push({name: 'EditMenu', params: {id: menuId}})
+    },
+    deleteMenu(menuId) {
+      this.$store.dispatch('menus/deleteMenu', menuId);
+    }
   }
 }
 
