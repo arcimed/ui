@@ -129,7 +129,6 @@ export default {
   },
   methods: {
     login() {
-      console.log('log')
       this.showLoader = true;
       const user = {
         email: this.loginEmail,
