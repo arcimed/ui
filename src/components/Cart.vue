@@ -11,7 +11,7 @@
         <v-list-item-content>
           <v-list-item-title>{{ restaurantCart.restaurant.name }}</v-list-item-title>
 
-          <v-data-table v-if="restaurantCart.articlesCart > 0"
+          <v-data-table v-if="restaurantCart.articlesCart.length > 0"
               :headers="headersArticles"
               :items="restaurantCart.articlesCart"
               item-key="name"
@@ -20,7 +20,7 @@
               :footer-props="{
             showFirstLastPage: true,
           }"></v-data-table>
-          <v-data-table v-if="restaurantCart.menusCart > 0"
+          <v-data-table v-if="restaurantCart.menusCart.length > 0"
               :headers="headersMenus"
               :items="restaurantCart.menusCart"
               item-key="name"

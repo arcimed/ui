@@ -12,8 +12,8 @@
       <v-toolbar-title v-if="this.$session.exists()" class="mr-5">
         <span>Bonjour, </span>
         <span class="font-weight-black">{{ this.$session.get('user').firstname }}</span>
-        <v-icon class="ml-4" @click="myOrders">mdi-account</v-icon>
       </v-toolbar-title>
+      <v-icon class="mr-4" @click="myOrders">mdi-account</v-icon>
       <notification-bell class="pr-4" :iconColor="white" :size="size" :ding="true" :animated="true"/>
       <v-btn @click="destroySession" v-if="this.$session.exists()">
         <span class="mr-2">Déconnection</span>
