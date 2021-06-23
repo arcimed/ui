@@ -80,7 +80,6 @@ export default {
     ...mapGetters('cart', {
       restaurantsCart: 'restaurantsCart',
       totalPriceCart: 'totalCartPrice',
-      orderRegistered: 'orderRegistered',
     }),
     ...mapGetters('restaurants', {
       restaurants: 'restaurants',
@@ -158,9 +157,10 @@ export default {
         this.$store.dispatch('cart/checkout', {restaurantsCart , userId})
 
         setTimeout(() => {
-          this.$refs.checkoutRef.successUrl = String('https://localhost:8080/my-orders/' + this.orderRegistered.ordersIds);
+          this.$refs.checkoutRef.successUrl = String('https://localhost:8080/my-orders/'
+              + String( this.$store.getters['cart/orderRegistered'].ordersIds));
           this.$refs.checkoutRef.redirectToCheckout();
-          }, 1000);
+          }, 1500);
       })
     },
 
