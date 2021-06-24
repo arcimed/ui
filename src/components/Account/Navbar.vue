@@ -169,11 +169,16 @@ export default {
   },
   methods: {
     openNotifications() {
+      console.log(this.$route.fullPath)
       this.$store.dispatch('notifications/SeenNotification', this.$session.get('user').id);
       this.count = 0;
     },
     linkNotifications(url) {
-      this.$router.push({ path: url})
+      if (this.$route.fullPath != url){
+        this.$router.push({ path: url})
+      }else {
+        this.$router.go()
+      }
     },
     showLogRegisterModal() {
       this.$emit('showLogRegisterModal');

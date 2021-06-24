@@ -49,7 +49,11 @@ export default {
   },
   methods:{
     linkNotifications(url) {
-      this.$router.push({ path: url})
+      if (this.$route.fullPath != url){
+        this.$router.push({ path: url})
+      }else {
+        this.$router.go()
+      }
     },
   }
 }
