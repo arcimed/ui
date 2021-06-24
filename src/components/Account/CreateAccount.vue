@@ -35,10 +35,10 @@
               <v-form ref="registerForm" v-model="valid" lazy-validation>
                 <v-row>
                   <v-col cols="12" sm="6" md="6">
-                    <v-text-field v-model="user.firstName" :rules="[rules.required]" label="First Name" maxlength="20" required></v-text-field>
+                    <v-text-field v-model="user.firstname" :rules="[rules.required]" label="First Name" maxlength="20" required></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="6">
-                    <v-text-field v-model="user.lastName" :rules="[rules.required]" label="Last Name" maxlength="20" required></v-text-field>
+                    <v-text-field v-model="user.lastname" :rules="[rules.required]" label="Last Name" maxlength="20" required></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="6">
                     <v-text-field v-model="user.address" :rules="[rules.required]" label="address" maxlength="20" required></v-text-field>
@@ -50,22 +50,23 @@
                     <v-text-field v-model="user.email" :rules="emailRules" label="E-mail" required></v-text-field>
                   </v-col>
                   <v-col cols="12">
+                    <v-select
+                        v-model="user.roleId"
+                        :items="type"
+                        item-text="name"
+                        item-value="id"
+                        label="Role de l'utilisateur"
+                        persistent-hint
+                        return-object
+                        single-line
+                    ></v-select>
+                  </v-col>
+                  <v-col cols="12">
                     <v-text-field v-model="user.password" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required, rules.min]" :type="show1 ? 'text' : 'password'" name="input-10-1" label="Password" hint="At least 8 characters" counter @click:append="show1 = !show1"></v-text-field>
                   </v-col>
                   <v-col cols="12">
                     <v-text-field block v-model="user.verify" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required, passwordMatch]" :type="show1 ? 'text' : 'password'" name="input-10-1" label="Confirm Password" counter @click:append="show1 = !show1"></v-text-field>
                   </v-col>
-                  <div class="col-md-6 mb-3">
-                    <span>role : </span>
-                    <select v-model="user.role" class="form-control" placeholder="Role">
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
-                      <option>5</option>
-                      <option>6</option>
-                    </select>
-                  </div>
                   <v-spacer></v-spacer>
                   <v-col class="d-flex ml-auto" cols="12" sm="3" xsm="12">
                     <v-btn x-large block :disabled="!valid" color="success" @click="createAccount">Register</v-btn>
@@ -92,6 +93,12 @@ export default {
       ],
       valid: true,
       showLoader: false,
+      type: [
+        {name : "Utilisateur", id: 1},
+        {name : "Restaurateur", id: 2},
+        {name : "Livreur", id: 3},
+        {name : "Développeur", id: 4},
+      ],
       user: {
         firstname: "",
         lastname: "",
@@ -100,7 +107,7 @@ export default {
         verify: "",
         address:"",
         city: "",
-        role: "",
+        roleId: "",
       },
       loginPassword: "",
       loginEmail: "",
@@ -112,7 +119,6 @@ export default {
         v => !!v || "Required",
         v => /.+@.+\..+/.test(v) || "E-mail must be valid"
       ],
-
       show1: false,
       rules: {
         required: value => !!value || "Required.",
@@ -173,26 +179,25 @@ export default {
       this.$emit('hideLogRegisterModal');
     },
     createAccount() {
+      console.log('create')
       this.errorMessage = [];
       this.showLoader = true;
-
-      if (this.user.firstname.length < 5) {
-        this.errorMessage.push(
-          "FirstName should contains more than 5 character"
-        );
-      }
 
       if (this.ValidateEmail(this.user.email) === false) {
         this.errorMessage.push("Please provide a valid Email address");
       }
+      console.log(this.errorMessage)
       if (this.errorMessage.length === 0) {
+        this.user.roleId = this.user.roleId.id
         this.$http
           .post(`http://localhost:3000/user-register`, this.user)
           .then(() => {
             this.showLoader = false;
           })
           .catch((error) => {
-            console.log(error);
+            this.errorMessage.push(
+                error
+            );
           });
       }
 
