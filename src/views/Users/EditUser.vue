@@ -66,6 +66,27 @@
             required
         ></v-text-field>
       </validation-provider>
+
+      <p>Nouveau mots de passe :</p>
+      <v-col cols="12">
+        <v-text-field
+            v-model="user.password"
+            :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+            :rules="[rules.min]"
+            :type="show1 ? 'text' : 'password'"
+            name="input-10-1" label="Password"
+            counter @click:append="show1 = !show1">
+        </v-text-field>
+      </v-col>
+      <v-col cols="12">
+        <v-text-field
+            block v-model="verify"
+            :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+            :rules="[passwordMatch]" :type="show1 ? 'text' : 'password'"
+            name="input-10-1" label="Confirm Password"
+            counter @click:append="show1 = !show1">
+        </v-text-field>
+      </v-col>
       <v-btn
           class="mr-4"
           type="submit"
@@ -125,10 +146,16 @@ name: "EditUser",
       lastname: '',
       address: '',
       city: '',
-      email: ''
-
+      email: '',
+      password: '',
     },
-    temp: {}
+    show1: false,
+    verify: '',
+    temp: {},
+    rules: {
+      required: value => !!value || "Required.",
+      min: v => (v && v.length >= 4) || "Min 4 characters"
+    },
   }),
   props: {
     id: {
@@ -143,6 +170,11 @@ name: "EditUser",
     this.user.address = this.temp.address
     this.user.city = this.temp.city
   },
+  computed:{
+    passwordMatch() {
+      return () => this.user.password === this.verify || "Password must match";
+    }
+  },
   methods: {
     submit () {
       this.$refs.observer.validate()
@@ -154,7 +186,6 @@ name: "EditUser",
           .catch((error) => {
           });
       this.$router.push({name: 'user'})
-      this.$router.go()
     },
     clear () {
       this.firstname = ''
