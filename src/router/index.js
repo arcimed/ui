@@ -94,6 +94,11 @@ const routes = [
       ...route.params
     })
   },
+  {
+    path: '/Notifications',
+    name: 'Notifications',
+    component: () => import('../views/Users/Notification.vue'),
+  },
 ]
 
 const router = new VueRouter({

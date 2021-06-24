@@ -5,7 +5,7 @@ import articles from './modules/articles'
 import menus from './modules/menus'
 import orders from './modules/orders'
 import cart from './modules/cart'
-
+import notifications from './modules/Notifications'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -14,6 +14,7 @@ export default new Vuex.Store({
     articles,
     menus,
     orders,
-    cart
+    cart,
+    notifications
   },
 })

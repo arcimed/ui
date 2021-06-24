@@ -44,16 +44,59 @@
         </div>
 
 
-      <v-btn @click="openNotifications" text class="mr-4">
-        <notification-bell
-            class="pr-2"
-            :count="count"
-            :iconColor="white"
-            :size="size"
-            :ding="true"
-            :animated="true"
-        />
-      </v-btn>
+
+      <div class="text-center">
+        <v-menu offset-y>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn @click="openNotifications()" text class="mr-4"  v-bind="attrs" v-on="on">
+              <notification-bell
+                  class="pr-2"
+                  :count="count"
+                  :iconColor="white"
+                  :size="size"
+                  :ding="true"
+                  :animated="true"
+              />
+            </v-btn>
+          </template>
+          <v-list three-line>
+            <v-subheader
+                :key="'Notification'"
+                v-text="'Notification'"
+            ></v-subheader>
+            <template v-for="(notification, index) in notifications">
+              <template v-if="index <= 4">
+                <v-divider
+                    :key="index"
+                    :inset="true"
+                ></v-divider>
+
+                <v-list-item
+                    :key="notification.title"
+                >
+
+                  <v-list-item-content>
+                    <v-list-item-title v-html="notification.title"></v-list-item-title>
+                    <v-list-item-subtitle v-html="notification.description"></v-list-item-subtitle>
+                  </v-list-item-content>
+                  <v-list-item-icon :to="notification.route">
+                    <v-btn class="mx-1" fab dark color="primary">
+                      <v-icon dark>mdi-plus</v-icon>
+                    </v-btn>
+                  </v-list-item-icon>
+                </v-list-item>
+              </template>
+            </template>
+            <v-list-item>
+              <v-list-item-content>
+                <router-link to="/Notifications">
+                <v-list-item-title>Voir plus</v-list-item-title>
+                </router-link>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+      </div>
 
       <v-btn @click="destroySession" v-if="this.$session.exists()">
         <span class="mr-2">Déconnection</span>
@@ -82,6 +125,8 @@
 <script>
 
 import NotificationBell from 'vue-notification-bell'
+import {mapGetters} from "vuex";
+import axios from "axios";
 
 export default {
   components: {
@@ -89,7 +134,8 @@ export default {
   },
   data() {
     return {
-      count: 1,
+      count: 0,
+      divider: true,
       drawer: false,
       links: [
         { icon: 'mdi-home', text: 'Produits', route: '/' },
@@ -104,9 +150,21 @@ export default {
       ],
     }
   },
+  mounted() {
+    this.$store.dispatch('notifications/setNotifications', this.$session.get('user').id);
+    axios.get(`api/notifications/count/` + this.$session.get('user').id)
+        .then((response) => {
+          this.count = response.data.data
+        }).catch()
+  },
+  computed: {
+    ...mapGetters('notifications', {
+      notifications: 'notifications',
+    }),
+  },
   methods: {
     openNotifications() {
-      console.log('3')
+      this.$store.dispatch('notifications/SeenNotification', this.$session.get('user').id);
     },
     showLogRegisterModal() {
       this.$emit('showLogRegisterModal');
