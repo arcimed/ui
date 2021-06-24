@@ -42,14 +42,11 @@
           </v-btn>
         </div>
       </v-card-actions >
-
-
     </v-card-actions>
 
     <v-expand-transition>
       <div v-show="show">
         <v-divider></v-divider>
-
         <v-list dense>
           <v-subheader>Contenu</v-subheader>
           <v-list-item-group color="primary">
@@ -60,7 +57,6 @@
             </v-list-item>
           </v-list-item-group>
         </v-list>
-
       </div>
     </v-expand-transition>
   </v-card>

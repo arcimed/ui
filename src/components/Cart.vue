@@ -153,8 +153,12 @@ export default {
           this.$refs.checkoutRef.lineItems[0].price = result
         }
 
-        let userId = this.$session.get('user').id;
-        this.$store.dispatch('cart/checkout', {restaurantsCart , userId})
+        let user = this.$session.get('user');
+        let userId = user.id;
+        this.$store.dispatch('cart/checkout', {restaurantsCart , userId })
+
+        let userName = user.firstname + ' ' + user.lastname;
+        this.$store.dispatch('notifications/addCartCreated', { restaurantsCart, userName })
 
         setTimeout(() => {
           this.$refs.checkoutRef.successUrl = String('https://localhost:8080/my-orders/'

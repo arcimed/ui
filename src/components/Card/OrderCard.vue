@@ -46,10 +46,7 @@
     <v-card-text>Statut: {{ getStatusOrders(order.ordersStatusId) }} </v-card-text>
 
     <v-card-actions v-if="isRestaurateur">
-      <div v-if="order.ordersStatusId !== statusOrders.payed">
-        <v-card-text> En cours de paiement par le client. </v-card-text>
-      </div>
-      <div v-else-if="order.ordersStatusId === statusOrders.created">
+      <div v-if="order.ordersStatusId === statusOrders.payed">
         <v-btn outlined rounded text @click="changeStatusOrder(order.Restaurant.id, order.id, statusOrders.validate)" >
           Valider
         </v-btn>
@@ -58,6 +55,9 @@
         </v-btn>
       </div>
     </v-card-actions>
+    <div v-else>
+      <v-card-text> En cours de paiement par le client. </v-card-text>
+    </div>
     <v-card-actions v-else>
       <v-btn v-if="order.ordersStatusId !== statusOrders.payed" outlined rounded text @click="checkout(calculteTotalPrice(order), order.id)">
         Payer
@@ -152,10 +152,10 @@ export default {
 
     changeStatusOrder(restaurantId, orderId, status) {
       this.$store.dispatch('orders/changeStatusOrder', { restaurantId, orderId, status })
-    },
 
-    paidOrder(orderId) {
-      this.$store.dispatch('orders/setPaidOrder', orderId)
+      let order = this.order;
+      let userId = this.$session.get('user').id;
+      this.$store.dispatch('notifications/addCartChangeStatus', {order, status, userId})
     },
 
     async checkout(totalPriceCart, orderId) {

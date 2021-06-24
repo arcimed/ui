@@ -33,18 +33,14 @@ const actions = {
             }
         }).catch()
     },
-    setPaidOrder (store, orderIdsString) {
-
-        let orderIds = orderIdsString.split(",");
-        orderIds.forEach(orderId => {
-            axios.put(`api/order/edit/` + parseInt(orderId), {
-                ordersStatusId: statusOrders.payed
-            }).then((response) => {
-                if (response.data.result) {
-                    store.commit('setPaidOrder', parseInt(orderId))
-                }
-            }).catch()
-        })
+    setPaidOrder (store, orderId) {
+        axios.put(`api/order/edit/` + parseInt(orderId), {
+            ordersStatusId: statusOrders.payed
+        }).then((response) => {
+            if (response.data.result) {
+                store.commit('setPaidOrder', parseInt(orderId))
+            }
+        }).catch()
     }
 }
 

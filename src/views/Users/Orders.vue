@@ -17,11 +17,21 @@ export default {
   components: {
     OrderCard,
   },
-  async mounted() {
-    this.$store.dispatch('orders/setOrders', this.$session.get('user').id);
+  mounted() {
+    this.$store.dispatch('orders/setOrders', this.$session.get('user').id)
 
-    if (this.paidOrderId !== undefined) {
-      await this.$store.dispatch('orders/setPaidOrder', this.paidOrderId)
+    if (this.paidOrderId !== undefined && this.paidOrderId.length > 0) {
+      let orderIds = this.paidOrderId.split(",");
+
+      setTimeout(() => {
+        for (const orderId of orderIds) {
+          let order = this.orders.find(orderItem => orderItem.id === parseInt(orderId))
+          let username = this.$session.get('user').firstname + ' ' + this.$session.get('user').lastname
+
+          this.$store.dispatch('orders/setPaidOrder', orderId)
+          this.$store.dispatch('notifications/addCartPayed', {order, username})
+        }
+      }, 1500);
 
       this.$router.push({name: "MyOrders"})
     }
@@ -30,7 +40,6 @@ export default {
     ...mapGetters('orders', {
       orders: 'orders',
     }),
-
     ordersSort: function () {
       return _.orderBy(this.orders, 'updatedAt', 'desc')
     }

@@ -11,10 +11,7 @@
               :inset="true"
           ></v-divider>
 
-          <v-list-item
-              :key="notification.title"
-          >
-
+          <v-list-item>
             <v-list-item-content>
               <v-list-item-title v-html="notification.title"></v-list-item-title>
               <v-list-item-subtitle v-html="notification.description"></v-list-item-subtitle>

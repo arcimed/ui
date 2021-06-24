@@ -71,10 +71,7 @@
                     :inset="true"
                 ></v-divider>
 
-                <v-list-item
-                    :key="notification.title"
-                >
-
+                <v-list-item>
                   <v-list-item-content>
                     <v-list-item-title v-html="notification.title"></v-list-item-title>
                     <v-list-item-subtitle v-html="notification.description"></v-list-item-subtitle>
@@ -138,7 +135,7 @@ export default {
   },
   data() {
     return {
-      count: 0,
+      count: this.numberNotifications,
       divider: true,
       drawer: false,
       links: [
@@ -167,11 +164,15 @@ export default {
     }),
     ordersSort: function () {
       return _.orderBy(this.notifications, 'updatedAt', 'desc')
-    }
+    },
+    ...mapGetters('notifications', {
+      numberNotifications: 'numberNotifications',
+    }),
   },
   methods: {
     openNotifications() {
       this.$store.dispatch('notifications/SeenNotification', this.$session.get('user').id);
+      this.count = 0;
     },
     linkNotifications(url) {
       this.$router.push({ path: url})
