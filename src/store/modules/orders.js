@@ -1,4 +1,5 @@
 import axios from "axios";
+import {statusOrders} from "@/config/statusOrders";
 
 const state = () => ({
     orders: [],
@@ -37,7 +38,7 @@ const actions = {
         let orderIds = orderIdsString.split(",");
         orderIds.forEach(orderId => {
             axios.put(`api/order/edit/` + parseInt(orderId), {
-                isPaid: true
+                ordersStatusId: statusOrders.payed
             }).then((response) => {
                 if (response.data.result) {
                     store.commit('setPaidOrder', parseInt(orderId))
@@ -59,7 +60,7 @@ const mutations = {
         state.restaurateurRestaurantsOrders = dataRestaurantsOrders;
     },
     setPaidOrder (state, orderId) {
-        state.orders.find(order => order.id === parseInt(orderId)).isPaid = true;
+        state.orders.find(order => order.id === parseInt(orderId)).ordersStatusId = statusOrders.payed;
     }
 }
 
