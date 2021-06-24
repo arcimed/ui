@@ -27,7 +27,7 @@ const actions = {
     SeenNotification(store, userId) {
         axios.post(`api/notifications/user/seen/` + userId)
             .then((response) => {
-                store.commit('seenNotification')
+                store.commit('seenNotification', response)
             })
             .catch((error) => {
                 console.log(error);
@@ -41,7 +41,7 @@ const mutations = {
     addNotification(state, notification) {
         state.notifications.push(notification)
     },
-    seenNotification(state) {
+    seenNotification(state, response) {
         state.notifications.forEach(notification => notification.hasBeenSeen = true);
     },
 }

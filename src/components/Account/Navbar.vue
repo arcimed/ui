@@ -64,7 +64,7 @@
                 :key="'Notification'"
                 v-text="'Notification'"
             ></v-subheader>
-            <template v-for="(notification, index) in notifications">
+            <template v-for="(notification, index) in ordersSort">
               <template v-if="index <= 4">
                 <v-divider
                     :key="index"
@@ -78,11 +78,14 @@
                   <v-list-item-content>
                     <v-list-item-title v-html="notification.title"></v-list-item-title>
                     <v-list-item-subtitle v-html="notification.description"></v-list-item-subtitle>
+                    <v-list-item-subtitle v-html="notification.updatedAt"></v-list-item-subtitle>
                   </v-list-item-content>
-                  <v-list-item-icon :to="notification.route">
-                    <v-btn class="mx-1" fab dark color="primary">
-                      <v-icon dark>mdi-plus</v-icon>
-                    </v-btn>
+                  <v-list-item-icon>
+                    <router-link :to="notification.url">
+                      <v-btn class="mx-1" fab dark @click="linkNotifications(notification.url)" color="primary">
+                        <v-icon dark>mdi-plus</v-icon>
+                      </v-btn>
+                    </router-link>
                   </v-list-item-icon>
                 </v-list-item>
               </template>
@@ -90,7 +93,7 @@
             <v-list-item>
               <v-list-item-content>
                 <router-link to="/Notifications">
-                <v-list-item-title>Voir plus</v-list-item-title>
+                <v-list-item-title >Voir plus</v-list-item-title>
                 </router-link>
               </v-list-item-content>
             </v-list-item>
@@ -127,6 +130,7 @@
 import NotificationBell from 'vue-notification-bell'
 import {mapGetters} from "vuex";
 import axios from "axios";
+const _ = require('lodash')
 
 export default {
   components: {
@@ -161,10 +165,17 @@ export default {
     ...mapGetters('notifications', {
       notifications: 'notifications',
     }),
+    ordersSort: function () {
+      return _.orderBy(this.notifications, 'updatedAt', 'desc')
+    }
   },
   methods: {
     openNotifications() {
       this.$store.dispatch('notifications/SeenNotification', this.$session.get('user').id);
+    },
+    linkNotifications(url) {
+      this.$router.push({ path: url})
+      this.$router.go()
     },
     showLogRegisterModal() {
       this.$emit('showLogRegisterModal');

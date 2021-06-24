@@ -5,7 +5,7 @@
             :key="'Notification'"
             v-text="'Notification'"
         ></v-subheader>
-        <template v-for="(notification, index) in notifications">
+        <template v-for="(notification, index) in ordersSort">
           <v-divider
               :key="index"
               :inset="true"
@@ -18,9 +18,10 @@
             <v-list-item-content>
               <v-list-item-title v-html="notification.title"></v-list-item-title>
               <v-list-item-subtitle v-html="notification.description"></v-list-item-subtitle>
+              <v-list-item-subtitle v-html="notification.updatedAt"></v-list-item-subtitle>
             </v-list-item-content>
-            <v-list-item-icon :to="notification.route">
-              <v-btn class="mx-1" fab dark color="primary">
+            <v-list-item-icon :to="notification.url">
+              <v-btn class="mx-1" fab dark @click="linkNotifications(notification.url)" color="primary">
                 <v-icon dark>mdi-plus</v-icon>
               </v-btn>
             </v-list-item-icon>
@@ -32,6 +33,7 @@
 
 <script>
 import {mapGetters} from "vuex";
+const _ = require('lodash')
 
 export default {
   name: "Notification",
@@ -44,7 +46,16 @@ export default {
     ...mapGetters('notifications', {
       notifications: 'notifications',
     }),
+    ordersSort: function () {
+      return _.orderBy(this.notifications, 'updatedAt', 'desc')
+    }
   },
+  methods:{
+    linkNotifications(url) {
+      this.$router.push({ path: url})
+      this.$router.go()
+    },
+  }
 }
 </script>
 
