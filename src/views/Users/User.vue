@@ -53,7 +53,7 @@ name: "User",
       this.$router.push({name: 'EditUser', params: {id: this.$session.get('user').id}})
     },
     deleteUser() {
-      axios.put(`api/restaurant/delete/` + this.$session.get('user').id)
+      axios.put(`api/user/delete/` + this.$session.get('user').id)
           .then(() => {
             this.$session.destroy()
             this.$router.push({name: 'home'})

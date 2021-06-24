@@ -179,25 +179,28 @@ export default {
       this.$emit('hideLogRegisterModal');
     },
     createAccount() {
-      console.log('create')
       this.errorMessage = [];
       this.showLoader = true;
 
       if (this.ValidateEmail(this.user.email) === false) {
         this.errorMessage.push("Please provide a valid Email address");
       }
-      console.log(this.errorMessage)
       if (this.errorMessage.length === 0) {
         this.user.roleId = this.user.roleId.id
         this.$http
           .post(`http://localhost:3000/user-register`, this.user)
           .then(() => {
             this.showLoader = false;
+            this.$toast.open({
+              message: "l'utilisateur a bien été crée",
+              type: 'success'
+            });
           })
           .catch((error) => {
-            this.errorMessage.push(
-                error
-            );
+            this.$toast.open({
+              message: "Informations de création invalides!",
+              type: 'warning'
+            });
           });
       }
 

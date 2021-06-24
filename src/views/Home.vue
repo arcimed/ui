@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-btn @click="addRestaurant">
+    <v-btn @click="addRestaurant" v-if="this.$session.get('user').roleId === 2">
       Ajout de restaurant
     </v-btn>
     <div class="row">
