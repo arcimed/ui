@@ -78,11 +78,9 @@
                     <v-list-item-subtitle v-html="notification.updatedAt"></v-list-item-subtitle>
                   </v-list-item-content>
                   <v-list-item-icon>
-                    <router-link :to="notification.url">
                       <v-btn class="mx-1" fab dark @click="linkNotifications(notification.url)" color="primary">
                         <v-icon dark>mdi-plus</v-icon>
                       </v-btn>
-                    </router-link>
                   </v-list-item-icon>
                 </v-list-item>
               </template>
@@ -176,7 +174,6 @@ export default {
     },
     linkNotifications(url) {
       this.$router.push({ path: url})
-      this.$router.go()
     },
     showLogRegisterModal() {
       this.$emit('showLogRegisterModal');

@@ -50,7 +50,6 @@ export default {
   methods:{
     linkNotifications(url) {
       this.$router.push({ path: url})
-      this.$router.go()
     },
   }
 }
