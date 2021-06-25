@@ -5,14 +5,16 @@ const state = () => ({
     orders: [],
     restaurateurRestaurantsOrders: [],
     deliveryManOrders: [],
-    deliveryManOrdersToDeliver: []
+    deliveryManOrdersToDeliver: [],
+    deliveryOrder: {},
 })
 
 const getters = {
     orders: state => state.orders,
     restaurateurRestaurantsOrders:  state => state.restaurateurRestaurantsOrders,
     deliveryManOrders:  state => state.deliveryManOrders,
-    deliveryManOrdersToDeliver:  state => state.deliveryManOrdersToDeliver
+    deliveryManOrdersToDeliver:  state => state.deliveryManOrdersToDeliver,
+    deliveryOrder: state => state.deliveryOrder
 }
 
 const actions = {
@@ -38,6 +40,12 @@ const actions = {
         axios.get(`api/deliveryman/orders/` + deliveryManId)
             .then((response) => {
                 store.commit('deliveryManOrdersToDeliver', response.data.data)
+            }).catch()
+    },
+    setDeliveryOrder (store, orderId) {
+        axios.get(`api/order/` + orderId)
+            .then((response) => {
+                store.commit('setDeliveryOrder', response.data.data)
             }).catch()
     },
     changeStatusOrder (store, { restaurantId, orderId, status }) {
@@ -114,6 +122,9 @@ const mutations = {
     },
     setDeliveryManOrders (state, deliveryManOrders) {
         state.deliveryManOrders = deliveryManOrders;
+    },
+    setDeliveryOrder (state, deliveryOrder) {
+        state.deliveryOrder = deliveryOrder;
     },
     deliveryManOrdersToDeliver (state, deliveryManOrdersToDeliver) {
         state.deliveryManOrdersToDeliver = deliveryManOrdersToDeliver;

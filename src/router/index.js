@@ -117,6 +117,14 @@ const routes = [
     name: 'userManagement',
     component: () => import('../views/Commercial/Users.vue'),
   },
+  {
+    path: '/my-orders/deliverytracking/:orderId',
+    name: 'deliveryTracking',
+    component: () => import('../views/Users/DeliveryTracking.vue'),
+    props: (route) => ({
+      ...route.params
+    })
+  },
 ]
 
 const router = new VueRouter({

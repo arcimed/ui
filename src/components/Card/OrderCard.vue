@@ -69,6 +69,9 @@
         Payer
       </v-btn>
       <v-card-text v-else-if="order.ordersStatusId === statusOrders.payed"> En attente de la validation du restaurateur </v-card-text>
+      <v-btn v-else-if="order.ordersStatusId !== statusOrders.refused" outlined rounded text @click="deliveryTracking(order.id)">
+        Suivre la livraison
+      </v-btn>
       <stripe-checkout
           ref="checkoutRef"
           mode="payment"
@@ -162,6 +165,9 @@ export default {
     }
   },
   methods: {
+    deliveryTracking(orderId) {
+      this.$router.push({name: "deliveryTracking", params: {orderId: orderId}})
+    },
     calculteTotalPrice(order) {
       let totalPrice = 0;
 
