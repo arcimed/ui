@@ -83,6 +83,7 @@
 <script>
 export default {
   name: "CreateAccount",
+  props: ['referralCode', 'emailRef'],
   data() {
     return {
       dialog: true,
@@ -107,6 +108,7 @@ export default {
         verify: "",
         address:"",
         city: "",
+        referralUserId: "",
         roleId: "",
       },
       loginPassword: "",
@@ -187,24 +189,40 @@ export default {
       }
       if (this.errorMessage.length === 0) {
         this.user.roleId = this.user.roleId.id
-        this.$http
-          .post(`http://localhost:3000/user-register`, this.user)
-          .then(() => {
-            this.showLoader = false;
-            this.$toast.open({
-              message: "l'utilisateur a bien été crée",
-              type: 'success'
-            });
-          })
-          .catch((error) => {
-            this.$toast.open({
-              message: "Informations de création invalides!",
-              type: 'warning'
-            });
-          });
-      }
 
-      this.$emit('hideLogRegisterModal');
+        if (this.referralCode) {
+          this.$http
+              .get(`http://localhost:3000/user-register/getByReferralCode/` + String(this.referralCode))
+              .then(response => {
+                this.user.referralUserId = response.data.data.id;
+
+                this.$http
+                    .post(`http://localhost:3000/user-register`, this.user)
+                    .then(() => {
+                      this.showLoader = false;
+                      this.$router.push({name: 'Home'})
+                      this.$emit('hideLogRegisterModal');
+                    })
+                    .catch((error) => {
+                      console.log(error);
+                    });
+
+              }).catch((error) => {
+            console.log(error);
+          });
+        } else {
+          this.$http
+              .post(`http://localhost:3000/user-register`, this.user)
+              .then(() => {
+                this.showLoader = false;
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+
+          this.$emit('hideLogRegisterModal');
+        }
+      }
     },
 
     ValidateEmail(mail) {
@@ -215,5 +233,11 @@ export default {
       this.$emit('hideLogRegisterModal');
     }
   },
+  mounted() {
+    if(this.referralCode) {
+      this.tab = 1
+      this.user.email = this.emailRef
+    }
+  }
 };
 </script>

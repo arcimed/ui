@@ -33,6 +33,29 @@
           Delete
         </v-btn>
       </div>
+
+      <form @submit.prevent="sendEmail">
+        <input
+            type="email"
+            v-model="email"
+            name="email"
+            :rules="emailRules"
+            placeholder="Email"
+            required
+        >
+        <input type="hidden" name="referral_code" v-model="referral_code">
+        <input type="submit" value="Envoyer un lien de parrainage">
+      </form>
+
+      <v-data-table
+          :headers="headers"
+          :items="usersReferred"
+          item-key="name"
+          class="elevation-1"
+          :hide-default-footer="true"
+      >
+      </v-data-table>
+
     </v-row>
   </v-card>
 </template>
@@ -40,14 +63,42 @@
 <script>
 import {mdiDelete} from "@mdi/js";
 import axios from "axios";
+import emailjs from 'emailjs-com';
 
 export default {
-name: "User",
+  name: "User",
   data: () => ({
+    email: "",
+    referral_code: "",
+    emailRules: [
+      v => !!v || "Required",
+      v => /.+@.+\..+/.test(v) || "E-mail must be valid"
+    ],
     icons: {
       mdiDelete,
     },
+    usersReferred: []
   }),
+  computed: {
+    headers () {
+      return [
+        {
+          text: 'Email',
+          align: 'start',
+          value: 'email',
+        },
+        { text: 'Prénom', value: 'firstname' },
+        { text: 'Nom', value: 'lastname' }
+      ]
+    },
+  },
+  mounted() {
+    this.$http
+        .get(`/api/user/getUsersReferred/` + this.$session.get('user').id)
+        .then((response) => {
+          this.usersReferred = response.data.data;
+        }).catch(error => console.log(error))
+  },
   methods:{
     editUser() {
       this.$router.push({name: 'EditUser', params: {id: this.$session.get('user').id}})
@@ -60,6 +111,20 @@ name: "User",
             this.$router.go()
           }).catch()
 
+    },
+    sendEmail(e) {
+      this.referral_code = String("https://localhost:8080/?referralCode=" + this.$session.get('user').referralCode + "&email=" + this.email).replace(/\s/g, '');
+
+      setTimeout(() => {
+        try {
+          emailjs.sendForm('service_r98cb28', 'template_7pgishp', e.target, 'user_EdjSTCVobbokr2ansmIKU')
+
+        } catch(error) {
+          console.log({error})
+        }
+
+        this.email = ''
+      }, 500);
     }
   }
 }

@@ -2,7 +2,7 @@
   <v-app>
     <Navbar @showLogRegisterModal="logRegisterModal"/>
     <v-main>
-      <createAccount @hideLogRegisterModal="logRegisterModal" v-if="login"></createAccount>
+      <createAccount :referralCode="this.$route.query.referralCode" :emailRef="this.$route.query.email" @hideLogRegisterModal="logRegisterModal" v-if="login"></createAccount>
       <v-container>
         <v-row>
           <v-col class="ma-10">
@@ -45,6 +45,9 @@ export default Vue.extend({
     this.$http.defaults.headers.post['Content-Type'] = 'application/json';
   },
   mounted() {
+    if (this.$route.query.referralCode) {
+      this.login = true;
+    }
     this.$store.dispatch('restaurants/setRestaurants', this);
   }
 });
