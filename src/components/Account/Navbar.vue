@@ -4,7 +4,7 @@
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
 
       <v-toolbar-title @click="home">
-        <v-btn @click="openNotifications" text class="mr-4">
+        <v-btn text class="mr-4">
           <span :ripple="false" class="font-weight-light"> Cesi</span>
           <span>TonPlat</span>
         </v-btn>
