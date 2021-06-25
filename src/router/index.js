@@ -99,6 +99,11 @@ const routes = [
     name: 'Notifications',
     component: () => import('../views/Users/Notification.vue'),
   },
+  {
+    path: '/Statistiques',
+    name: 'Statistiques',
+    component: () => import('../views/Restaurants/Statistiques.vue'),
+  },
 ]
 
 const router = new VueRouter({

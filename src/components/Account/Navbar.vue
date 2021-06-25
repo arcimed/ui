@@ -139,6 +139,7 @@ export default {
       links: [
         { icon: 'mdi-home', text: 'Produits', route: '/' },
         { icon: 'mdi-cart', text: 'Panier', route: '/cart' },
+        { icon: 'mdi-chart-line', text: 'Statistiques', route: '/Statistiques' },
       ],
       snackbar: false,
       white: "white",
