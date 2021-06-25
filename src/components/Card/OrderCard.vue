@@ -81,8 +81,13 @@
     </v-card-actions>
     <v-card-actions v-else-if="isDeliveryMan">
       <div v-if="order.ordersStatusId === statusOrders.validate">
-        <v-btn outlined rounded text @click="setDeliveryManForOrder(order.Restaurant.id, order.id)" >
+        <v-btn outlined rounded text @click="setDeliveryManForOrder(order.id)" >
           Accepter & Lirver cette commande
+        </v-btn>
+      </div>
+      <div v-else-if="order.ordersStatusId === statusOrders.inDelivery">
+        <v-btn outlined rounded text @click="validateDelivery()" >
+          Valider la livraison
         </v-btn>
       </div>
     </v-card-actions>
@@ -173,7 +178,7 @@ export default {
       this.$store.dispatch('notifications/addCartChangeStatus', {order, status, userId})
     },
 
-    setDeliveryManForOrder(restaurantId, orderId) {
+    setDeliveryManForOrder(orderId) {
       let status = statusOrders.inDelivery;
       let order = this.order;
       let userId = this.$session.get('user').id;
@@ -181,6 +186,13 @@ export default {
 
       let username = this.$session.get('user').firstname;
       this.$store.dispatch('notifications/addDeliveryManAccept', { order, username })
+    },
+
+    validateDelivery() {
+      this.$store.dispatch('orders/setOrderDelivered', this.order.id)
+
+      let username = this.$session.get('user').firstname;
+      this.$store.dispatch('notifications/addOrderDelivered', { order, username })
     },
 
     async checkout(totalPriceCart, orderId) {

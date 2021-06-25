@@ -170,14 +170,13 @@ export default {
   },
   methods: {
     openNotifications() {
-      console.log(this.$route.fullPath)
       this.$store.dispatch('notifications/SeenNotification', this.$session.get('user').id);
       this.count = 0;
     },
     linkNotifications(url) {
-      if (this.$route.fullPath != url){
+      if (this.$route.fullPath !== url){
         this.$router.push({ path: url})
-      }else {
+      } else {
         this.$router.go()
       }
     },

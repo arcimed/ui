@@ -96,6 +96,22 @@ const actions = {
                 console.log(error);
             });
     },
+    addOrderDelivered(store, { order, username }) {
+        let notification = {
+            'title' : 'Votre commande ' + order.id + ' a été livrée',
+            'description' : 'Votre commande ' + order.id + ' chez ' + order.Restaurant.name + ' a été livrée par ' + username,
+            'userId' : order.userId,
+            'url' : '/my-orders',
+        }
+
+        axios.post(`api/notifications/create`, notification)
+            .then((response) => {
+                store.commit('addNotification', response.data.data)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    },
     SeenNotification(store, userId) {
         axios.post(`api/notifications/user/seen/` + userId)
             .then((response) => {

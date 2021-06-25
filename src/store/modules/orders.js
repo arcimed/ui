@@ -49,13 +49,22 @@ const actions = {
             }
         }).catch()
     },
-    setDeliveryManForOrder (store, { orderId, userId, status }) {
+    setDeliveryManForOrder (store, { orderId, userId }) {
         axios.put(`api/order/edit/` + orderId, {
-            ordersStatusId: status,
+            ordersStatusId: 5,
             deliveryUserId: userId
         }).then((response) => {
             if (response.data.result) {
                 store.commit('setDeliveryManForOrder', orderId)
+            }
+        }).catch()
+    },
+    setOrderDelivered (store, orderId) {
+        axios.put(`api/order/edit/` + orderId, {
+            ordersStatusId: 6
+        }).then((response) => {
+            if (response.data.result) {
+                store.commit('setOrderDelivered', orderId)
             }
         }).catch()
     },
@@ -83,6 +92,9 @@ const mutations = {
         order.ordersStatusId = statusOrders.inDelivery;
         state.deliveryManOrdersToDeliver.push(order)
         state.deliveryManOrders.splice(state.deliveryManOrders.findIndex(order => order.id === parseInt(orderId)), 1);
+    },
+    setOrderDelivered (state, orderId) {
+        state.deliveryManOrdersToDeliver.splice(state.deliveryManOrders.findIndex(order => order.id === parseInt(orderId)), 1);
     },
     setRestaurateurRestaurantsOrders (state, dataRestaurantsOrders) {
         state.restaurateurRestaurantsOrders = dataRestaurantsOrders;
