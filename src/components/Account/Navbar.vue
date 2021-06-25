@@ -140,6 +140,7 @@ export default {
         { icon: 'mdi-home', text: 'Produits', route: '/' },
         { icon: 'mdi-cart', text: 'Panier', route: '/cart' },
         { icon: 'mdi-chart-line', text: 'Statistiques', route: '/Statistiques/' + this.$session.get('user').id  },
+        { icon: 'mdi-account-multiple-outline', text: 'UserManagement', route: '/userManagement' },
       ],
       snackbar: false,
       white: "white",

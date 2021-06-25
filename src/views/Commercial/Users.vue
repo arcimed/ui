@@ -21,6 +21,7 @@
           <td class="align-center">{{ row.item.firstname }}</td>
           <td>{{ row.item.lastname }}</td>
           <td>{{ row.item.email }}</td>
+          <td>{{ row.item.Role.name }}</td>
           <td>
             <v-icon @click="deleteArticle(row.item.id)">mdi-delete</v-icon>
           </td>
@@ -54,6 +55,7 @@ name: "Users",
         {text: 'Nom', value: 'lastname'},
         {text: 'Prénom', value: 'firstname'},
         {text: 'Email', value: 'email'},
+        {text: 'Role', value: 'role'},
         {text: 'Supprimer', value: 'refuser'},
         {text: 'Suspendre', value: 'suspendre'},
         {text: 'Statistiques', value: 'statistiques'},
