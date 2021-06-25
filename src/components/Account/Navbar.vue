@@ -43,8 +43,6 @@
           </v-menu>
         </div>
 
-
-
       <div class="text-center">
         <v-menu offset-y>
           <template v-slot:activator="{ on, attrs }">
@@ -209,7 +207,17 @@ export default {
         this.$router.push({name: 'Home'});
       }
     }
-  }
+  },
+  sockets: {
+    connect: function () {
+      console.log('socket connected')
+    },
+    newNotification: function(notification){
+      if (this.$session.get("user").id === parseInt(notification.userId)) {
+        this.count += 1;
+      }
+    }
+  },
 }
 
 </script>

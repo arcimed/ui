@@ -6,6 +6,17 @@ import vuetify from './plugins/vuetify'
 import Axios from 'axios'
 import VueToast from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-sugar.css';
+import VueSocketIO from 'vue-socket.io'
+import SocketIO from 'socket.io-client'
+
+/* Establish Connection */
+const socketConnection = SocketIO('http://localhost:3000');
+
+Vue.use(new VueSocketIO({
+      debug: true,
+      connection:socketConnection
+    })
+);
 
 Axios.defaults.baseURL = 'http://localhost:3000/'
 Vue.prototype.$http = Axios;
