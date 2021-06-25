@@ -54,12 +54,18 @@
           Refuser
         </v-btn>
       </div>
+      <div v-else-if="order.ordersStatusId === statusOrders.created">
+        <v-card-text> En cours de paiement par le client. </v-card-text>
+      </div>
+      <div v-else-if="order.ordersStatusId === statusOrders.validate">
+        <v-card-text> Vous avez validé cette commande. </v-card-text>
+      </div>
+      <div v-else-if="order.ordersStatusId === statusOrders.refused">
+        <v-card-text> Vous avez refusé cette commande. </v-card-text>
+      </div>
     </v-card-actions>
-    <div v-else>
-      <v-card-text> En cours de paiement par le client. </v-card-text>
-    </div>
-    <v-card-actions v-else>
-      <v-btn v-if="order.ordersStatusId !== statusOrders.payed" outlined rounded text @click="checkout(calculteTotalPrice(order), order.id)">
+    <v-card-actions v-else-if="isUser">
+      <v-btn v-if="order.ordersStatusId === statusOrders.created" outlined rounded text @click="checkout(calculteTotalPrice(order), order.id)">
         Payer
       </v-btn>
       <stripe-checkout
@@ -72,6 +78,13 @@
           :cancel-url="cancelURL"
           @loading="v => loading = v"
       />
+    </v-card-actions>
+    <v-card-actions v-else-if="isDeliveryMan">
+      <div v-if="order.ordersStatusId === statusOrders.validate">
+        <v-btn outlined rounded text @click="setDeliveryManForOrder(order.Restaurant.id, order.id)" >
+          Accepter & Lirver cette commande
+        </v-btn>
+      </div>
     </v-card-actions>
   </v-card>
 </template>
@@ -90,7 +103,9 @@ export default {
     order: {
       required: true
     },
-    isRestaurateur: {}
+    isUser: {},
+    isRestaurateur: {},
+    isDeliveryMan: {}
   },
   data () {
     return {
@@ -156,6 +171,16 @@ export default {
       let order = this.order;
       let userId = this.$session.get('user').id;
       this.$store.dispatch('notifications/addCartChangeStatus', {order, status, userId})
+    },
+
+    setDeliveryManForOrder(restaurantId, orderId) {
+      let status = statusOrders.inDelivery;
+      let order = this.order;
+      let userId = this.$session.get('user').id;
+      this.$store.dispatch('orders/setDeliveryManForOrder', { orderId, userId, status })
+
+      let username = this.$session.get('user').firstname;
+      this.$store.dispatch('notifications/addDeliveryManAccept', { order, username })
     },
 
     async checkout(totalPriceCart, orderId) {

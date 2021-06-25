@@ -12,22 +12,22 @@ const getStatusOrders = function (idStatus) {
 
     switch (idStatus) {
         case 1:
-            stringStatus = 'Créée'
+            stringStatus = 'créée'
             break;
         case 2:
-            stringStatus = 'Payée'
+            stringStatus = 'payée'
             break;
         case 3:
-            stringStatus = 'Validée'
+            stringStatus = 'validée'
             break;
         case 4:
-            stringStatus = 'Refusée'
+            stringStatus = 'refusée'
             break;
         case 5:
-            stringStatus = 'En livraison'
+            stringStatus = 'en livraison'
             break;
         case 6:
-            stringStatus = 'Livrée'
+            stringStatus = 'livrée'
             break;
     }
 

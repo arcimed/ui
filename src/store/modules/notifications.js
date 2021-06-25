@@ -48,7 +48,7 @@ const actions = {
     },
     addCartPayed(store, { order , userName }) {
         let notification = {
-            'title' : 'Commande' + order.id + ' payé par le client',
+            'title' : 'Commande ' + order.id + ' payé par le client',
             'description' : 'Commande payée par ' + userName + '.',
             'userId' : order.Restaurant.restaurateurId,
             'url' : '/my-restaurant-orders',
@@ -63,13 +63,28 @@ const actions = {
             });
     },
     addCartChangeStatus(store, {order, status, userId}) {
-
         let strStatus = getStatusOrders(status)
 
         let notification = {
             'title' : 'Votre commande ' + order.id + ' a été ' + strStatus,
             'description' : 'Votre commande ' + order.id + ' chez ' + order.Restaurant.name + ' a été ' + strStatus,
             'userId' : userId,
+            'url' : '/my-orders',
+        }
+
+        axios.post(`api/notifications/create`, notification)
+            .then((response) => {
+                store.commit('addNotification', response.data.data)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    },
+    addDeliveryManAccept(store, { order, username }) {
+        let notification = {
+            'title' : 'Un livreur a accepté votre commande ' + order.id,
+            'description' : 'Votre commande ' + order.id + ' chez ' + order.Restaurant.name + ' va vous être livrée par ' + username,
+            'userId' : order.userId,
             'url' : '/my-orders',
         }
 
@@ -98,7 +113,6 @@ const mutations = {
     addNotification(state, notification) {
         state.notifications.push(notification);
         state.numberNotifications += 1;
-        console.log(state.notifications)
     },
     seenNotification(state, response) {
         state.notifications.forEach(notification => notification.hasBeenSeen = true);
