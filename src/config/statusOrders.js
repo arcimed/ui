@@ -3,8 +3,9 @@ const statusOrders = {
     payed : 2,
     validate : 3,
     refused: 4,
-    inDelivery: 5,
-    delivered: 6
+    validateByDelivery: 5,
+    inDelivery: 6,
+    delivered: 7
 }
 
 const getStatusOrders = function (idStatus) {
@@ -24,9 +25,12 @@ const getStatusOrders = function (idStatus) {
             stringStatus = 'refusée'
             break;
         case 5:
-            stringStatus = 'en livraison'
+            stringStatus = 'acceptée par le livreur'
             break;
         case 6:
+            stringStatus = 'en livraison'
+            break;
+        case 7:
             stringStatus = 'livrée'
             break;
     }

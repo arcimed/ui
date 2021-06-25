@@ -51,7 +51,7 @@ const actions = {
     },
     setDeliveryManForOrder (store, { orderId, userId }) {
         axios.put(`api/order/edit/` + orderId, {
-            ordersStatusId: 5,
+            ordersStatusId: statusOrders.validateByDelivery,
             deliveryUserId: userId
         }).then((response) => {
             if (response.data.result) {
@@ -59,9 +59,18 @@ const actions = {
             }
         }).catch()
     },
-    setOrderDelivered (store, orderId) {
+    setRecoverByDeliveryMan (store, orderId) {
         axios.put(`api/order/edit/` + orderId, {
-            ordersStatusId: 6
+            ordersStatusId: statusOrders.inDelivery
+        }).then((response) => {
+            if (response.data.result) {
+                store.commit('setOrderInDelivery', orderId)
+            }
+        }).catch()
+    },
+    setrderDelivered (store, orderId) {
+        axios.put(`api/order/edit/` + orderId, {
+            ordersStatusId: statusOrders.delivered
         }).then((response) => {
             if (response.data.result) {
                 store.commit('setOrderDelivered', orderId)
@@ -89,9 +98,13 @@ const mutations = {
     },
     setDeliveryManForOrder (state, orderId) {
         let order = state.deliveryManOrders.find(order => order.id === parseInt(orderId));
-        order.ordersStatusId = statusOrders.inDelivery;
+        order.ordersStatusId = statusOrders.validateByDelivery;
         state.deliveryManOrdersToDeliver.push(order)
         state.deliveryManOrders.splice(state.deliveryManOrders.findIndex(order => order.id === parseInt(orderId)), 1);
+    },
+    setOrderInDelivery (state, orderId) {
+        let order = state.deliveryManOrdersToDeliver.find(order => order.id === parseInt(orderId));
+        order.ordersStatusId = statusOrders.inDelivery;
     },
     setOrderDelivered (state, orderId) {
         state.deliveryManOrdersToDeliver.splice(state.deliveryManOrders.findIndex(order => order.id === parseInt(orderId)), 1);

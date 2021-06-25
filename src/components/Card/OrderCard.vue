@@ -68,6 +68,7 @@
       <v-btn v-if="order.ordersStatusId === statusOrders.created" outlined rounded text @click="checkout(calculteTotalPrice(order), order.id)">
         Payer
       </v-btn>
+      <v-card-text v-else-if="order.ordersStatusId === statusOrders.payed"> En attente de la validation du restaurateur </v-card-text>
       <stripe-checkout
           ref="checkoutRef"
           mode="payment"
@@ -82,11 +83,16 @@
     <v-card-actions v-else-if="isDeliveryMan">
       <div v-if="order.ordersStatusId === statusOrders.validate">
         <v-btn outlined rounded text @click="setDeliveryManForOrder(order.id)" >
-          Accepter & Lirver cette commande
+          Accepter cette commande
+        </v-btn>
+      </div>
+      <div v-else-if="order.ordersStatusId === statusOrders.validateByDelivery">
+        <v-btn outlined rounded text @click="setRecoverByDeliveryMan()" >
+          Valider la récupération de la commande
         </v-btn>
       </div>
       <div v-else-if="order.ordersStatusId === statusOrders.inDelivery">
-        <v-btn outlined rounded text @click="validateDelivery()" >
+        <v-btn outlined rounded text @click="setOrderDelivered()" >
           Valider la livraison
         </v-btn>
       </div>
@@ -188,9 +194,18 @@ export default {
       this.$store.dispatch('notifications/addDeliveryManAccept', { order, username })
     },
 
-    validateDelivery() {
-      this.$store.dispatch('orders/setOrderDelivered', this.order.id)
+    setRecoverByDeliveryMan() {
+      this.$store.dispatch('orders/setRecoverByDeliveryMan', this.order.id)
 
+      let order = this.order;
+      let username = this.$session.get('user').firstname;
+      this.$store.dispatch('notifications/addOrderInDelivery', { order, username })
+    },
+
+    setOrderDelivered() {
+      this.$store.dispatch('orders/setrderDelivered', this.order.id)
+
+      let order = this.order;
       let username = this.$session.get('user').firstname;
       this.$store.dispatch('notifications/addOrderDelivered', { order, username })
     },
