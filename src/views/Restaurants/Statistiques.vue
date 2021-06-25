@@ -20,8 +20,13 @@ name: "Statistiques",
       temps: [],
     }
   },
+  props: {
+    id: {
+      required: true
+    }
+  },
   mounted() {
-    axios.get(`api/all/orders/restaurateur/` + this.$session.get('user').id)
+    axios.get(`api/all/orders/restaurateur/` + this.id)
         .then((response) => {
           this.temps = response.data.data
         })

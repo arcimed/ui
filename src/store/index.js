@@ -6,6 +6,7 @@ import menus from './modules/menus'
 import orders from './modules/orders'
 import cart from './modules/cart'
 import notifications from './modules/notifications'
+import userManagement from './modules/userManagement'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -15,6 +16,7 @@ export default new Vuex.Store({
     menus,
     orders,
     cart,
-    notifications
+    notifications,
+    userManagement
   },
 })

@@ -105,9 +105,17 @@ const routes = [
     component: () => import('../views/Users/Notification.vue'),
   },
   {
-    path: '/Statistiques',
+    path: '/Statistiques/:id',
     name: 'Statistiques',
     component: () => import('../views/Restaurants/Statistiques.vue'),
+    props: (route) => ({
+      ...route.params
+    })
+  },
+  {
+    path: '/userManagement',
+    name: 'userManagement',
+    component: () => import('../views/Commercial/Users.vue'),
   },
 ]
 
