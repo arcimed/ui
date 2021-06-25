@@ -52,7 +52,6 @@
                   :count="count"
                   :iconColor="white"
                   :size="size"
-                  :ding="true"
                   :animated="true"
               />
             </v-btn>
