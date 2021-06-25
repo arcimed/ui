@@ -2,7 +2,6 @@
   <v-card class="mx-auto" max-width="1000" tile>
     <v-img height="200" src="https://cdn.vuetifyjs.com/images/cards/server-room.jpg"></v-img>
     <v-row style="margin:2.5%;position:absolute; top: 130px">
-
       <v-list-item>
         <v-list-item-avatar size="100">
           <img
@@ -113,7 +112,8 @@ export default {
 
     },
     sendEmail(e) {
-      this.referral_code = String("https://localhost:8080/?referralCode=" + this.$session.get('user').referralCode + "&email=" + this.email).replace(/\s/g, '');
+      this.referral_code = String("https://localhost:8080/?referralCode=" + this.$session.get('user').referralCode
+          + "&email=" + this.email + "&role=" + this.$session.get('user').roleId).replace(/\s/g, '');
 
       setTimeout(() => {
         try {

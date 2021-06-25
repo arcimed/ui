@@ -59,6 +59,7 @@
                         persistent-hint
                         return-object
                         single-line
+                        :disabled="this.role !== undefined"
                     ></v-select>
                   </v-col>
                   <v-col cols="12">
@@ -83,7 +84,7 @@
 <script>
 export default {
   name: "CreateAccount",
-  props: ['referralCode', 'emailRef'],
+  props: ['referralCode', 'emailRef', 'role'],
   data() {
     return {
       dialog: true,
@@ -195,6 +196,7 @@ export default {
               .get(`http://localhost:3000/user-register/getByReferralCode/` + String(this.referralCode))
               .then(response => {
                 this.user.referralUserId = response.data.data.id;
+                this.user.roleId = parseInt(this.role)
 
                 this.$http
                     .post(`http://localhost:3000/user-register`, this.user)
@@ -234,7 +236,8 @@ export default {
     }
   },
   mounted() {
-    if(this.referralCode) {
+    if (this.referralCode) {
+      this.user.roleId = parseInt(this.role)
       this.tab = 1
       this.user.email = this.emailRef
     }

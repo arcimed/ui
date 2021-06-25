@@ -2,7 +2,14 @@
   <v-app>
     <Navbar @showLogRegisterModal="logRegisterModal"/>
     <v-main>
-      <createAccount :referralCode="this.$route.query.referralCode" :emailRef="this.$route.query.email" @hideLogRegisterModal="logRegisterModal" v-if="login"></createAccount>
+      <createAccount
+          :referralCode="this.$route.query.referralCode"
+          :emailRef="this.$route.query.email"
+          :role="this.$route.query.role"
+          @hideLogRegisterModal="logRegisterModal"
+          v-if="login"
+      >
+      </createAccount>
       <v-container>
         <v-row>
           <v-col class="ma-10">
