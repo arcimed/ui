@@ -46,10 +46,10 @@ const actions = {
         })
 
     },
-    addCartPayed(store, { order , userName }) {
+    addCartPayed(store, { order , username }) {
         let notification = {
             'title' : 'Commande ' + order.id + ' payé par le client',
-            'description' : 'Commande payée par ' + userName + '.',
+            'description' : 'Commande payée par ' + username + '.',
             'userId' : order.Restaurant.restaurateurId,
             'url' : '/my-restaurant-orders',
         }
