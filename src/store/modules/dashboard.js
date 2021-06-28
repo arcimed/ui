@@ -22,6 +22,7 @@ const actions = {
                 let tempValidateByDelivery = 0
                 let tempInDelivery = 0
                 let tempDelivered = 0
+                let tempCa = 0
 
                 response.data.data.forEach((order, index) => {
                     switch (order.ordersStatusId) {
@@ -47,29 +48,29 @@ const actions = {
                             tempDelivered++
                             break
                     }
-                    // order.Articles.forEach((article, index) => {
-                    //     tempDelivered += article.price
-                    // })
-                    // order.Menus.forEach((menu, index) => {
-                    //     tempDelivered += menu.price
-                    // })
+                    order.Articles.forEach((article, index) => {
+                        if (order.ordersStatusId !==  statusOrders.created && order.ordersStatusId !==  statusOrders.delivered) {
+                            tempCa += (article.price * article.OrdersArticles.quantity)
+                        }
+                    })
+                    order.Menus.forEach((menu, index) => {
+                        if (order.ordersStatusId !==  statusOrders.created && order.ordersStatusId !==  statusOrders.delivered) {
+                            tempCa += (menu.price * menu.OrdersMenus.quantity)
+                        }
+                    })
                 })
-
-                // let price = {name: 'Revenue du restaurant', janvier: '0€', fevrier: '0€', mars: '0€', avril: '0€', mai: '0€', juin: '0€', juillet: tempDelivered+'€'}
-                // let donne = {name: 'Nombre de commande', cree: tempCreated, livraison: tempRefused, livrer: tempInDelivery, refuser: tempValidated, valider: tempPayed}
-                // this.stats.push(donne)
-                // this.priceCount.push(price)
 
                 const ordersDashboard = {tempCreated, tempPayed, tempValidated, tempRefused, tempValidateByDelivery, tempInDelivery, tempDelivered};
 
-                store.commit('setOrdersDashboard', ordersDashboard)
+                store.commit('setOrdersDashboard', {ordersDashboard, tempCa})
             }).catch()
     },
 }
 
 const mutations = {
-    setOrdersDashboard (state, ordersDashboard) {
+    setOrdersDashboard (state, {ordersDashboard, tempCa}) {
         state.ordersDashboard = ordersDashboard;
+        state.ca = tempCa;
     },
 }
 

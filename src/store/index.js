@@ -8,6 +8,7 @@ import cart from './modules/cart'
 import notifications from './modules/notifications'
 import userManagement from './modules/userManagement'
 import composant from './modules/composant'
+import dashboard from './modules/dashboard'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -19,6 +20,7 @@ export default new Vuex.Store({
     cart,
     notifications,
     userManagement,
-    composant
+    composant,
+    dashboard
   },
 })
