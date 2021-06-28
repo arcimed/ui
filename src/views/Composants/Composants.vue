@@ -14,13 +14,13 @@
           <td class="align-center">{{ row.item.name }}</td>
           <td class="align-center">{{ row.item.description }}</td>
           <td>
-            <v-icon @click="Download(row.item.id)">mdi-download</v-icon>
+            <v-icon @click="download(row.item.name)">mdi-download</v-icon>
           </td>
           <td>
-            <v-icon @click="editComposant(row.item.id)">mdi-square-edit-outline</v-icon>
+            <v-icon @click="editComposant(row.item._id)">mdi-square-edit-outline</v-icon>
           </td>
           <td>
-            <v-icon @click="deleteArticle(row.item.id)">mdi-delete</v-icon>
+            <v-icon @click="deleteComposant(row.item._id)">mdi-delete</v-icon>
           </td>
         </tr>
       </template>
@@ -30,6 +30,7 @@
 
 <script>
 import {mapGetters} from "vuex";
+import axios from "axios";
 const {statusRoles} = require('@/config/statusRoles');
 
 export default {
@@ -60,10 +61,18 @@ name: "Composants",
     this.$store.dispatch('composant/setComposants');
   },
   methods: {
-    deleteArticle(composantId) {
+    deleteComposant(composantId) {
       this.$store.dispatch('composant/deleteComposants', composantId)
     },
-    download(composantId) {
+    download(composantName) {
+      let message = this.$session.get('user').firstname + ' ' + this.$session.get('user').lastname + ' a téléchargé le composant : ' + composantName
+      axios.post(`api/component/download`, {message: message})
+          .then((response) => {
+            //popup
+          })
+          .catch((error) => {
+            console.log(error);
+          });
 
     },
     editComposant(composantId) {

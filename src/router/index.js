@@ -216,9 +216,30 @@ const routes = [
     }
   },
   {
+    path: '/EditComposant/:id',
+    name: 'EditComposant',
+    component: () => import('../views/Composants/EditComposant.vue'),
+    props: (route) => ({
+      ...route.params
+    }),
+    meta: {
+      requiresAuth: true,
+      is_Technique: true
+    }
+  },
+  {
     path: '/composants',
     name: 'composants',
     component: () => import('../views/Composants/Composants.vue'),
+    meta: {
+      requiresAuth: true,
+      is_Technique: true
+    }
+  },
+  {
+    path: '/composantsLog',
+    name: 'composantsLog',
+    component: () => import('../views/Composants/ComposantLog.vue'),
     meta: {
       requiresAuth: true,
       is_Technique: true

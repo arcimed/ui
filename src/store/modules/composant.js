@@ -26,13 +26,13 @@ const actions = {
             });
     },
     deleteComposants: (store, composantId) => {
-        axios.put(`api/article/delete/` + composantId)
+        axios.delete(`api/component/delete/` + composantId)
             .then((response) => {
-
                 store.commit('deleteComposants', composantId)
             }).catch()
     },
     editComposants: (store, {composant, idComposant}) => {
+        console.log(idComposant)
         axios.put(`api/component/edit/` + idComposant, composant)
             .then(() => {
                 store.commit('editComposants', {composant, idComposant})
@@ -50,13 +50,12 @@ const mutations = {
         state.composants.push(composant)
     },
     deleteComposants: (state, composantId) => {
-        state.composants.splice(state.composants.findIndex(composant => parseInt(composant.id) === composantId), 1)
+        state.composants.splice(state.composants.findIndex(composant => composant._id === composantId), 1)
     },
     editComposants(state, {composant, idComposant}) {
-        let stateId = state.composants.findIndex(composant => parseInt(composant.id) === idComposant);
+        let stateId = state.composants.findIndex(composant => composant._id === idComposant);
         state.composants[stateId].name = composant.name;
-        state.composants[stateId].price = composant.price;
-        state.composants[stateId].typesArticlesId = composant.typesArticlesId;
+        state.composants[stateId].description = composant.description;
     },
 }
 

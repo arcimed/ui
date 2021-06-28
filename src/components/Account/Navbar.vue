@@ -173,8 +173,10 @@ export default {
         this.links.push({ icon: 'mdi-account-multiple-outline', text: 'UserManagement', route: '/userManagement' })
         break
       case statusRoles.Technique:
-        this.links.push({ icon: 'mdi-chart-line', text: 'log de connexion', route: '/connectionLog' })
+        this.links.push({ icon: 'mdi-history', text: 'log de connexion', route: '/connectionLog' })
         this.links.push({ icon: 'mdi-view-compact', text: 'Composants', route: '/composants' })
+        this.links.push({ icon: 'mdi-history', text: 'Composants', route: '/composantsLog' })
+
 
         break
       case statusRoles.Admin:
@@ -183,8 +185,9 @@ export default {
         this.links.push({ icon: 'mdi-order-bool-ascending-variant', text: 'MyRestaurantOrders', route: '/my-restaurant-orders'})
         this.links.push({ icon: 'mdi-truck-delivery', text: 'Order to be delivered', route: '/orders-to-be-delivered'})
         this.links.push({ icon: 'mdi-account-multiple-outline', text: 'UserManagement', route: '/userManagement' })
-        this.links.push({ icon: 'mdi-chart-line', text: 'log de connexion', route: '/connectionLog' })
+        this.links.push({ icon: 'mdi-history', text: 'log de connexion', route: '/connectionLog' })
         this.links.push({ icon: 'mdi-view-compact', text: 'Composants', route: '/composants' })
+        this.links.push({ icon: 'mdi-history', text: 'log de téléchargement de composants', route: '/composantsLog' })
         break
     }
   },
