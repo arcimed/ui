@@ -2,7 +2,7 @@ import axios from "axios";
 import {statusOrders} from "@/config/statusOrders";
 
 const state = () => ({
-    ordersDashboard: {},
+    ordersDashboard: [],
     ca: 0
 })
 
@@ -60,9 +60,9 @@ const actions = {
                     })
                 })
 
-                const ordersDashboard = {tempCreated, tempPayed, tempValidated, tempRefused, tempValidateByDelivery, tempInDelivery, tempDelivered};
+                const ordersDashboard = [{name: 'créée(s)', data: tempCreated}, {name: 'payée(s)', data:tempPayed}, {name: 'validée(s)', data:tempValidated}, {name: 'refusée(s)', data:tempRefused}, {name: 'validée(s) par le livreur', data:tempValidateByDelivery}, {name: 'en livraison', data:tempInDelivery}, {name: 'livrée(s)', data:tempDelivered}, {name: "Chiffre d'affaire actuel", data:tempCa.toFixed(2) + ' €'}];
 
-                store.commit('setOrdersDashboard', {ordersDashboard, tempCa})
+                store.commit('setOrdersDashboard', {ordersDashboard})
             }).catch()
     },
 }

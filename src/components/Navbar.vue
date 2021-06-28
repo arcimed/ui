@@ -151,6 +151,7 @@ export default {
         break
       case statusRoles.Commercial:
         this.links.push({ icon: 'mdi-account-multiple-outline', text: 'UserManagement', route: '/userManagement' })
+        this.links.push({ icon: 'mdi-view-compact', text: 'Dashboard', route: '/dashboard' })
         break
       case statusRoles.Technique:
         this.links.push({ icon: 'mdi-history', text: 'log de connexion', route: '/connectionLog' })
@@ -162,6 +163,7 @@ export default {
       case statusRoles.Admin:
         this.links.push({ icon: 'mdi-order-alphabetical-ascending', text: 'mes commandes', route: '/my-orders'})
         this.links.push({ icon: 'mdi-chart-line', text: 'Statistiques', route: '/Statistiques/' + this.$session.get('user').id  })
+        this.links.push({ icon: 'mdi-view-compact', text: 'Dashboard', route: '/dashboard' })
         this.links.push({ icon: 'mdi-order-bool-ascending-variant', text: 'MyRestaurantOrders', route: '/my-restaurant-orders'})
         this.links.push({ icon: 'mdi-truck-delivery', text: 'Order to be delivered', route: '/orders-to-be-delivered'})
         this.links.push({ icon: 'mdi-account-multiple-outline', text: 'UserManagement', route: '/userManagement' })

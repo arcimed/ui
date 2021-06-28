@@ -1,21 +1,38 @@
 <template>
   <div>
-    {{users}}
+    <p class="display-3">Dashboard des commandes</p>
+    <br>
+    <div class="row">
+      <div v-for=" orderDashboard in ordersDashboard" :key="orderDashboard.name">
+          <DashboardCard :orderDashboard="orderDashboard"></DashboardCard>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import {mapGetters} from "vuex";
+import DashboardCard from "../../components/Card/DashboardCard";
 
 export default {
   name: "Dashboard",
+  components: {DashboardCard},
   data() {
     return {
     }
   },
+  sockets: {
+    connect: function () {
+      console.log('socket connected')
+    },
+    newDashboardData: function() {
+      this.$store.dispatch('dashboard/setOrdersDashboard');
+    }
+  },
   computed: {
     ...mapGetters('dashboard', {
-      users: 'ordersDashboard',
+      ordersDashboard: 'ordersDashboard',
+      ca: 'ca',
     }),
   },
   mounted() {
