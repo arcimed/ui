@@ -266,28 +266,24 @@ router.beforeEach((to, from, next) => {
       let userRole = JSON.parse(router.app.$session.get('user').roleId)
       if (to.matched.some(record => record.meta.is_restaurateur)) {
         if (userRole === 2 || userRole === 7) {
-          console.log('resto')
           next()
         } else {
           next({name: 'Home'})
         }
       } else if (to.matched.some(record => record.meta.is_livreur)) {
         if (userRole === 3 || userRole === 7) {
-          console.log('livreur')
           next()
         } else {
           next({name: 'Home'})
         }
       } else if (to.matched.some(record => record.meta.is_developpeur)) {
         if (userRole === 4 || userRole === 7) {
-          console.log('develper')
           next()
         } else {
           next({name: 'Home'})
         }
       } else if (to.matched.some(record => record.meta.is_commercial)) {
         if (userRole === 5 || userRole === 7) {
-          console.log('commerciale')
           next()
         } else {
           console.log('home')
@@ -295,7 +291,6 @@ router.beforeEach((to, from, next) => {
         }
       } else if (to.matched.some(record => record.meta.is_Technique)) {
         if (userRole === 6 || userRole === 7) {
-          console.log('technique')
           next()
         } else {
           next({name: 'Home'})
