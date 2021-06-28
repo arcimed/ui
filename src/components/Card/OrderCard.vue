@@ -20,6 +20,7 @@
           <td class="align-center">{{ row.item.name }}</td>
           <td>{{ row.item.TypesArticle.name }}</td>
           <td>{{ row.item.price.toFixed(2) }}</td>
+          <td>{{ row.item.OrdersArticles.quantity }}</td>
         </tr>
       </template>
     </v-data-table>
@@ -35,6 +36,7 @@
         <tr>
           <td class="align-center">{{ row.item.name }}</td>
           <td>{{ row.item.price.toFixed(2) }}</td>
+          <td>{{ row.item.OrdersMenus.quantity }}</td>
         </tr>
       </template>
     </v-data-table>
@@ -144,6 +146,7 @@ export default {
         },
         { text: 'Type' },
         { text: 'Prix' },
+        { text: 'Quantité' },
       ],
       headersMenus: [
         {
@@ -152,6 +155,7 @@ export default {
           value: 'name',
         },
         { text: 'Prix' },
+        { text: 'Quantité' },
       ],
       configReq: {
         headers: {
@@ -172,11 +176,11 @@ export default {
       let totalPrice = 0;
 
       order.Articles.forEach(article => {
-        totalPrice += article.price;
+        totalPrice += (article.price * article.OrdersArticles.quantity);
       })
 
       order.Menus.forEach(menu => {
-        totalPrice += menu.price;
+        totalPrice += (menu.price * menu.OrdersMenus.quantity);
       })
 
       return totalPrice;
@@ -255,6 +259,9 @@ export default {
             return result;
           }).catch(error => {return false})
     }
+  },
+  mounted() {
+    console.log(this.order)
   }
 }
 

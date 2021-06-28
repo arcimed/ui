@@ -20,11 +20,12 @@
           >
             <template v-slot:item="row">
               <tr>
-                <td class="align-center">{{ row.item.name }}</td>
-                <td>{{ row.item.TypesArticle.id }}</td>
-                <td>{{ row.item.price.toFixed(2) }}</td>
+                <td class="align-center">{{ row.item.article.name }}</td>
+                <td>{{ row.item.article.TypesArticle.id }}</td>
+                <td>{{ row.item.article.price.toFixed(2) }}</td>
+                <td>{{ row.item.quantity }}</td>
                 <td>
-                  <v-icon @click="deleteArticle(restaurantCart.restaurant.id, row.item.id)">mdi-delete</v-icon>
+                  <v-icon @click="deleteArticle(restaurantCart.restaurant.id, row.item.article.id)">mdi-delete</v-icon>
                 </td>
               </tr>
             </template>
@@ -39,10 +40,11 @@
           >
             <template v-slot:item="row">
               <tr>
-                <td class="align-center">{{ row.item.name }}</td>
-                <td>{{ row.item.price.toFixed(2) }}</td>
+                <td class="align-center">{{ row.item.menu.name }}</td>
+                <td>{{ row.item.menu.price.toFixed(2) }}</td>
+                <td>{{ row.item.quantity }}</td>
                 <td>
-                  <v-icon @click="deleteMenu(restaurantCart.restaurant.id, row.item.id)">mdi-delete</v-icon>
+                  <v-icon @click="deleteMenu(restaurantCart.restaurant.id, row.item.menu.id)">mdi-delete</v-icon>
                 </td>
               </tr>
             </template>
@@ -113,8 +115,9 @@ export default {
           align: 'start',
           value: 'name',
         },
-        { text: 'Type' , value: 'typesArticlesId' },
-        { text: 'Prix', value: 'price' },
+        { text: 'Type' },
+        { text: 'Prix' },
+        { text: 'Quantité' },
       ],
       headersMenus: [
         {
@@ -123,6 +126,7 @@ export default {
           value: 'name',
         },
         { text: 'Prix' },
+        { text: 'Quantité' },
       ]
     }
   },

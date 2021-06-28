@@ -13,10 +13,10 @@ const getters = {
 
         state.restaurantsCart.forEach(restaurantCart => {
             restaurantCart.articlesCart.forEach(articleCart => {
-                price+= articleCart.price
+                price+= (articleCart.article.price * articleCart.quantity)
             })
             restaurantCart.menusCart.forEach(menuCart => {
-                price+= menuCart.price
+                price+= (menuCart.menu.price * menuCart.quantity)
             })
         })
 
@@ -47,24 +47,24 @@ const actions = {
         let ordersIds = '';
         let len = restaurantsCart.length
 
-        restaurantsCart.forEach(function(restaurant, idx, array) {
-            let articlesCartIds = [];
-            let menusCartIds = [];
+        restaurantsCart.forEach(function(restaurant, idx) {
+            let articlesCart = [];
+            let menusCart = [];
 
             restaurant.articlesCart.forEach(articleCart => {
-                articlesCartIds.push(articleCart.id)
+                articlesCart.push({id: articleCart.article.id, quantity: articleCart.quantity})
             })
 
             restaurant.menusCart.forEach(menuCart => {
-                menusCartIds.push(menuCart.id)
+                menusCart.push({id: menuCart.menu.id, quantity: menuCart.quantity})
             })
 
             axios.post(`api/order/create`,
                 {
                     userId: userId,
                     restaurantsId: restaurant.restaurant.id,
-                    articlesIds: articlesCartIds,
-                    menusIds: menusCartIds
+                    articles: articlesCart,
+                    menus: menusCart
                 })
                 .then(response => {
                     commit('removeRestaurantCart', {idRestaurant: restaurant.restaurant.id})
@@ -84,22 +84,26 @@ const mutations = {
         let restaurantCart = state.restaurantsCart.find(restaurantsCart => restaurantsCart.restaurant.id === restaurant.id);
 
         if (restaurantCart) {
-            if (!restaurantCart.articlesCart.find(item => item.id === article.id)) {
-                restaurantCart.articlesCart.push(article)
+            if (!restaurantCart.articlesCart.find(item => item.article.id === article.id)) {
+                restaurantCart.articlesCart.push({article: article, quantity: 1})
+            } else {
+                restaurantCart.articlesCart.find(item => item.article.id === article.id).quantity += 1;
             }
         } else {
-            state.restaurantsCart.push({restaurant, menusCart: [], articlesCart: [article]})
+            state.restaurantsCart.push({restaurant, menusCart: [], articlesCart: [{article: article, quantity: 1}]})
         }
     },
     pushMenuToCart (state, { restaurant, menu}) {
         let restaurantCart = state.restaurantsCart.find(restaurantsCart => restaurantsCart.restaurant.id === restaurant.id);
 
         if (restaurantCart) {
-            if (!restaurantCart.menusCart.find(item => item.id === menu.id)) {
-                restaurantCart.menusCart.push(menu)
+            if (!restaurantCart.menusCart.find(item => item.menu.id === menu.id)) {
+                restaurantCart.menusCart.push({menu: menu, quantity: 1})
+            } else {
+                restaurantCart.menusCart.find(item => item.menu.id === menu.id).quantity += 1;
             }
         } else {
-            state.restaurantsCart.push({restaurant, menusCart: [menu], articlesCart: []})
+            state.restaurantsCart.push({restaurant, menusCart: [{menu: menu, quantity: 1}], articlesCart: []})
         }
     },
     removeRestaurantCart(state, { idRestaurant }) {
@@ -108,7 +112,7 @@ const mutations = {
     },
     removeArticleToCart(state, {restaurantCartId , articleId}) {
         let index = state.restaurantsCart.findIndex(restaurantsCart => restaurantsCart.restaurant.id === restaurantCartId);
-        let indexArticle = state.restaurantsCart[index].articlesCart.findIndex(articleCart => articleCart.id === articleId);
+        let indexArticle = state.restaurantsCart[index].articlesCart.findIndex(articleCart => articleCart.article.id === articleId);
 
         state.restaurantsCart[index].articlesCart.splice(indexArticle, 1)
 
@@ -118,7 +122,7 @@ const mutations = {
     },
     removeMenuToCart(state, {restaurantCartId , menuId}) {
         let index = state.restaurantsCart.findIndex(restaurantsCart => restaurantsCart.restaurant.id === restaurantCartId);
-        let indexMenu = state.restaurantsCart[index].menusCart.findIndex(menuCart => menuCart.id === menuId);
+        let indexMenu = state.restaurantsCart[index].menusCart.findIndex(menuCart => menuCart.menu.id === menuId);
 
         state.restaurantsCart[index].menusCart.splice(indexMenu, 1)
 
