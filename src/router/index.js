@@ -105,6 +105,11 @@ const routes = [
     component: () => import('../views/Users/Notification.vue'),
   },
   {
+    path: '/connectionLog',
+    name: 'connectionLog',
+    component: () => import('../views/Users/connectionLog.vue'),
+  },
+  {
     path: '/Statistiques/:id',
     name: 'Statistiques',
     component: () => import('../views/Restaurants/Statistiques.vue'),
