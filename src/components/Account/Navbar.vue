@@ -135,10 +135,6 @@ export default {
       drawer: false,
       links: [
         { icon: 'mdi-home', text: 'Produits', route: '/' },
-        { icon: 'mdi-cart', text: 'Panier', route: '/cart' },
-        { icon: 'mdi-chart-line', text: 'Statistiques', route: '/Statistiques/' + this.$session.get('user').id  },
-        { icon: 'mdi-account-multiple-outline', text: 'UserManagement', route: '/userManagement' },
-        { icon: 'mdi-chart-line', text: 'log de connexion', route: '/connectionLog' },
       ],
       snackbar: false,
       white: "white",
@@ -155,6 +151,27 @@ export default {
         .then((response) => {
           this.count = response.data.data
         }).catch()
+    let roleUser = this.$session.get('user').roleId
+    switch (roleUser) {
+      case 1:
+        this.links.push({ icon: 'mdi-cart', text: 'Panier', route: '/cart' })
+        break
+      case 2:
+        this.links.push({ icon: 'mdi-chart-line', text: 'Statistiques', route: '/Statistiques/' + this.$session.get('user').id  })
+        break
+      case 3:
+
+        break
+      case 4:
+
+        break
+      case 5:
+        this.links.push({ icon: 'mdi-account-multiple-outline', text: 'UserManagement', route: '/userManagement' })
+        break
+      case 6:
+        this.links.push({ icon: 'mdi-chart-line', text: 'log de connexion', route: '/connectionLog' })
+        break
+    }
   },
   computed: {
     ...mapGetters('notifications', {
