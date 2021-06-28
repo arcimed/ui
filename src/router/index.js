@@ -245,8 +245,16 @@ const routes = [
       is_Technique: true
     }
   },
+  {
+    path: '/dashboard',
+    name: 'Dashboard',
+    component: () => import('../views/Commercial/Dashboard.vue'),
+    meta: {
+      requiresAuth: true,
+      nothing: true
+    }
+  },
 ]
-
 
 
 const router = new VueRouter({

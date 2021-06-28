@@ -26,7 +26,7 @@
 
 <script>
 
-import Navbar from './components/Account/Navbar';
+import Navbar from './components/Navbar';
 import CreateAccount from './components/Account/CreateAccount';
 import Cart from "@/components/Cart";
 import Vue from 'vue';
