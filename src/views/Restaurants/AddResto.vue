@@ -1,64 +1,70 @@
 <template>
-  <validation-observer ref="observer" v-slot="{ invalid }">
+  <div>
+    <v-row class="mb-10">
+      <Button :name="retourButton" :routeName="home"/>
+    </v-row>
+    <validation-observer ref="observer" v-slot="{ invalid }">
 
-    <form @submit.prevent="submit">
-      <validation-provider
-          v-slot="{ errors }"
-          name="Name"
-          rules="required|max:50"
-      >
-        <v-text-field
-            v-model="resto.name"
-            :counter="50"
-            :error-messages="errors"
-            label="Name"
-            required
-        ></v-text-field>
-      </validation-provider>
-      <validation-provider
-          v-slot="{ errors }"
-          name="city"
-          rules="required|max:50"
-      >
-        <v-text-field
-            v-model="resto.city"
-            :counter="50"
-            :error-messages="errors"
-            label="city"
-            required
-        ></v-text-field>
-      </validation-provider>
-      <validation-provider
-          v-slot="{ errors }"
-          name="address"
-          rules="required|max:50"
-      >
-        <v-text-field
-            v-model="resto.address"
-            :error-messages="errors"
-            label="address"
-            required
-        ></v-text-field>
-      </validation-provider>
-      <v-btn
-          class="mr-4"
-          type="submit"
-          :disabled="invalid"
-      >
-        submit
-      </v-btn>
-      <v-btn @click="clear">
-        clear
-      </v-btn>
-    </form>
+      <form @submit.prevent="submit">
+        <validation-provider
+            v-slot="{ errors }"
+            name="Name"
+            rules="required|max:50"
+        >
+          <v-text-field
+              v-model="resto.name"
+              :counter="50"
+              :error-messages="errors"
+              label="Name"
+              required
+          ></v-text-field>
+        </validation-provider>
+        <validation-provider
+            v-slot="{ errors }"
+            name="city"
+            rules="required|max:50"
+        >
+          <v-text-field
+              v-model="resto.city"
+              :counter="50"
+              :error-messages="errors"
+              label="city"
+              required
+          ></v-text-field>
+        </validation-provider>
+        <validation-provider
+            v-slot="{ errors }"
+            name="address"
+            rules="required|max:50"
+        >
+          <v-text-field
+              v-model="resto.address"
+              :error-messages="errors"
+              label="address"
+              required
+          ></v-text-field>
+        </validation-provider>
+        <v-btn
+            class="mr-4"
+            type="submit"
+            :disabled="invalid"
+        >
+          submit
+        </v-btn>
+        <v-btn @click="clear">
+          clear
+        </v-btn>
+      </form>
 
-  </validation-observer>
+    </validation-observer>
+  </div>
 </template>
 
 <script>
 
 import { required, digits, email, max, regex } from 'vee-validate/dist/rules'
 import { extend, ValidationObserver, ValidationProvider, setInteractionMode } from 'vee-validate'
+import Button from "@/components/Button";
 
 setInteractionMode('eager')
 
@@ -91,6 +97,7 @@ export default {
   components: {
     ValidationProvider,
     ValidationObserver,
+    Button
   },
   data: () => ({
     resto: {
@@ -98,7 +105,9 @@ export default {
       address: '',
       city: '',
       restaurateurId : ''
-    }
+    },
+    home: "Home",
+    retourButton: "< Retour",
   }),
 
   methods: {
