@@ -68,7 +68,7 @@ name: "Composants",
       let message = this.$session.get('user').firstname + ' ' + this.$session.get('user').lastname + ' a téléchargé le composant : ' + composantName
       axios.post(`api/component/download`, {message: message})
           .then((response) => {
-            //popup
+            window.open('https://www.npmjs.com/package/' + composantName, '_blank');
           })
           .catch((error) => {
             console.log(error);
