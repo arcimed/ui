@@ -174,6 +174,8 @@ export default {
         break
       case statusRoles.Technique:
         this.links.push({ icon: 'mdi-chart-line', text: 'log de connexion', route: '/connectionLog' })
+        this.links.push({ icon: 'mdi-view-compact', text: 'Composants', route: '/composants' })
+
         break
       case statusRoles.Admin:
         this.links.push({ icon: 'mdi-cart', text: 'Panier', route: '/cart' })
@@ -182,6 +184,7 @@ export default {
         this.links.push({ icon: 'mdi-truck-delivery', text: 'Order to be delivered', route: '/orders-to-be-delivered'})
         this.links.push({ icon: 'mdi-account-multiple-outline', text: 'UserManagement', route: '/userManagement' })
         this.links.push({ icon: 'mdi-chart-line', text: 'log de connexion', route: '/connectionLog' })
+        this.links.push({ icon: 'mdi-view-compact', text: 'Composants', route: '/composants' })
         break
     }
   },

@@ -206,6 +206,24 @@ const routes = [
       nothing: true
     }
   },
+  {
+    path: '/AddComposant',
+    name: 'AddComposant',
+    component: () => import('../views/Composants/AddComposant.vue'),
+    meta: {
+      requiresAuth: true,
+      is_Technique: true
+    }
+  },
+  {
+    path: '/composants',
+    name: 'composants',
+    component: () => import('../views/Composants/Composants.vue'),
+    meta: {
+      requiresAuth: true,
+      is_Technique: true
+    }
+  },
 ]
 
 
