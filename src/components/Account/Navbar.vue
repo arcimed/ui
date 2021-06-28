@@ -16,33 +16,16 @@
         <span>Bonjour, </span>
         <span class="font-weight-black">{{ this.$session.get('user').firstname }}</span>
       </v-toolbar-title>
-        <div class="text-center">
-          <v-menu offset-y>
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                  class="mx-2"
-                  fab
-                  dark
-                  small
-                  color="primary"
-                  v-bind="attrs"
-                  v-on="on"
-              >
-                <v-icon class="mr-4" style="margin-left: 15px">mdi-account</v-icon>
-              </v-btn>
-            </template>
-            <v-list>
-              <v-list-item
-                  v-for="(item, index) in items"
-                  :key="index"
-                  :to="item.route"
-              >
-                <v-list-item-title>{{ item.title }}</v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-menu>
-        </div>
-
+        <v-btn
+            class="mx-2"
+            fab
+            dark
+            small
+            color="primary"
+            :to="'/user'"
+        >
+          <v-icon  class="mr-4" style="margin-left: 15px">mdi-account</v-icon>
+        </v-btn>
       <div class="text-center">
         <v-menu offset-y>
           <template v-slot:activator="{ on, attrs }">
@@ -141,10 +124,6 @@ export default {
       snackbar: false,
       white: "white",
       size: 20,
-      items: [
-        { title: 'Orders', route: '/my-orders'},
-        { title: 'User', route: '/user' },
-      ],
     }
   },
   mounted() {
@@ -156,9 +135,10 @@ export default {
     let roleUser = this.$session.get('user').roleId
     switch (roleUser) {
       case statusRoles.User:
-        this.links.push({ icon: 'mdi-cart', text: 'Panier', route: '/cart' })
+        this.links.push({ icon: 'mdi-order-alphabetical-ascending', text: 'mes commandes', route: '/my-orders'})
         break
       case statusRoles.Restaurateur:
+        this.links.push({ icon: 'mdi-order-alphabetical-ascending', text: 'mes commandes', route: '/my-orders'})
         this.links.push({ icon: 'mdi-chart-line', text: 'Statistiques', route: '/Statistiques/' + this.$session.get('user').id  })
         this.links.push({ icon: 'mdi-order-bool-ascending-variant', text: 'MyRestaurantOrders', route: '/my-restaurant-orders'})
 
@@ -180,7 +160,7 @@ export default {
 
         break
       case statusRoles.Admin:
-        this.links.push({ icon: 'mdi-cart', text: 'Panier', route: '/cart' })
+        this.links.push({ icon: 'mdi-order-alphabetical-ascending', text: 'mes commandes', route: '/my-orders'})
         this.links.push({ icon: 'mdi-chart-line', text: 'Statistiques', route: '/Statistiques/' + this.$session.get('user').id  })
         this.links.push({ icon: 'mdi-order-bool-ascending-variant', text: 'MyRestaurantOrders', route: '/my-restaurant-orders'})
         this.links.push({ icon: 'mdi-truck-delivery', text: 'Order to be delivered', route: '/orders-to-be-delivered'})
