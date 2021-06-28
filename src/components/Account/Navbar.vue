@@ -160,9 +160,11 @@ export default {
         break
       case statusRoles.Restaurateur:
         this.links.push({ icon: 'mdi-chart-line', text: 'Statistiques', route: '/Statistiques/' + this.$session.get('user').id  })
+        this.links.push({ icon: 'mdi-order-bool-ascending-variant', text: 'MyRestaurantOrders', route: '/my-restaurant-orders'})
+
         break
       case statusRoles.Livreur:
-
+        this.links.push({ icon: 'mdi-truck-delivery', text: 'Order to be delivered', route: '/orders-to-be-delivered'})
         break
       case statusRoles.Developpeur:
 
@@ -176,6 +178,8 @@ export default {
       case statusRoles.Admin:
         this.links.push({ icon: 'mdi-cart', text: 'Panier', route: '/cart' })
         this.links.push({ icon: 'mdi-chart-line', text: 'Statistiques', route: '/Statistiques/' + this.$session.get('user').id  })
+        this.links.push({ icon: 'mdi-order-bool-ascending-variant', text: 'MyRestaurantOrders', route: '/my-restaurant-orders'})
+        this.links.push({ icon: 'mdi-truck-delivery', text: 'Order to be delivered', route: '/orders-to-be-delivered'})
         this.links.push({ icon: 'mdi-account-multiple-outline', text: 'UserManagement', route: '/userManagement' })
         this.links.push({ icon: 'mdi-chart-line', text: 'log de connexion', route: '/connectionLog' })
         break
