@@ -29,14 +29,14 @@
         </v-btn>
       </div>
       <div class="my-4 text-subtitle-1" style="display: flex">
-        <v-btn v-if="restaurant.restaurateurId === parseInt(this.$session.get('user').id)" outlined rounded text
+        <v-btn v-if="restaurant.restaurateurId === parseInt(this.$session.get('user').id) || parseInt(this.$session.get('user').roleId) === statusRoles.Admin" outlined rounded text
                @click="editRestaurant(restaurant.id)">
           Editer
         </v-btn>
         <v-btn
             color="primary"
             depressed
-            v-if="restaurant.restaurateurId === parseInt(this.$session.get('user').id)"
+            v-if="restaurant.restaurateurId === parseInt(this.$session.get('user').id) || parseInt(this.$session.get('user').roleId) === statusRoles.Admin"
             style="margin-left: 10px"
             @click="deleteRestaurant(restaurant.id)"
         >
@@ -52,12 +52,15 @@
 
 <script>
 import {mdiDelete,} from '@mdi/js'
+const {statusRoles} = require('@/config/statusRoles');
+
 export default {
   props: ['restaurant', 'right'],
   data: () => ({
     icons: {
       mdiDelete,
     },
+    statusRoles: statusRoles,
   }),
   methods: {
     menuArticleRestaurant(restaurantId) {

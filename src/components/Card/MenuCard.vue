@@ -14,18 +14,18 @@
 
     <v-card-actions>
       <v-card-actions style="display: block">
-        <v-btn outlined rounded text @click="addMenuToCart(menu)">
+        <v-btn v-if="parseInt(this.$session.get('user').roleId) === statusRoles.User || parseInt(this.$session.get('user').roleId) === statusRoles.Admin" outlined rounded text @click="addMenuToCart(menu)">
           Selectionner
         </v-btn>
         <div class="my-4 text-subtitle-1" style="display: flex">
-          <v-btn v-if="menu.Restaurant.restaurateurId === parseInt(this.$session.get('user').id)" outlined rounded text
+          <v-btn v-if="menu.Restaurant.restaurateurId === parseInt(this.$session.get('user').id) || parseInt(this.$session.get('user').roleId) === statusRoles.Admin" outlined rounded text
                  @click="editMenu(menu.id)">
             Editer
           </v-btn>
           <v-btn
               color="primary"
               depressed
-              v-if="menu.Restaurant.restaurateurId === parseInt(this.$session.get('user').id)"
+              v-if="menu.Restaurant.restaurateurId === parseInt(this.$session.get('user').id) || parseInt(this.$session.get('user').roleId) === statusRoles.Admin"
               style="margin-left: 10px"
               @click="deleteMenu(menu.id)"
           >
@@ -66,6 +66,7 @@
 
 import { mapActions } from "vuex";
 import {mdiDelete} from "@mdi/js";
+const {statusRoles} = require('@/config/statusRoles');
 
 export default {
   name: "menuCard",
@@ -75,6 +76,7 @@ export default {
     icons: {
       mdiDelete,
     },
+    statusRoles: statusRoles,
   }),
   methods: {
     ...mapActions('cart', [

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-btn @click="addRestaurant" v-if="this.$session.get('user').roleId === 2">
+    <v-btn @click="addRestaurant" v-if="this.$session.get('user').roleId === statusRoles.Restaurateur || parseInt(this.$session.get('user').roleId) === statusRoles.Admin">
       Ajout de restaurant
     </v-btn>
     <div class="row">
@@ -15,9 +15,15 @@
 
 import RestaurantCard from '../components/Card/RestaurantCard.vue'
 import { mapGetters } from 'vuex'
+const {statusRoles} = require('@/config/statusRoles');
 
 export default {
   name: 'Home',
+  data() {
+    return {
+      statusRoles: statusRoles,
+    }
+  },
   components: {
     RestaurantCard,
   },

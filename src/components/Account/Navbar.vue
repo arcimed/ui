@@ -122,6 +122,7 @@
 import NotificationBell from 'vue-notification-bell'
 import {mapGetters} from "vuex";
 import axios from "axios";
+const {statusRoles} = require('@/config/statusRoles');
 const _ = require('lodash')
 
 export default {
@@ -132,6 +133,7 @@ export default {
     return {
       count: this.numberNotifications,
       divider: true,
+      statusRoles: statusRoles,
       drawer: false,
       links: [
         { icon: 'mdi-home', text: 'Produits', route: '/' },
@@ -153,22 +155,28 @@ export default {
         }).catch()
     let roleUser = this.$session.get('user').roleId
     switch (roleUser) {
-      case 1:
+      case statusRoles.User:
         this.links.push({ icon: 'mdi-cart', text: 'Panier', route: '/cart' })
         break
-      case 2:
+      case statusRoles.Restaurateur:
         this.links.push({ icon: 'mdi-chart-line', text: 'Statistiques', route: '/Statistiques/' + this.$session.get('user').id  })
         break
-      case 3:
+      case statusRoles.Livreur:
 
         break
-      case 4:
+      case statusRoles.Developpeur:
 
         break
-      case 5:
+      case statusRoles.Commercial:
         this.links.push({ icon: 'mdi-account-multiple-outline', text: 'UserManagement', route: '/userManagement' })
         break
-      case 6:
+      case statusRoles.Technique:
+        this.links.push({ icon: 'mdi-chart-line', text: 'log de connexion', route: '/connectionLog' })
+        break
+      case statusRoles.Admin:
+        this.links.push({ icon: 'mdi-cart', text: 'Panier', route: '/cart' })
+        this.links.push({ icon: 'mdi-chart-line', text: 'Statistiques', route: '/Statistiques/' + this.$session.get('user').id  })
+        this.links.push({ icon: 'mdi-account-multiple-outline', text: 'UserManagement', route: '/userManagement' })
         this.links.push({ icon: 'mdi-chart-line', text: 'log de connexion', route: '/connectionLog' })
         break
     }

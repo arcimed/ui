@@ -7,7 +7,7 @@
     <p class="display-4">{{ restaurant.name }}</p>
 
     <p class="display-3 pt-5"> Menu </p>
-    <v-btn @click="addMenu" v-if="restaurant.restaurateurId === parseInt(this.$session.get('user').id)">
+    <v-btn @click="addMenu" v-if="restaurant.restaurateurId === parseInt(this.$session.get('user').id) || parseInt(this.$session.get('user').roleId) === statusRoles.Admin">
       Ajout de menu
     </v-btn>
     <v-row class="pa-6" v-for="menu in menus" :key="menu.id">
@@ -15,7 +15,7 @@
     </v-row>
 
     <p class="display-3 pt-5"> Articles </p>
-    <v-btn @click="addArticle" v-if="restaurant.restaurateurId === parseInt(this.$session.get('user').id)">
+    <v-btn @click="addArticle" v-if="restaurant.restaurateurId === parseInt(this.$session.get('user').id) || parseInt(this.$session.get('user').roleId) === statusRoles.Admin">
       Ajout d'article
     </v-btn>
     <v-row class="pa-6" v-for="article in articles" :key="article.name">
@@ -30,6 +30,7 @@
 import articleCard from "@/components/Card/ArticleCard";
 import menuCard from "@/components/Card/MenuCard";
 import Button from "@/components/Button";
+const {statusRoles} = require('@/config/statusRoles');
 
 import { mapGetters } from "vuex";
 
@@ -38,7 +39,8 @@ name: "articleMenu",
   data() {
     return {
       home: "Home",
-      retourButton: "< Retour"
+      retourButton: "< Retour",
+      statusRoles: statusRoles,
     }
   },
   props: {
