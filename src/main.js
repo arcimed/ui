@@ -18,6 +18,7 @@ Vue.use(new VueSocketIO({
     })
 );
 
+Axios.defaults.headers.version = '1.0';
 Axios.defaults.baseURL = 'http://localhost:3000/'
 Vue.prototype.$http = Axios;
 Vue.config.productionTip = false

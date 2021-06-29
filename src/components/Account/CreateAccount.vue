@@ -144,7 +144,7 @@ export default {
         password: this.loginPassword,
       };
       this.$http
-          .post(`user-connect`, user)
+          .post(`/api/user-connect`, user)
           .then((response) => {
             this.showLoader = false;
 
@@ -193,13 +193,13 @@ export default {
 
         if (this.referralCode) {
           this.$http
-              .get(`http://localhost:3000/user-register/getByReferralCode/` + String(this.referralCode))
+              .get(`/getByReferralCode/` + String(this.referralCode))
               .then(response => {
                 this.user.referralUserId = response.data.data.id;
                 this.user.roleId = parseInt(this.role)
 
                 this.$http
-                    .post(`http://localhost:3000/user-register`, this.user)
+                    .post(`/api/user-register`, this.user)
                     .then(() => {
                       this.showLoader = false;
                       this.$router.push({name: 'Home'})
@@ -214,7 +214,7 @@ export default {
           });
         } else {
           this.$http
-              .post(`http://localhost:3000/user-register`, this.user)
+              .post(`/api/user-register`, this.user)
               .then(() => {
                 this.showLoader = false;
               })

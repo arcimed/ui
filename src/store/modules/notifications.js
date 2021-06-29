@@ -62,13 +62,13 @@ const actions = {
                 console.log(error);
             });
     },
-    addCartChangeStatus(store, {order, status, userId}) {
+    addOrderChangeStatus(store, {order, status}) {
         let strStatus = getStatusOrders(status)
 
         let notification = {
             'title' : 'Votre commande ' + order.id + ' a été ' + strStatus,
             'description' : 'Votre commande ' + order.id + ' chez ' + order.Restaurant.name + ' a été ' + strStatus,
-            'userId' : userId,
+            'userId' : order.userId,
             'url' : '/my-orders',
         }
 

@@ -15,7 +15,7 @@
           <v-col class="ma-10">
             <router-view/>
           </v-col>
-          <v-col>
+          <v-col v-if="this.$session.exists() && this.$session.get('user').roleId === roleUser">
             <Cart/>
           </v-col>
         </v-row>
@@ -31,6 +31,7 @@ import CreateAccount from './components/Account/CreateAccount';
 import Cart from "@/components/Cart";
 import Vue from 'vue';
 import VueSession from 'vue-session'
+import {statusRoles} from "@/config/statusRoles";
 
 Vue.use(VueSession)
 
@@ -40,6 +41,7 @@ export default Vue.extend({
   data() {
     return {
       login: false,
+      roleUser: statusRoles.User
     };
   },
   methods: {

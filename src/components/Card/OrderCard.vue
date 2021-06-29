@@ -190,8 +190,7 @@ export default {
       this.$store.dispatch('orders/changeStatusOrder', { restaurantId, orderId, status })
 
       let order = this.order;
-      let userId = this.$session.get('user').id;
-      this.$store.dispatch('notifications/addCartChangeStatus', {order, status, userId})
+      this.$store.dispatch('notifications/addOrderChangeStatus', {order, status})
     },
 
     setDeliveryManForOrder(orderId) {

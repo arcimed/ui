@@ -42,7 +42,7 @@
 
 <script>
 
-import { mapActions } from 'vuex'
+import { mapActions } from 'vuex';
 import { mdiDelete } from "@mdi/js";
 const {statusRoles} = require('@/config/statusRoles');
 
