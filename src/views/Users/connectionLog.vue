@@ -8,7 +8,6 @@
     >
       <template v-slot:item="row">
         <tr>
-          <td class="align-center"></td>
           <td class="align-center">{{ row.item.message }}</td>
           <td class="align-center"><format :value="row.item.createdAt" fn="date" /></td>
         </tr>
@@ -35,9 +34,8 @@ export default {
         {
           text: 'log de connection',
           align: 'start',
-          value: 'name',
+          value: 'message',
         },
-        {text: 'message', value: 'message'},
         {text: 'Date de connexion', value: 'createdAt'},
       ],
     }
