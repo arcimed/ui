@@ -147,7 +147,7 @@ export default {
         this.links.push({ icon: 'mdi-truck-delivery', text: 'Order to be delivered', route: '/orders-to-be-delivered'})
         break
       case statusRoles.Developpeur:
-
+        this.links.push({ icon: 'mdi-view-compact', text: 'Composants', route: '/composants' })
         break
       case statusRoles.Commercial:
         this.links.push({ icon: 'mdi-account-multiple-outline', text: 'UserManagement', route: '/userManagement' })
@@ -157,9 +157,7 @@ export default {
       case statusRoles.Technique:
         this.links.push({ icon: 'mdi-history', text: 'log de connexion', route: '/connectionLog' })
         this.links.push({ icon: 'mdi-view-compact', text: 'Composants', route: '/composants' })
-        this.links.push({ icon: 'mdi-history', text: 'Composants', route: '/composantsLog' })
-
-
+        this.links.push({ icon: 'mdi-history', text: 'log de téléchargement de composants', route: '/composantsLog' })
         break
       case statusRoles.Admin:
         this.links.push({ icon: 'mdi-order-alphabetical-ascending', text: 'mes commandes', route: '/my-orders'})

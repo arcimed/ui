@@ -233,7 +233,7 @@ const routes = [
     component: () => import('../views/Composants/Composants.vue'),
     meta: {
       requiresAuth: true,
-      is_Technique: true
+      nothing: true,
     }
   },
   {

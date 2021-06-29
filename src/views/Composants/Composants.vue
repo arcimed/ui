@@ -17,10 +17,10 @@
             <v-icon @click="download(row.item.name)">mdi-download</v-icon>
           </td>
           <td>
-            <v-icon @click="editComposant(row.item._id)">mdi-square-edit-outline</v-icon>
+            <v-icon v-if=" userRole === statusRoles.Technique" @click="editComposant(row.item._id)">mdi-square-edit-outline</v-icon>
           </td>
           <td>
-            <v-icon @click="deleteComposant(row.item._id)">mdi-delete</v-icon>
+            <v-icon v-if="userRole === statusRoles.Technique" @click="deleteComposant(row.item._id)">mdi-delete</v-icon>
           </td>
         </tr>
       </template>
@@ -39,6 +39,7 @@ name: "Composants",
     return {
       search: '',
       statusRoles: statusRoles,
+      userRole: this.$session.get('user').roleId,
       headers: [
         {
           text: 'composant',
@@ -47,8 +48,6 @@ name: "Composants",
         },
         {text: 'Description', value: 'description'},
         {text: 'Télécharger', value: 'download'},
-        {text: 'Editer', value: 'edit'},
-        {text: 'Supprimer', value: 'delete'},
       ],
     }
   },
@@ -59,6 +58,10 @@ name: "Composants",
   },
   mounted() {
     this.$store.dispatch('composant/setComposants');
+    if (this.userRole === statusRoles.Technique) {
+      this.headers.push({text: 'Editer', value: 'edit'})
+      this.headers.push({text: 'Supprimer', value: 'delete'})
+    }
   },
   methods: {
     deleteComposant(composantId) {
