@@ -25,7 +25,7 @@
           class="my-2"
           @click="gitFront"
       >
-        GitFront
+        Git Front
       </v-btn>
       <v-btn
           :key="gitMiddleware"
@@ -35,7 +35,7 @@
           class="my-2"
           @click="gitMiddleware"
       >
-        GitMiddleware
+        Git Middleware
       </v-btn>
       <v-btn
           :key="ApiDoc"
