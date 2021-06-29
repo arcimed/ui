@@ -8,7 +8,6 @@
         no-gutters
     >
       <v-btn
-          :key="Home"
           color="white"
           text
           rounded
@@ -18,7 +17,6 @@
         Home
       </v-btn>
       <v-btn
-          :key="gitFront"
           color="white"
           text
           rounded
@@ -28,7 +26,6 @@
         Git Front
       </v-btn>
       <v-btn
-          :key="gitMiddleware"
           color="white"
           text
           rounded
@@ -38,7 +35,6 @@
         Git Middleware
       </v-btn>
       <v-btn
-          :key="ApiDoc"
           color="white"
           text
           rounded
