@@ -101,7 +101,7 @@ const routes = [
     component: () => import('../views/Users/Orders.vue'),
     meta: {
       requiresAuth: true,
-      nothing: true
+      is_user: true
     }
   },
   {
@@ -281,7 +281,13 @@ router.beforeEach((to, from, next) => {
       })
     } else {
       let userRole = JSON.parse(router.app.$session.get('user').roleId)
-      if (to.matched.some(record => record.meta.is_restaurateur)) {
+      if (to.matched.some(record => record.meta.is_user)) {
+        if (userRole === 1 || userRole === 7) {
+          next()
+        } else {
+          next({name: 'Home'})
+        }
+      } else if (to.matched.some(record => record.meta.is_restaurateur)) {
         if (userRole === 2 || userRole === 7) {
           next()
         } else {
