@@ -10,7 +10,7 @@
     <v-btn @click="addMenu" v-if="restaurant.restaurateurId === parseInt(this.$session.get('user').id) || parseInt(this.$session.get('user').roleId) === statusRoles.Admin">
       Ajout de menu
     </v-btn>
-    <v-row class="pa-6" v-for="menu in menus" :key="menu.id">
+    <v-row class="pa-6" v-for="menu in menus" :key="menu.name">
       <menuCard :menu="menu"></menuCard>
     </v-row>
 
@@ -56,17 +56,18 @@ name: "articleMenu",
   mounted() {
     this.$store.dispatch('menus/setMenus', this.id);
     this.$store.dispatch('articles/setArticles', this.id);
+    this.$store.dispatch('restaurants/setRestaurantMenuArticle', this.id);
   },
   computed: {
+    ...mapGetters('restaurants', {
+      restaurant: 'restaurantMenuArticle',
+    }),
     ...mapGetters('articles', {
       articles: 'restaurantArticles',
     }),
     ...mapGetters('menus', {
       menus: 'restaurantMenus',
     }),
-    restaurant() {
-      return this.$store.getters['restaurants/restaurants'].find(restaurant => parseInt(restaurant.id) === parseInt(this.id))
-    }
   },
   methods:{
     addArticle() {

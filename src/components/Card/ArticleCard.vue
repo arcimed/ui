@@ -15,7 +15,7 @@
     <v-card-actions>
       <v-card-actions style="display: block">
         <v-btn v-if="parseInt(this.$session.get('user').roleId) === statusRoles.User || parseInt(this.$session.get('user').roleId) === statusRoles.Admin " outlined rounded text @click="addArticleToCart(article)">
-          Selectionner
+          Ajouter
         </v-btn>
         <div class="my-4 text-subtitle-1" style="display: flex">
           <v-btn v-if="article.Restaurant.restaurateurId === parseInt(this.$session.get('user').id) || parseInt(this.$session.get('user').roleId) === statusRoles.Admin" outlined rounded text

@@ -43,6 +43,22 @@ const actions = {
         commit('removeMenuToCart', { restaurantCartId: restaurantCartId, menuId: menuId })
     },
 
+    removeOneArticleFromCart ({ state, commit }, {restaurantCartId, articleId}) {
+        commit('changeQuantityArticleFromCart', { restaurantCartId: restaurantCartId, articleId: articleId, remove: true })
+    },
+
+    addOneArticleFromCart ({ state, commit }, {restaurantCartId, articleId}) {
+        commit('changeQuantityArticleFromCart', { restaurantCartId: restaurantCartId, articleId: articleId, remove: false })
+    },
+
+    removeOneMenuFromCart ({ state, commit }, {restaurantCartId, menuId}) {
+        commit('changeQuantityMenuFromCart', { restaurantCartId: restaurantCartId, menuId: menuId, remove: true })
+    },
+
+    addOneMenuFromCart ({ state, commit }, {restaurantCartId, menuId}) {
+        commit('changeQuantityMenuFromCart', { restaurantCartId: restaurantCartId, menuId: menuId, remove: false })
+    },
+
     checkout ({ state, commit }, {restaurantsCart, userId}) {
         let ordersIds = '';
         let len = restaurantsCart.length
@@ -132,6 +148,42 @@ const mutations = {
     },
     setOrderRegistered(state, ordersIds) {
         state.orderRegistered = ordersIds;
+    },
+    changeQuantityArticleFromCart(state, {restaurantCartId , articleId, remove}) {
+        let index = state.restaurantsCart.findIndex(restaurantsCart => restaurantsCart.restaurant.id === restaurantCartId);
+        let indexArticle = state.restaurantsCart[index].articlesCart.findIndex(articleCart => articleCart.article.id === articleId);
+
+        if (remove) {
+            state.restaurantsCart[index].articlesCart[indexArticle].quantity -= 1;
+        } else {
+            state.restaurantsCart[index].articlesCart[indexArticle].quantity += 1;
+        }
+
+        if (state.restaurantsCart[index].articlesCart[indexArticle].quantity <= 0) {
+            state.restaurantsCart[index].articlesCart.splice(indexArticle, 1)
+        }
+
+        if (state.restaurantsCart[index].articlesCart.length < 1 && state.restaurantsCart[index].menusCart.length < 1) {
+            state.restaurantsCart.splice(index, 1)
+        }
+    },
+    changeQuantityMenuFromCart(state, {restaurantCartId , menuId, remove}) {
+        let index = state.restaurantsCart.findIndex(restaurantsCart => restaurantsCart.restaurant.id === restaurantCartId);
+        let indexMenu = state.restaurantsCart[index].menusCart.findIndex(menuCart => menuCart.menu.id === menuId);
+
+        if (remove) {
+            state.restaurantsCart[index].menusCart[indexMenu].quantity -= 1;
+        } else {
+            state.restaurantsCart[index].menusCart[indexMenu].quantity += 1;
+        }
+
+        if (state.restaurantsCart[index].menusCart[indexMenu].quantity <= 0) {
+            state.restaurantsCart[index].menusCart.splice(indexMenu, 1)
+        }
+
+        if (state.restaurantsCart[index].articlesCart.length < 1 && state.restaurantsCart[index].menusCart.length < 1) {
+            state.restaurantsCart.splice(index, 1)
+        }
     }
 }
 

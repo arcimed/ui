@@ -21,9 +21,35 @@
             <template v-slot:item="row">
               <tr>
                 <td class="align-center">{{ row.item.article.name }}</td>
-                <td>{{ row.item.article.TypesArticle.id }}</td>
+                <td>{{ row.item.article.TypesArticle.name }}</td>
                 <td>{{ row.item.article.price.toFixed(2) }}</td>
-                <td>{{ row.item.quantity }}</td>
+                <td>
+                  <v-btn
+                      class="mx-1"
+                      fab
+                      dark
+                      style="height: 30px; width: 30px"
+                      color="primary"
+                      @click="removeOneArticleFromCart(restaurantCart.restaurant.id, row.item.article.id)"
+                  >
+                    <v-icon dark>
+                      mdi-minus
+                    </v-icon>
+                  </v-btn>
+                  {{ row.item.quantity }}
+                  <v-btn
+                      class="mx-1"
+                      fab
+                      dark
+                      style="height: 30px; width: 30px"
+                      color="primary"
+                      @click="addOneArticleFromCart(restaurantCart.restaurant.id, row.item.article.id)"
+                  >
+                    <v-icon dark>
+                      mdi-plus
+                    </v-icon>
+                  </v-btn>
+                </td>
                 <td>
                   <v-icon @click="deleteArticle(restaurantCart.restaurant.id, row.item.article.id)">mdi-delete</v-icon>
                 </td>
@@ -42,7 +68,33 @@
               <tr>
                 <td class="align-center">{{ row.item.menu.name }}</td>
                 <td>{{ row.item.menu.price.toFixed(2) }}</td>
-                <td>{{ row.item.quantity }}</td>
+                <td>
+                  <v-btn
+                    class="mx-1"
+                    fab
+                    dark
+                    style="height: 30px; width: 30px"
+                    color="primary"
+                    @click="removeOneMenuFromCart(restaurantCart.restaurant.id, row.item.menu.id)"
+                  >
+                  <v-icon dark>
+                    mdi-minus
+                  </v-icon>
+                </v-btn>
+                  {{ row.item.quantity }}
+                  <v-btn
+                      class="mx-1"
+                      fab
+                      dark
+                      style="height: 30px; width: 30px"
+                      color="primary"
+                      @click="addOneMenuFromCart(restaurantCart.restaurant.id, row.item.menu.id)"
+                  >
+                    <v-icon dark>
+                      mdi-plus
+                    </v-icon>
+                  </v-btn>
+                </td>
                 <td>
                   <v-icon @click="deleteMenu(restaurantCart.restaurant.id, row.item.menu.id)">mdi-delete</v-icon>
                 </td>
@@ -186,6 +238,18 @@ export default {
 
             return result;
           }).catch(error => {return false})
+    },
+    removeOneArticleFromCart(restaurantCartId, articleId) {
+      this.$store.dispatch('cart/removeOneArticleFromCart', {restaurantCartId, articleId})
+    },
+    addOneArticleFromCart(restaurantCartId, articleId) {
+      this.$store.dispatch('cart/addOneArticleFromCart', {restaurantCartId, articleId})
+    },
+    removeOneMenuFromCart(restaurantCartId, menuId) {
+      this.$store.dispatch('cart/removeOneMenuFromCart', {restaurantCartId, menuId})
+    },
+    addOneMenuFromCart(restaurantCartId, menuId) {
+      this.$store.dispatch('cart/addOneMenuFromCart', {restaurantCartId, menuId})
     }
   }
 }
