@@ -80,7 +80,7 @@
         <span class="mr-2">Déconnexion</span>
       </v-btn>
       <v-btn @click="showLogRegisterModal" v-else>
-        <span class="mr-2">Connection/Inscription</span>
+        <span class="mr-2">Connexion/Inscription</span>
       </v-btn>
 
     </v-app-bar>
