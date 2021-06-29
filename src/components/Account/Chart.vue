@@ -10,6 +10,7 @@
         {{ header.text.toUpperCase() }}
       </template>
     </v-data-table>
+    <br>
     <v-sheet
         class="v-sheet--offset mx-auto"
         color="cyan"
@@ -24,6 +25,7 @@
           padding="16"
       ></v-sparkline>
     </v-sheet>
+    <br>
     <v-data-table
         :headers="headers"
         :items="priceCount"
@@ -38,6 +40,8 @@
 </template>
 
 <script>
+import {statusOrders} from "../../config/statusOrders";
+
 export default {
   name: "Chart",
   props: {
@@ -54,10 +58,8 @@ export default {
           value: 'name',
         },
         {text: 'Créée', value: 'cree'},
-        {text: 'En livraison', value: 'livraison'},
-        {text: 'Livrée', value: 'livrer'},
         {text: 'Refusée', value: 'refuser'},
-        {text: 'Validée', value: 'valider'},
+        {text: 'Livrée', value: 'livrer'},
       ],
       headers: [
         {
@@ -93,7 +95,6 @@ export default {
           0,
           0,
           0,
-          0,
       ],
       priceCount: []
     }
@@ -104,39 +105,63 @@ export default {
   methods: {
     stat() {
       let tempCree = 0
-      let tempValider = 0
       let tempRefuser = 0
-      let tempLivraison = 0
       let tempLivrer = 0
-      let tempPrice = 0
-      this.value.push(this.charts.orders.length)
+      let monthPrice = []
       this.charts.orders.forEach((order, index) => {
         switch (order.ordersStatusId) {
-          case 1:
+          case statusOrders.created:
              tempCree++
             break
-          case 2:
-            tempValider++
+          case statusOrders.payed:
+            tempCree++
             break
-          case 3:
+          case statusOrders.validate:
+            tempCree++
+            break
+          case statusOrders.refused:
             tempRefuser++
+            tempCree++
             break
-          case 4:
-            tempLivraison++
-            break
-          case 5:
-            tempLivrer++
+          case statusOrders.validateByDelivery:
+            tempCree++
                 break
+          case statusOrders.inDelivery:
+            tempCree++
+            break
+          case statusOrders.delivered:
+            tempLivrer++
+            tempCree++
+            break
         }
-        order.Articles.forEach((article, index) => {
-          tempPrice += article.price
-        })
-        order.Menus.forEach((menu, index) => {
-          tempPrice += menu.price
-        })
       })
-      let price = {name: 'Revenue du restaurant', janvier: '0€', fevrier: '0€', mars: '0€', avril: '0€', mai: '0€', juin: '0€', juillet: tempPrice+'€'}
-      let donne = {name: 'Nombre de commande', cree: tempCree, livraison: tempLivraison, livrer: tempLivrer, refuser: tempRefuser, valider: tempValider}
+      let groupKey = 0;
+      let groups = this.charts.orders.reduce(function (r, o) {
+        let m = o.createdAt.split(('-'))[1];
+        (r[m])? r[m].data.push(o) : r[m] = {group: String(groupKey++), data: [o]};
+        return r;
+      }, {});
+
+      let groupByMonth = Object.keys(groups).map(function(k){ return groups[k]; });
+      let tempPrice
+      groupByMonth.forEach((month, index) => {
+        this.value.push(month.data.length)
+        tempPrice = 0
+        month.data.forEach((order, MonthIndex) => {
+          order.Articles.forEach((article, Orderindex) => {
+            tempPrice += article.price
+          })
+          order.Menus.forEach((menu, Menuindex) => {
+            tempPrice += menu.price
+          })
+        })
+        monthPrice.push(tempPrice)
+      })
+
+
+
+      let price = {name: 'Revenue du restaurant', janvier: 0, fevrier: 0, mars: 0, avril: 0, mai: 0, juin: monthPrice[0] + " €", juillet: monthPrice[1] + " €"  }
+      let donne = {name: 'Nombre de commande', cree: tempCree, refuser: tempRefuser, livrer: tempLivrer}
       this.stats.push(donne)
       this.priceCount.push(price)
     }
