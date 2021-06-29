@@ -15,7 +15,7 @@
             <v-list-item-content>
               <v-list-item-title v-html="notification.title"></v-list-item-title>
               <v-list-item-subtitle v-html="notification.description"></v-list-item-subtitle>
-              <v-list-item-subtitle v-html="notification.updatedAt"></v-list-item-subtitle>
+              <v-list-item-subtitle v-html=""><format :value="notification.updatedAt" fn="dateTime" /></v-list-item-subtitle>
             </v-list-item-content>
             <v-list-item-icon :to="notification.url">
               <v-btn class="mx-1" fab dark @click="linkNotifications(notification.url)" color="primary">
@@ -31,9 +31,11 @@
 <script>
 import {mapGetters} from "vuex";
 const _ = require('lodash')
+import format from "../../components/format";
 
 export default {
   name: "Notification",
+  components: {format},
   data() {
     return {
       divider: true,

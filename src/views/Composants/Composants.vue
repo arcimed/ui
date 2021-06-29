@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-btn @click="addComposant" v-if="parseInt(this.$session.get('user').roleId) === statusRoles.Technique || parseInt(this.$session.get('user').roleId) === statusRoles.Admin">
+    <v-btn  @click="addComposant" v-if="parseInt(this.$session.get('user').roleId) === statusRoles.Technique || parseInt(this.$session.get('user').roleId) === statusRoles.Admin">
       Ajout de composant
     </v-btn>
     <v-data-table
@@ -17,10 +17,10 @@
             <v-icon @click="download(row.item.name)">mdi-download</v-icon>
           </td>
           <td>
-            <v-icon v-if=" userRole === statusRoles.Technique" @click="editComposant(row.item._id)">mdi-square-edit-outline</v-icon>
+            <v-icon v-if=" userRole === statusRoles.Technique || userRole === statusRoles.Admin" @click="editComposant(row.item._id)">mdi-square-edit-outline</v-icon>
           </td>
           <td>
-            <v-icon v-if="userRole === statusRoles.Technique" @click="deleteComposant(row.item._id)">mdi-delete</v-icon>
+            <v-icon v-if="userRole === statusRoles.Technique || userRole === statusRoles.Admin" @click="deleteComposant(row.item._id)">mdi-delete</v-icon>
           </td>
         </tr>
       </template>
@@ -58,7 +58,7 @@ name: "Composants",
   },
   mounted() {
     this.$store.dispatch('composant/setComposants');
-    if (this.userRole === statusRoles.Technique) {
+    if (this.userRole === statusRoles.Technique || this.userRole === statusRoles.Admin) {
       this.headers.push({text: 'Editer', value: 'edit'})
       this.headers.push({text: 'Supprimer', value: 'delete'})
     }

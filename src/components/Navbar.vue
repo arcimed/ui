@@ -55,7 +55,7 @@
                   <v-list-item-content>
                     <v-list-item-title v-html="notification.title"></v-list-item-title>
                     <v-list-item-subtitle v-html="notification.description"></v-list-item-subtitle>
-                    <v-list-item-subtitle v-html="notification.updatedAt"></v-list-item-subtitle>
+                    <v-list-item-subtitle v-html=""><format :value="notification.updatedAt" fn="time" /></v-list-item-subtitle>
                   </v-list-item-content>
                   <v-list-item-icon>
                       <v-btn class="mx-1" fab dark @click="linkNotifications(notification.url)" color="primary">
@@ -107,10 +107,12 @@ import {mapGetters} from "vuex";
 import axios from "axios";
 const {statusRoles} = require('@/config/statusRoles');
 const _ = require('lodash')
+import format from "../components/format";
 
 export default {
   components: {
-    NotificationBell
+    NotificationBell,
+    format
   },
   data() {
     return {
