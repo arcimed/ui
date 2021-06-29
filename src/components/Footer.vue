@@ -80,7 +80,7 @@ name: "Footer",
       window.open('https://github.com/BenGround/middleware', '_blank');
     },
     Documentations() {
-      window.open('https://documenter.getpostman.com/view/6359608/TzefB4Bq', '_blank');
+      window.open('https://documenter.getpostman.com/view/6359608/TzefB4Bq#5fb93db5-2c60-4170-ab37-2cf574e6db36', '_blank');
     }
   }
 }
