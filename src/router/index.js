@@ -179,7 +179,7 @@ const routes = [
     component: () => import('../views/Restaurants/Statistiques.vue'),
     meta: {
       requiresAuth: true,
-      nothing: true
+      is_restaurateur: true
     },
     props: (route) => ({
       ...route.params
@@ -253,6 +253,15 @@ const routes = [
       requiresAuth: true,
       nothing: true
     }
+  },
+  {
+    path: '/StatistiquesCommerciale',
+    name: 'StatistiquesCommerciale',
+    component: () => import('../views/Commercial/Statistiques.vue'),
+    meta: {
+      requiresAuth: true,
+      is_commercial: true
+    },
   },
 ]
 

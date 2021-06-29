@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-for="temp in temps" :key="temp.restaurant.id">
-      <chart :charts="temp"></chart>
+      <chart :charts="temp.orders" :resto="temp.restaurant"></chart>
     </div>
   </div>
 </template>

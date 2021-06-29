@@ -1,6 +1,7 @@
 <template>
   <div>
-    <p> {{ this.charts.restaurant.name }}</p>
+    <p class="display-2"v-if="this.resto"> {{ this.resto.name }}</p>
+    <p class="display-1"> Nombre de commandes</p>
     <v-data-table
         :headers="orderHeaders"
         :items="stats"
@@ -11,6 +12,7 @@
       </template>
     </v-data-table>
     <br>
+    <p class="display-1"> Revenue</p>
     <v-sheet
         class="v-sheet--offset mx-auto"
         color="cyan"
@@ -47,6 +49,9 @@ export default {
   props: {
     charts: {
       required: true
+    },
+    resto: {
+      required: false
     },
   },
   data() {
@@ -108,7 +113,7 @@ export default {
       let tempRefuser = 0
       let tempLivrer = 0
       let monthPrice = []
-      this.charts.orders.forEach((order, index) => {
+      this.charts.forEach((order, index) => {
         switch (order.ordersStatusId) {
           case statusOrders.created:
              tempCree++
@@ -136,7 +141,7 @@ export default {
         }
       })
       let groupKey = 0;
-      let groups = this.charts.orders.reduce(function (r, o) {
+      let groups = this.charts.reduce(function (r, o) {
         let m = o.createdAt.split(('-'))[1];
         (r[m])? r[m].data.push(o) : r[m] = {group: String(groupKey++), data: [o]};
         return r;
@@ -160,7 +165,7 @@ export default {
 
 
 
-      let price = {name: 'Revenue du restaurant', janvier: 0, fevrier: 0, mars: 0, avril: 0, mai: 0, juin: monthPrice[0] + " €", juillet: monthPrice[1] + " €"  }
+      let price = {name: 'Revenue', janvier: 0, fevrier: 0, mars: 0, avril: 0, mai: 0, juin: monthPrice[0] + " €", juillet: monthPrice[1] + " €"  }
       let donne = {name: 'Nombre de commande', cree: tempCree, refuser: tempRefuser, livrer: tempLivrer}
       this.stats.push(donne)
       this.priceCount.push(price)
