@@ -1,6 +1,7 @@
 <template>
   <v-card class="mx-auto" max-width="1000" tile>
     <v-img height="200" src="https://cdn.vuetifyjs.com/images/cards/server-room.jpg"></v-img>
+    <div>
     <v-row style="margin:2.5%;position:absolute; top: 130px">
       <v-list-item>
         <v-list-item-avatar size="100">
@@ -32,20 +33,28 @@
           Delete
         </v-btn>
       </div>
-
-      <form @submit.prevent="sendEmail">
-        <input
+    </v-row>
+    <v-card class="mx-auto" style="margin-top: 200px">
+      <form @submit.prevent="submit">
+        <v-text-field
             type="email"
             v-model="email"
             name="email"
             :rules="emailRules"
             placeholder="Email"
             required
-        >
+        ></v-text-field>
         <input type="hidden" name="referral_code" v-model="referral_code">
-        <input type="submit" value="Envoyer un lien de parrainage">
+        <v-btn
+            class="mr-4"
+            type="submit"
+        >
+          Envoyer un lien de parrainage
+        </v-btn>
       </form>
-
+      <br>
+      <v-divider></v-divider>
+      <br>
       <v-data-table
           :headers="headers"
           :items="usersReferred"
@@ -54,8 +63,8 @@
           :hide-default-footer="true"
       >
       </v-data-table>
-
-    </v-row>
+    </v-card>
+    </div>
   </v-card>
 </template>
 

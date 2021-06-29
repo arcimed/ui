@@ -12,7 +12,7 @@
       </createAccount>
       <v-container>
         <v-row>
-          <v-col class="ma-10">
+          <v-col style="margin-top: 40px">
             <router-view/>
           </v-col>
           <v-col v-if="this.$session.exists() && this.$session.get('user').roleId === roleUser">
