@@ -14,7 +14,7 @@
               v-model="resto.name"
               :counter="50"
               :error-messages="errors"
-              label="Name"
+              label="Nom"
               required
           ></v-text-field>
         </validation-provider>
@@ -27,7 +27,7 @@
               v-model="resto.city"
               :counter="50"
               :error-messages="errors"
-              label="city"
+              label="Ville"
               required
           ></v-text-field>
         </validation-provider>
@@ -39,7 +39,7 @@
           <v-text-field
               v-model="resto.address"
               :error-messages="errors"
-              label="address"
+              label="Adresse"
               required
           ></v-text-field>
         </validation-provider>
@@ -48,7 +48,7 @@
             type="submit"
             :disabled="invalid"
         >
-          submit
+          Soumettre
         </v-btn>
         <v-btn @click="clear">
           clear

@@ -16,7 +16,7 @@
                     <v-text-field v-model="loginEmail" :rules="loginEmailRules" label="E-mail" required></v-text-field>
                   </v-col>
                   <v-col cols="12">
-                    <v-text-field v-model="loginPassword" :append-icon="show1?'eye':'eye-off'" :rules="[rules.required, rules.min]" :type="show1 ? 'text' : 'password'" name="input-10-1" label="Password" hint="At least 8 characters" counter @click:append="show1 = !show1"></v-text-field>
+                    <v-text-field v-model="loginPassword" :append-icon="show1?'eye':'eye-off'" :rules="[rules.required, rules.min]" :type="show1 ? 'text' : 'password'" name="input-10-1" label="Mot de passe" hint="Au moins 8 caractères" counter @click:append="show1 = !show1"></v-text-field>
                   </v-col>
                   <v-col class="d-flex" cols="12" sm="6" xsm="12">
                   </v-col>
@@ -35,16 +35,16 @@
               <v-form ref="registerForm" v-model="valid" lazy-validation>
                 <v-row>
                   <v-col cols="12" sm="6" md="6">
-                    <v-text-field v-model="user.firstname" :rules="[rules.required]" label="First Name" maxlength="20" required></v-text-field>
+                    <v-text-field v-model="user.firstname" :rules="[rules.required]" label="Prénom" maxlength="20" required></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="6">
-                    <v-text-field v-model="user.lastname" :rules="[rules.required]" label="Last Name" maxlength="20" required></v-text-field>
+                    <v-text-field v-model="user.lastname" :rules="[rules.required]" label="Nom" maxlength="20" required></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="6">
-                    <v-text-field v-model="user.address" :rules="[rules.required]" label="address" maxlength="20" required></v-text-field>
+                    <v-text-field v-model="user.address" :rules="[rules.required]" label="Adresse" maxlength="20" required></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6" md="6">
-                    <v-text-field v-model="user.city" :rules="[rules.required]" label="city" maxlength="20" required></v-text-field>
+                    <v-text-field v-model="user.city" :rules="[rules.required]" label="Ville" maxlength="20" required></v-text-field>
                   </v-col>
                   <v-col cols="12">
                     <v-text-field v-model="user.email" :rules="emailRules" label="E-mail" required></v-text-field>
@@ -63,14 +63,14 @@
                     ></v-select>
                   </v-col>
                   <v-col cols="12">
-                    <v-text-field v-model="user.password" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required, rules.min]" :type="show1 ? 'text' : 'password'" name="input-10-1" label="Password" hint="At least 8 characters" counter @click:append="show1 = !show1"></v-text-field>
+                    <v-text-field v-model="user.password" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required, rules.min]" :type="show1 ? 'text' : 'mot de passe'" name="input-10-1" label="Mot de passe" hint="At least 8 characters" counter @click:append="show1 = !show1"></v-text-field>
                   </v-col>
                   <v-col cols="12">
-                    <v-text-field block v-model="user.verify" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required, passwordMatch]" :type="show1 ? 'text' : 'password'" name="input-10-1" label="Confirm Password" counter @click:append="show1 = !show1"></v-text-field>
+                    <v-text-field block v-model="user.verify" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required, passwordMatch]" :type="show1 ? 'text' : 'mot de passe'" name="input-10-1" label="Mot de passe" counter @click:append="show1 = !show1"></v-text-field>
                   </v-col>
                   <v-spacer></v-spacer>
                   <v-col class="d-flex ml-auto" cols="12" sm="3" xsm="12">
-                    <v-btn x-large block :disabled="!valid" color="success" @click="createAccount">Register</v-btn>
+                    <v-btn x-large block :disabled="!valid" color="success" @click="createAccount">S'inscrire</v-btn>
                   </v-col>
                 </v-row>
               </v-form>
@@ -90,8 +90,8 @@ export default {
       dialog: true,
       tab: 0,
       tabs: [
-        { name:"Login", icon:"mdi-account" },
-        { name:"Register", icon:"mdi-account-outline" }
+        { name:"Connexion", icon:"mdi-account" },
+        { name:"Inscription", icon:"mdi-account-outline" }
       ],
       valid: true,
       showLoader: false,

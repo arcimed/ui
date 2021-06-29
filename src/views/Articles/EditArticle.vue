@@ -15,7 +15,7 @@
               v-model="article.name"
               :counter="50"
               :error-messages="errors"
-              label="Name"
+              label="Nom"
               required
           ></v-text-field>
         </validation-provider>
@@ -25,7 +25,7 @@
                 :items="type"
                 item-text="name"
                 item-value="id"
-                label="Select"
+                label="Type d'articles"
                 persistent-hint
                 return-object
                 single-line
@@ -50,7 +50,7 @@
             type="submit"
             :disabled="invalid"
         >
-          submit
+          Soumettre
         </v-btn>
         <v-btn @click="clear">
           clear

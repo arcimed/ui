@@ -32,7 +32,7 @@
             <v-icon left>
               {{ icons.mdiDelete }}
             </v-icon>
-            Delete
+            Supprimer
           </v-btn>
         </div>
       </v-card-actions>

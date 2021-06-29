@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-4 my-4" max-width="225">
+  <v-card class="mx-4 my-4" max-width="243">
     <template slot="progress">
       <v-progress-linear
           color="deep-purple"
@@ -37,13 +37,13 @@
             color="primary"
             depressed
             v-if="restaurant.restaurateurId === parseInt(this.$session.get('user').id) || parseInt(this.$session.get('user').roleId) === statusRoles.Admin"
-            style="margin-left: 10px"
+            style="margin-left: 5px"
             @click="deleteRestaurant(restaurant.id)"
         >
           <v-icon left>
             {{ icons.mdiDelete }}
           </v-icon>
-          Delete
+          Supprimer
         </v-btn>
       </div>
     </v-card-actions>

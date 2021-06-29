@@ -16,7 +16,7 @@
               v-model="menu.name"
               :counter="50"
               :error-messages="errors"
-              label="Name"
+              label="Nom"
               required
           ></v-text-field>
         </validation-provider>
@@ -28,7 +28,7 @@
             <v-select
                 v-model="menu.articlesIds"
                 :items="article"
-                label="Select"
+                label="Articles"
                 item-text="name"
                 item-value="id"
                 multiple
@@ -57,7 +57,7 @@
             type="submit"
             :disabled="invalid"
         >
-          submit
+          Soumettre
         </v-btn>
         <v-btn @click="clear">
           clear

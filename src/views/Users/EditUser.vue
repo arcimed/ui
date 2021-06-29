@@ -11,7 +11,7 @@
             v-model="user.firstname"
             :counter="30"
             :error-messages="errors"
-            label="Firstname"
+            label="Prenom"
             required
         ></v-text-field>
       </validation-provider>
@@ -24,7 +24,7 @@
             v-model="user.lastname"
             :counter="30"
             :error-messages="errors"
-            label="Lastname"
+            label="Nom"
             required
         ></v-text-field>
       </validation-provider>
@@ -50,7 +50,7 @@
             v-model="user.city"
             :counter="50"
             :error-messages="errors"
-            label="city"
+            label="Ville"
             required
         ></v-text-field>
       </validation-provider>
@@ -62,7 +62,7 @@
         <v-text-field
             v-model="user.address"
             :error-messages="errors"
-            label="address"
+            label="Adresse"
             required
         ></v-text-field>
       </validation-provider>
@@ -74,7 +74,7 @@
             :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
             :rules="[rules.min]"
             :type="show1 ? 'text' : 'password'"
-            name="input-10-1" label="Password"
+            name="input-10-1" label="Mot de passe"
             counter @click:append="show1 = !show1">
         </v-text-field>
       </v-col>
@@ -83,7 +83,7 @@
             block v-model="verify"
             :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
             :rules="[passwordMatch]" :type="show1 ? 'text' : 'password'"
-            name="input-10-1" label="Confirm Password"
+            name="input-10-1" label="Mot de passe"
             counter @click:append="show1 = !show1">
         </v-text-field>
       </v-col>
@@ -92,7 +92,7 @@
           type="submit"
           :disabled="invalid"
       >
-        submit
+        Soumettre
       </v-btn>
       <v-btn @click="clear">
         clear

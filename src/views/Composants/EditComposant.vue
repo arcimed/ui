@@ -15,7 +15,7 @@
               v-model="composants.name"
               :counter="50"
               :error-messages="errors"
-              label="Name"
+              label="Nom"
               required
           ></v-text-field>
         </validation-provider>
@@ -28,7 +28,7 @@
               v-model="composants.description"
               :counter="200"
               :error-messages="errors"
-              label="description"
+              label="Description"
               required
           ></v-text-field>
         </validation-provider>
@@ -37,7 +37,7 @@
             type="submit"
             :disabled="invalid"
         >
-          submit
+          Soumettre
         </v-btn>
         <v-btn @click="clear">
           clear
