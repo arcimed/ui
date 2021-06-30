@@ -1,12 +1,12 @@
 <template>
-  <div class="row">
-    <p v-if="ordersToDeliver.length > 0" class="display-1"> Vos commmandes à livrer </p>
-    <div v-for="order in ordersToDeliver" :key="order.id">
+  <div class="col">
+    <p v-if="ordersToDeliver.length > 0" class="display-2"> Vos commmandes à livrer </p>
+    <div class="float-left" v-for="order in ordersToDeliver" :key="order.id">
       <OrderCard :isDeliveryMan="true" class="ma-6" :order="order"></OrderCard>
     </div>
 
-    <p v-if="ordersSort.length > 0" class="display-1" > Toutes les commandes </p>
-    <div v-for="order in ordersSort" :key="order.id">
+    <p v-if="ordersSort.length > 0" class="display-2"> Toutes les commandes </p>
+    <div class="float-left" v-for="order in ordersSort" :key="order.id">
       <OrderCard :isDeliveryMan="true" class="ma-6" :order="order"></OrderCard>
     </div>
 
