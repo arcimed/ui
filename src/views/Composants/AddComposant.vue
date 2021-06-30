@@ -99,11 +99,19 @@ export default {
       this.$refs.observer.validate()
       this.$store.dispatch('composant/addComposants', this.composants);
       this.$router.push({name: 'composants'})
+      this.$toast.open({
+        message: 'Le composant a bien été ajouté.',
+        type: 'success'
+      });
     },
     clear () {
       this.name = ''
       this.description = ''
       this.$refs.observer.reset()
+      this.$toast.open({
+        message: 'Le formulaire a été réinitialisé.',
+        type: 'success'
+      });
     },
 
   },

@@ -116,12 +116,20 @@ export default {
       this.$refs.observer.validate()
       this.$store.dispatch('restaurants/addRestaurant', this.resto);
       this.$router.push({name: 'Home'})
+      this.$toast.open({
+        message: 'Le restaurant a bien été ajouté.',
+        type: 'success'
+      });
     },
     clear () {
       this.name = ''
       this.address = ''
       this.city = ''
       this.$refs.observer.reset()
+      this.$toast.open({
+        message: 'Le formulaire a été réinitialisé.',
+        type: 'success'
+      });
     },
   },
 }

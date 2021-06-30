@@ -66,6 +66,10 @@ name: "Composants",
   methods: {
     deleteComposant(composantId) {
       this.$store.dispatch('composant/deleteComposants', composantId)
+      this.$toast.open({
+        message: 'Le composant a été supprimé.',
+        type: 'success'
+      });
     },
     download(composantName) {
       let message = this.$session.get('user').firstname + ' ' + this.$session.get('user').lastname + ' a téléchargé le composant : ' + composantName
@@ -76,7 +80,10 @@ name: "Composants",
           .catch((error) => {
             console.log(error);
           });
-
+      this.$toast.open({
+        message: 'Téléchargement du composant...',
+        type: 'success'
+      });
     },
     editComposant(composantId) {
       this.$router.push({name: 'EditComposant', params: {id: composantId}})

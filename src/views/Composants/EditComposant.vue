@@ -112,11 +112,19 @@ export default {
       let idComposant = this.id
       this.$store.dispatch('composant/editComposants', {composant, idComposant});
       this.$router.push({name: 'composants'})
+      this.$toast.open({
+        message: 'Le composant a bien été modifié.',
+        type: 'success'
+      });
     },
     clear () {
       this.name = ''
       this.description = ''
       this.$refs.observer.reset()
+      this.$toast.open({
+        message: 'Le formulaire a été réinitialisé.',
+        type: 'success'
+      });
     },
 
   },

@@ -23,14 +23,14 @@
           <td>{{ row.item.email }}</td>
           <td>{{ row.item.Role.name }}</td>
           <td>
-            <v-icon @click="deleteArticle(row.item.id)">mdi-delete</v-icon>
+            <v-icon @click="deleteUser(row.item.id)">mdi-delete</v-icon>
           </td>
           <td>
-            <v-icon v-if="row.item.isSuspended" @click="suspendArticle(row.item.id, row.item.isSuspended)">mdi-account-multiple-plus</v-icon>
-            <v-icon v-else @click="suspendArticle(row.item.id, row.item.isSuspended)">mdi-account-multiple-minus</v-icon>
+            <v-icon v-if="row.item.isSuspended" @click="suspendUser(row.item.id, row.item.isSuspended)">mdi-account-multiple-plus</v-icon>
+            <v-icon v-else @click="suspendUser(row.item.id, row.item.isSuspended)">mdi-account-multiple-minus</v-icon>
           </td>
           <td>
-            <v-icon @click="statsArticle(row.item.id)">mdi-chart-line</v-icon>
+            <v-icon @click="statsUser(row.item.id)">mdi-chart-line</v-icon>
           </td>
         </tr>
       </template>
@@ -72,13 +72,21 @@ name: "Users",
     this.$store.dispatch('userManagement/setUsers');
   },
   methods: {
-    deleteArticle(userId) {
+    deleteUser(userId) {
       this.$store.dispatch('userManagement/deleteUser',  userId)
+      this.$toast.open({
+        message: 'L\'utilisateur a bien été supprimé.',
+        type: 'success'
+      });
     },
-    suspendArticle(userId, isSuspended) {
+    suspendUser(userId, isSuspended) {
       this.$store.dispatch('userManagement/suspendUser',  {userId, isSuspended})
+      this.$toast.open({
+        message: 'L\'utilisateur a bien été suspendu.',
+        type: 'success'
+      });
     },
-    statsArticle(userId) {
+    statsUser(userId) {
       this.$router.push({name: 'Statistiques', params: {id: userId}})
     }
   }
