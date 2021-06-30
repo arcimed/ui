@@ -1,13 +1,33 @@
 {
-  "name": "ux",
+  "name": "CesiTonPlat",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "main": "dist/Component.common.js",
   "scripts": {
+    "build-bundle-button": "vue-cli-service build --target lib --name Component ./src/components/Button.vue",
+    "build-bundle-format": "vue-cli-service build --target lib --name Component ./src/components/Format.vue",
+    "build-bundle-footer": "vue-cli-service build --target lib --name Component ./src/components/Footer.vue",
+    "build-bundle-create-account": "vue-cli-service build --target lib --name Component ./src/components/Account/CreateAccount.vue",
+    "build-bundle-cart": "vue-cli-service build --target lib --name Component ./src/components/Cart.vue",
+    "build-bundle-navbar": "vue-cli-service build --target lib --name Component ./src/components/Navbar.vue",
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build",
+    "r": "git pull & npm install & npm run serve"
   },
+  "files": [
+    "dist/*",
+    "src/*",
+    "public/*",
+    "*.json",
+    "*.js"
+  ],
   "dependencies": {
     "@mdi/js": "^5.9.55",
+    "@projet-cesi/cart": "^0.1.0",
+    "@projet-cesi/create-account": "^0.1.0",
+    "@projet-cesi/footer": "^0.1.0",
+    "@projet-cesi/format-date": "^0.1.1",
+    "@projet-cesi/navbar": "^0.1.0",
     "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "emailjs-com": "^3.1.0",
