@@ -34,6 +34,7 @@
           Editer
         </v-btn>
         <v-btn
+            class="ml-6"
             color="primary"
             depressed
             v-if="restaurant.restaurateurId === parseInt(this.$session.get('user').id) || parseInt(this.$session.get('user').roleId) === statusRoles.Admin"
@@ -43,7 +44,7 @@
           <v-icon left>
             {{ icons.mdiDelete }}
           </v-icon>
-          Supprimer
+          Suppr.
         </v-btn>
       </div>
     </v-card-actions>
