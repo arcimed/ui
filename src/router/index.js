@@ -10,7 +10,7 @@ const routes = [
     name: 'Home',
     component: Home,
     meta: {
-      requiresAuth: true,
+      home: true,
     nothing: true
     }
   },
@@ -322,6 +322,8 @@ router.beforeEach((to, from, next) => {
         next()
       }
     }
+  } else  if(to.matched.some(record => record.meta.home)) {
+    next()
   }
 })
 export default router

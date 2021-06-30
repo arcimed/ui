@@ -35,7 +35,7 @@
       </div>
     </v-row>
     <v-card class="mx-auto" style="margin-top: 200px">
-      <form @submit.prevent="submit">
+      <form @submit.prevent="sendEmail" style="margin: 20px">
         <v-text-field
             type="email"
             v-model="email"
@@ -61,6 +61,7 @@
           item-key="name"
           class="elevation-1"
           :hide-default-footer="true"
+          style="margin: 20px"
       >
       </v-data-table>
     </v-card>
@@ -122,7 +123,7 @@ export default {
     },
     sendEmail(e) {
       this.referral_code = String("https://localhost:8080/?referralCode=" + this.$session.get('user').referralCode
-          + "&email=" + this.email + "&role=" + this.$session.get('user').roleId).replace(/\s/g, '');
+          + "&email=" + this.email + "&roleId=" + this.$session.get('user').roleId).replace(/\s/g, '');
 
       setTimeout(() => {
         try {
