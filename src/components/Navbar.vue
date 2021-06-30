@@ -1,7 +1,7 @@
 <template>
   <nav>
     <v-app-bar color="deep-purple" dark>
-      <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon @click="openDrawer()"></v-app-bar-nav-icon>
 
       <v-toolbar-title @click="home">
         <v-btn text class="mr-4">
@@ -22,6 +22,7 @@
             dark
             small
             color="primary"
+            :disabled="!this.$session.exists()"
             :to="'/user'"
         >
           <v-icon  class="mr-4" style="margin-left: 15px">mdi-account</v-icon>
@@ -129,49 +130,53 @@ export default {
     }
   },
   mounted() {
-    this.$store.dispatch('notifications/setNotifications', this.$session.get('user').id);
-    axios.get(`api/notifications/count/` + this.$session.get('user').id)
-        .then((response) => {
-          this.count = response.data.data
-        }).catch()
-    let roleUser = this.$session.get('user').roleId
-    switch (roleUser) {
-      case statusRoles.User:
-        this.links.push({ icon: 'mdi-order-alphabetical-ascending', text: 'mes commandes', route: '/my-orders'})
-        break
-      case statusRoles.Restaurateur:
-        this.links.push({ icon: 'mdi-chart-line', text: 'Statistiques', route: '/Statistiques/' + this.$session.get('user').id  })
-        this.links.push({ icon: 'mdi-order-bool-ascending-variant', text: 'Les commandes en cours', route: '/my-restaurant-orders'})
+    if (this.$session.exists()) {
+      this.$store.dispatch('notifications/setNotifications', this.$session.get('user').id);
+      axios.get(`api/notifications/count/` + this.$session.get('user').id)
+          .then((response) => {
+            this.count = response.data.data
+          }).catch()
 
-        break
-      case statusRoles.Livreur:
-        this.links.push({ icon: 'mdi-truck-delivery', text: 'Commandes a livrer', route: '/orders-to-be-delivered'})
-        break
-      case statusRoles.Developpeur:
-        this.links.push({ icon: 'mdi-view-compact', text: 'Composants', route: '/composants' })
-        break
-      case statusRoles.Commercial:
-        this.links.push({ icon: 'mdi-account-multiple-outline', text: 'Dashboard Utilisateur', route: '/userManagement' })
-        this.links.push({ icon: 'mdi-view-compact', text: 'Dashboard', route: '/dashboard' })
-        this.links.push({ icon: 'mdi-chart-line', text: 'Statistiques Commerciale', route: '/StatistiquesCommerciale' })
-        break
-      case statusRoles.Technique:
-        this.links.push({ icon: 'mdi-history', text: 'Log de connexion', route: '/connectionLog' })
-        this.links.push({ icon: 'mdi-view-compact', text: 'Composants', route: '/composants' })
-        this.links.push({ icon: 'mdi-history', text: 'Log de téléchargement de composants', route: '/composantsLog' })
-        break
-      case statusRoles.Admin:
-        this.links.push({ icon: 'mdi-order-alphabetical-ascending', text: 'Mes commandes', route: '/my-orders'})
-        this.links.push({ icon: 'mdi-chart-line', text: 'Statistiques', route: '/Statistiques/' + this.$session.get('user').id  })
-        this.links.push({ icon: 'mdi-chart-line', text: 'Statistiques Commerciale', route: '/StatistiquesCommerciale' })
-        this.links.push({ icon: 'mdi-view-compact', text: 'Dashboard', route: '/dashboard' })
-        this.links.push({ icon: 'mdi-order-bool-ascending-variant', text: 'Les commandes en cours', route: '/my-restaurant-orders'})
-        this.links.push({ icon: 'mdi-truck-delivery', text: 'Commandes a livrer', route: '/orders-to-be-delivered'})
-        this.links.push({ icon: 'mdi-account-multiple-outline', text: 'Dashboard Utilisateur', route: '/userManagement' })
-        this.links.push({ icon: 'mdi-history', text: 'Log de connexion', route: '/connectionLog' })
-        this.links.push({ icon: 'mdi-view-compact', text: 'Composants', route: '/composants' })
-        this.links.push({ icon: 'mdi-history', text: 'Log de téléchargement de composants', route: '/composantsLog' })
-        break
+      let roleUser = this.$session.get('user').roleId
+
+      switch (roleUser) {
+        case statusRoles.User:
+          this.links.push({ icon: 'mdi-order-alphabetical-ascending', text: 'mes commandes', route: '/my-orders'})
+          break
+        case statusRoles.Restaurateur:
+          this.links.push({ icon: 'mdi-chart-line', text: 'Statistiques', route: '/Statistiques/' + this.$session.get('user').id  })
+          this.links.push({ icon: 'mdi-order-bool-ascending-variant', text: 'Les commandes en cours', route: '/my-restaurant-orders'})
+
+          break
+        case statusRoles.Livreur:
+          this.links.push({ icon: 'mdi-truck-delivery', text: 'Commandes a livrer', route: '/orders-to-be-delivered'})
+          break
+        case statusRoles.Developpeur:
+          this.links.push({ icon: 'mdi-view-compact', text: 'Composants', route: '/composants' })
+          break
+        case statusRoles.Commercial:
+          this.links.push({ icon: 'mdi-account-multiple-outline', text: 'Dashboard Utilisateur', route: '/userManagement' })
+          this.links.push({ icon: 'mdi-view-compact', text: 'Dashboard', route: '/dashboard' })
+          this.links.push({ icon: 'mdi-chart-line', text: 'Statistiques Commerciale', route: '/StatistiquesCommerciale' })
+          break
+        case statusRoles.Technique:
+          this.links.push({ icon: 'mdi-history', text: 'Log de connexion', route: '/connectionLog' })
+          this.links.push({ icon: 'mdi-view-compact', text: 'Composants', route: '/composants' })
+          this.links.push({ icon: 'mdi-history', text: 'Log de téléchargement de composants', route: '/composantsLog' })
+          break
+        case statusRoles.Admin:
+          this.links.push({ icon: 'mdi-order-alphabetical-ascending', text: 'Mes commandes', route: '/my-orders'})
+          this.links.push({ icon: 'mdi-chart-line', text: 'Statistiques', route: '/Statistiques/' + this.$session.get('user').id  })
+          this.links.push({ icon: 'mdi-chart-line', text: 'Statistiques Commerciale', route: '/StatistiquesCommerciale' })
+          this.links.push({ icon: 'mdi-view-compact', text: 'Dashboard', route: '/dashboard' })
+          this.links.push({ icon: 'mdi-order-bool-ascending-variant', text: 'Les commandes en cours', route: '/my-restaurant-orders'})
+          this.links.push({ icon: 'mdi-truck-delivery', text: 'Commandes a livrer', route: '/orders-to-be-delivered'})
+          this.links.push({ icon: 'mdi-account-multiple-outline', text: 'Dashboard Utilisateur', route: '/userManagement' })
+          this.links.push({ icon: 'mdi-history', text: 'Log de connexion', route: '/connectionLog' })
+          this.links.push({ icon: 'mdi-view-compact', text: 'Composants', route: '/composants' })
+          this.links.push({ icon: 'mdi-history', text: 'Log de téléchargement de composants', route: '/composantsLog' })
+          break
+      }
     }
   },
   computed: {
@@ -187,8 +192,10 @@ export default {
   },
   methods: {
     openNotifications() {
-      this.$store.dispatch('notifications/setNotifications', this.$session.get('user').id);
-      this.$store.dispatch('notifications/SeenNotification', this.$session.get('user').id);
+      if (this.$session.exists()) {
+        this.$store.dispatch('notifications/setNotifications', this.$session.get('user').id);
+        this.$store.dispatch('notifications/SeenNotification', this.$session.get('user').id);
+      }
       this.count = 0;
     },
     linkNotifications(url) {
@@ -212,18 +219,16 @@ export default {
         this.$router.go()
       }
     },
-    myOrders() {
-      if(this.$route.name === 'MyOrders') {
-        this.$router.go()
-      } else {
-        this.$router.push({name: 'MyOrders'});
-      }
-    },
     home() {
       if(this.$route.name === 'Home') {
         this.$router.go()
       } else {
         this.$router.push({name: 'Home'});
+      }
+    },
+    openDrawer() {
+      if (this.$session.exists()) {
+        this.drawer = true
       }
     }
   },
@@ -232,7 +237,7 @@ export default {
       console.log('socket connected')
     },
     newNotification: function(notification){
-      if (this.$session.get("user").id === parseInt(notification.userId)) {
+      if (this.$session.exists() && this.$session.get("user").id === parseInt(notification.userId)) {
         this.count += 1;
       }
     }

@@ -128,12 +128,20 @@ export default {
       let idRestaurant = this.temp.id
       this.$store.dispatch('restaurants/editRestaurant', {restaurant, idRestaurant});
       this.$router.push({name: 'Home'})
+      this.$toast.open({
+        message: 'Le restaurant a bien été modifié.',
+        type: 'success'
+      });
     },
     clear () {
       this.name = ''
       this.address = ''
       this.city = ''
       this.$refs.observer.reset()
+      this.$toast.open({
+        message: 'Le formulaire a été réinitialisé.',
+        type: 'success'
+      });
     },
   },
 }

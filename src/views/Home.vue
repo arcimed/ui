@@ -1,12 +1,16 @@
 <template>
   <div>
-    <v-btn @click="addRestaurant" v-if="this.$session.get('user').roleId === statusRoles.Restaurateur || parseInt(this.$session.get('user').roleId) === statusRoles.Admin">
+    <v-btn @click="addRestaurant" v-if="this.$session.exists() && (this.$session.get('user').roleId === statusRoles.Restaurateur || parseInt(this.$session.get('user').roleId) === statusRoles.Admin)">
       Ajout de restaurant
     </v-btn>
-    <div class="row">
+    <div class="row" v-if="this.$session.exists()">
       <div v-for="restaurant in restaurants" :key="restaurant.name">
         <RestaurantCard :restaurant="restaurant"></RestaurantCard>
       </div>
+    </div>
+    <div class="row" v-else>
+      <p class="display-2">Bienvenue sur CesiTonPlat</p>
+      <p class="display-1">Veuillez vous connecter ou créer un nouveau compte.</p>
     </div>
   </div>
 </template>

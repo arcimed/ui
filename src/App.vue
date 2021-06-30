@@ -52,14 +52,18 @@ export default Vue.extend({
     },
   },
   beforeMount() {
-    this.$http.defaults.headers.common['Authorization'] = this.$session.get('token')
+    if (this.$session.exists()) {
+      this.$http.defaults.headers.common['Authorization'] = this.$session.get('token')
+    }
     this.$http.defaults.headers.post['Content-Type'] = 'application/json';
   },
   mounted() {
     if (this.$route.query.referralCode) {
       this.login = true;
     }
-    this.$store.dispatch('restaurants/setRestaurants', this);
+    if (this.$session.exists()) {
+      this.$store.dispatch('restaurants/setRestaurants', this);
+    }
   }
 });
 
