@@ -123,7 +123,7 @@ export default {
     },
     sendEmail(e) {
       this.referral_code = String("https://localhost:8080/?referralCode=" + this.$session.get('user').referralCode
-          + "&email=" + this.email + "&roleId=" + this.$session.get('user').roleId).replace(/\s/g, '');
+          + "&email=" + this.email + "&role=" + this.$session.get('user').roleId).replace(/\s/g, '');
 
       setTimeout(() => {
         try {
