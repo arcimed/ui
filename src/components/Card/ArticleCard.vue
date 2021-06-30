@@ -63,7 +63,20 @@ export default {
       this.$router.push({name: 'EditArticle', params: {id: articleId}})
     },
     deleteArticle(articleId) {
-      this.$store.dispatch('articles/deleteArticle', articleId);
+      try {
+        this.$store.dispatch('articles/deleteArticle', articleId);
+        this.$toast.open({
+          message: "L'article a bien été suprimer",
+          type: 'success'
+        });
+      } catch (error) {
+        this.$toast.open({
+          message: error,
+          type: 'warning'
+        });
+      }
+
+
     }
   }
 }

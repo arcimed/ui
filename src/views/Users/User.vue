@@ -118,7 +118,15 @@ export default {
             this.$session.destroy()
             this.$router.push({name: 'home'})
             this.$router.go()
-          }).catch()
+            this.$toast.open({
+              message: "L'utilisateur a bien été supprimer",
+              type: 'success'
+            });
+          }).catch(error =>
+          this.$toast.open({
+            message: error,
+            type: 'warning'
+       }))
 
     },
     sendEmail(e) {
@@ -128,8 +136,16 @@ export default {
       setTimeout(() => {
         try {
           emailjs.sendForm('service_r98cb28', 'template_7pgishp', e.target, 'user_EdjSTCVobbokr2ansmIKU')
+          this.$toast.open({
+            message: "L'invitation de parainage a bien été envoyer",
+            type: 'success'
+          });
 
         } catch(error) {
+          this.$toast.open({
+            message: error,
+            type: 'success'
+          });
           console.log({error})
         }
 

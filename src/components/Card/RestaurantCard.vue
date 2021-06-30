@@ -70,7 +70,18 @@ export default {
       this.$router.push({name: 'EditRestaurant', params: {id: restaurantId}})
     },
     deleteRestaurant(restaurantId) {
-      this.$store.dispatch('restaurants/deleteRestaurant', restaurantId);
+      try {
+        this.$store.dispatch('restaurants/deleteRestaurant', restaurantId);
+        this.$toast.open({
+          message: 'Le restaurant a bien été supprimer',
+          type: 'success'
+        });
+      } catch (e) {
+        this.$toast.open({
+          message: e,
+          type: 'warning'
+        });
+      }
     }
   }
 }

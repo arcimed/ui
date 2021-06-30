@@ -86,7 +86,20 @@ export default {
       this.$router.push({name: 'EditMenu', params: {id: menuId}})
     },
     deleteMenu(menuId) {
-      this.$store.dispatch('menus/deleteMenu', menuId);
+      try {
+        this.$store.dispatch('menus/deleteMenu', menuId);
+        this.$toast.open({
+          message: 'Le menu a bien été supprimer',
+          type: 'success'
+        });
+      } catch (e) {
+        this.$toast.open({
+          message: e,
+          type: 'warning'
+        });
+      }
+
+
     }
   }
 }
