@@ -51,9 +51,6 @@
         >
           Soumettre
         </v-btn>
-        <v-btn @click="clear">
-          clear
-        </v-btn>
       </form>
 
     </validation-observer>
@@ -134,17 +131,6 @@ export default {
         type: 'success'
       });
     },
-    clear () {
-      this.name = ''
-      this.address = ''
-      this.city = ''
-      this.$refs.observer.reset()
-      this.$toast.open({
-        message: 'Le formulaire a été réinitialisé.',
-        type: 'success'
-      });
-    },
-
   },
 }
 </script>

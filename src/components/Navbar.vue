@@ -15,6 +15,8 @@
       <v-toolbar-title v-if="this.$session.exists()" class="mr-5">
         <span>Bonjour, </span>
         <span class="font-weight-black">{{ this.$session.get('user').firstname }}</span>
+        <span> | Role: </span>
+        <span class="font-weight-thin"> {{ getStatusRoles(this.$session.get('user').roleId) }}</span>
       </v-toolbar-title>
         <v-btn
             class="mx-2"
@@ -109,6 +111,7 @@ import axios from "axios";
 const {statusRoles} = require('@/config/statusRoles');
 const _ = require('lodash')
 import format from "../components/format";
+import {getStatusRoles} from "@/config/statusRoles";
 
 export default {
   components: {
@@ -120,6 +123,7 @@ export default {
       count: this.numberNotifications,
       divider: true,
       statusRoles: statusRoles,
+      getStatusRoles: getStatusRoles,
       drawer: false,
       links: [
         { icon: 'mdi-home', text: 'Produits', route: '/' },

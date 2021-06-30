@@ -167,7 +167,7 @@ const routes = [
   {
     path: '/connectionLog',
     name: 'connectionLog',
-    component: () => import('../views/Users/connectionLog.vue'),
+    component: () => import('../views/Users/ConnectionLog.vue'),
     meta: {
       requiresAuth: true,
       is_Technique: true

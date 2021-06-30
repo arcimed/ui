@@ -8,6 +8,8 @@
     <div v-for="order in ordersSort" :key="order.id">
       <OrderCard :isDeliveryMan="true" class="ma-6" :order="order"></OrderCard>
     </div>
+
+    <p class="display-1" v-if="ordersSort.length <= 0 && ordersToDeliver.length <= 0"> Il n'y a pas de commande(s) à traitée(s). </p>
   </div>
 
 </template>

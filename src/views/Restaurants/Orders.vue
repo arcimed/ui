@@ -1,11 +1,13 @@
 <template>
   <div class="row">
     <div v-for="data in restaurateurRestaurantsOrders" :key="data.restaurant.id">
-      {{ data.restaurant.name }}
+      <p class="display-1">{{ data.restaurant.name }}</p>
 
       <div v-for="order in sortData(data.orders)" :key="order.id">
         <OrderCard :isRestaurateur="true" class="ma-6" :order="order"></OrderCard>
       </div>
+
+      <p v-if="data.orders.length <= 0"> Il n'y a pas encore de commande(s) dans votre restaurant. </p>
     </div>
   </div>
 </template>

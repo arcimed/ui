@@ -119,7 +119,7 @@ export default {
             this.$router.push({name: 'home'})
             this.$router.go()
             this.$toast.open({
-              message: "L'utilisateur a bien été supprimer",
+              message: "L'utilisateur a bien été supprimé",
               type: 'success'
             });
           }).catch(error =>
@@ -137,7 +137,7 @@ export default {
         try {
           emailjs.sendForm('service_r98cb28', 'template_7pgishp', e.target, 'user_EdjSTCVobbokr2ansmIKU')
           this.$toast.open({
-            message: "L'invitation de parainage a bien été envoyer",
+            message: "L'invitation de parainage a bien été envoyée",
             type: 'success'
           });
 

@@ -67,7 +67,7 @@
         ></v-text-field>
       </validation-provider>
 
-      <p>Nouveau mots de passe :</p>
+      <p>Nouveau mot de passe :</p>
       <v-col cols="12">
         <v-text-field
             v-model="user.password"
@@ -93,9 +93,6 @@
           :disabled="invalid"
       >
         Soumettre
-      </v-btn>
-      <v-btn @click="clear">
-        clear
       </v-btn>
     </form>
 
@@ -186,14 +183,10 @@ name: "EditUser",
           .catch((error) => {
           });
       this.$router.push({name: 'user'})
-    },
-    clear () {
-      this.firstname = ''
-      this.lastname = ''
-      this.email = ''
-      this.address = ''
-      this.city = ''
-      this.$refs.observer.reset()
+      this.$toast.open({
+        message: 'Votre compte a été modifié.',
+        type: 'success'
+      });
     },
   },
 }

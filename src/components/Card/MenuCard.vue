@@ -89,7 +89,7 @@ export default {
       try {
         this.$store.dispatch('menus/deleteMenu', menuId);
         this.$toast.open({
-          message: 'Le menu a bien été supprimer',
+          message: 'Le menu a bien été supprimé',
           type: 'success'
         });
       } catch (e) {

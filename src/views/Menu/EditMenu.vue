@@ -59,9 +59,6 @@
         >
           Soumettre
         </v-btn>
-        <v-btn @click="clear">
-          clear
-        </v-btn>
       </form>
 
     </validation-observer>
@@ -146,16 +143,6 @@ export default {
       this.$router.push({name: 'menuArticle', params: {id: this.menu.restaurantsId}})
       this.$toast.open({
         message: 'Le menu a bien été modifié.',
-        type: 'success'
-      });
-    },
-    clear () {
-      this.name = ''
-      this.address = ''
-      this.city = ''
-      this.$refs.observer.reset()
-      this.$toast.open({
-        message: 'Le formulaire a été réinitialisé.',
         type: 'success'
       });
     },
