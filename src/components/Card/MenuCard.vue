@@ -37,7 +37,7 @@
         </div>
         <v-spacer></v-spacer>
         <div class="my-4 text-subtitle-1" style="display: flex">
-          <v-btn icon @click="show = !show" style="display: contents">
+          <v-btn class="test" :ripple="false" icon @click="show = !show" style="display: contents">
             <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
           </v-btn>
         </div>
@@ -52,7 +52,7 @@
           <v-list-item-group color="primary">
             <v-list-item v-for="article in menu.Articles" :key="article.id">
               <v-list-item-content>
-                <v-list-item-title v-text="article.name"></v-list-item-title>
+                <v-list-item-title>{{article.name}} | Type: {{article.TypesArticle.name}}</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           </v-list-item-group>
@@ -98,10 +98,14 @@ export default {
           type: 'warning'
         });
       }
-
-
     }
   }
 }
 
 </script>
+
+<style scoped>
+.test::before {
+  background-color: transparent;
+}
+</style>
