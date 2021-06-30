@@ -87,17 +87,17 @@
     </v-card-actions>
     <v-card-actions v-else-if="isDeliveryMan">
       <div v-if="order.ordersStatusId === statusOrders.validate">
-        <v-btn outlined rounded text @click="setDeliveryManForOrder(order.id)" >
+        <v-btn outlined rounded text @click="setDeliveryManForOrder(order.id)">
           Accepter cette commande
         </v-btn>
       </div>
       <div v-else-if="order.ordersStatusId === statusOrders.validateByDelivery">
-        <v-btn outlined rounded text @click="setRecoverByDeliveryMan()" >
-          Valider la récupération de la commande
+        <v-btn outlined rounded text @click="setRecoverByDeliveryMan()">
+          Récupération de la commande
         </v-btn>
       </div>
       <div v-else-if="order.ordersStatusId === statusOrders.inDelivery">
-        <v-btn outlined rounded text @click="setOrderDelivered()" >
+        <v-btn outlined rounded text @click="setOrderDelivered()">
           Valider la livraison
         </v-btn>
       </div>
@@ -191,6 +191,11 @@ export default {
 
       let order = this.order;
       this.$store.dispatch('notifications/addOrderChangeStatus', {order, status})
+
+      this.$toast.open({
+        message: 'Nouveau statut pour la commande: ' + getStatusOrders(status) + '.',
+        type: 'success'
+      });
     },
 
     setDeliveryManForOrder(orderId) {
@@ -201,6 +206,11 @@ export default {
 
       let username = this.$session.get('user').firstname;
       this.$store.dispatch('notifications/addDeliveryManAccept', { order, username })
+
+      this.$toast.open({
+        message: 'Vous avez pris en charge la commande.',
+        type: 'success'
+      });
     },
 
     setRecoverByDeliveryMan() {
@@ -209,6 +219,11 @@ export default {
       let order = this.order;
       let username = this.$session.get('user').firstname;
       this.$store.dispatch('notifications/addOrderInDelivery', { order, username })
+
+      this.$toast.open({
+        message: 'Vous avez récupéré la commande.',
+        type: 'success'
+      });
     },
 
     setOrderDelivered() {
@@ -217,6 +232,11 @@ export default {
       let order = this.order;
       let username = this.$session.get('user').firstname;
       this.$store.dispatch('notifications/addOrderDelivered', { order, username })
+
+      this.$toast.open({
+        message: 'Vous avez livré la commande.',
+        type: 'success'
+      });
     },
 
     async checkout(totalPriceCart, orderId) {

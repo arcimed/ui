@@ -141,7 +141,7 @@ export default {
 
       switch (roleUser) {
         case statusRoles.User:
-          this.links.push({ icon: 'mdi-order-alphabetical-ascending', text: 'mes commandes', route: '/my-orders'})
+          this.links.push({ icon: 'mdi-order-alphabetical-ascending', text: 'Mes commandes', route: '/my-orders'})
           break
         case statusRoles.Restaurateur:
           this.links.push({ icon: 'mdi-chart-line', text: 'Statistiques', route: '/Statistiques/' + this.$session.get('user').id  })
@@ -149,7 +149,7 @@ export default {
 
           break
         case statusRoles.Livreur:
-          this.links.push({ icon: 'mdi-truck-delivery', text: 'Commandes a livrer', route: '/orders-to-be-delivered'})
+          this.links.push({ icon: 'mdi-truck-delivery', text: 'Commandes à livrer', route: '/orders-to-be-delivered'})
           break
         case statusRoles.Developpeur:
           this.links.push({ icon: 'mdi-view-compact', text: 'Composants', route: '/composants' })
@@ -157,12 +157,12 @@ export default {
         case statusRoles.Commercial:
           this.links.push({ icon: 'mdi-account-multiple-outline', text: 'Dashboard Utilisateur', route: '/userManagement' })
           this.links.push({ icon: 'mdi-view-compact', text: 'Dashboard', route: '/dashboard' })
-          this.links.push({ icon: 'mdi-chart-line', text: 'Statistiques Commerciale', route: '/StatistiquesCommerciale' })
+          this.links.push({ icon: 'mdi-chart-line', text: 'Statistiques Commerciales', route: '/StatistiquesCommerciale' })
           break
         case statusRoles.Technique:
-          this.links.push({ icon: 'mdi-history', text: 'Log de connexion', route: '/connectionLog' })
+          this.links.push({ icon: 'mdi-history', text: 'Log de connexions', route: '/connectionLog' })
           this.links.push({ icon: 'mdi-view-compact', text: 'Composants', route: '/composants' })
-          this.links.push({ icon: 'mdi-history', text: 'Log de téléchargement de composants', route: '/composantsLog' })
+          this.links.push({ icon: 'mdi-history', text: 'Logs de téléchargement de composants', route: '/composantsLog' })
           break
         case statusRoles.Admin:
           this.links.push({ icon: 'mdi-order-alphabetical-ascending', text: 'Mes commandes', route: '/my-orders'})
@@ -170,9 +170,9 @@ export default {
           this.links.push({ icon: 'mdi-chart-line', text: 'Statistiques Commerciale', route: '/StatistiquesCommerciale' })
           this.links.push({ icon: 'mdi-view-compact', text: 'Dashboard', route: '/dashboard' })
           this.links.push({ icon: 'mdi-order-bool-ascending-variant', text: 'Les commandes en cours', route: '/my-restaurant-orders'})
-          this.links.push({ icon: 'mdi-truck-delivery', text: 'Commandes a livrer', route: '/orders-to-be-delivered'})
+          this.links.push({ icon: 'mdi-truck-delivery', text: 'Commandes à livrer', route: '/orders-to-be-delivered'})
           this.links.push({ icon: 'mdi-account-multiple-outline', text: 'Dashboard Utilisateur', route: '/userManagement' })
-          this.links.push({ icon: 'mdi-history', text: 'Log de connexion', route: '/connectionLog' })
+          this.links.push({ icon: 'mdi-history', text: 'Logs de connexion', route: '/connectionLog' })
           this.links.push({ icon: 'mdi-view-compact', text: 'Composants', route: '/composants' })
           this.links.push({ icon: 'mdi-history', text: 'Log de téléchargement de composants', route: '/composantsLog' })
           break

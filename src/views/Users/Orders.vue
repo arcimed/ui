@@ -30,6 +30,11 @@ export default {
 
           this.$store.dispatch('orders/setPaidOrder', orderId)
           this.$store.dispatch('notifications/addCartPayed', {order, username})
+
+          this.$toast.open({
+            message: 'Vous avez payé la commande ' + orderId + '.',
+            type: 'success'
+          });
         }
       }, 1500);
 
