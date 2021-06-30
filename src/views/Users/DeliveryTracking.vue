@@ -68,6 +68,14 @@ export default {
     ...mapGetters('orders', {
       deliveryOrder: 'deliveryOrder',
     }),
+  },
+  sockets: {
+    changeStatusOrder: function (orderId) {
+      console.log("lol")
+      if (this.orderId === parseInt(orderId)) {
+        this.$store.dispatch('orders/setDeliveryOrder', this.orderId)
+      }
+    }
   }
 }
 

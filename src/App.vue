@@ -28,7 +28,7 @@
 <script>
 
 import Navbar from './components/Navbar';
-import Footer from './components/Footer';
+import Footer from '@projet-cesi/footer';
 import CreateAccount from './components/Account/CreateAccount';
 import Cart from "@/components/Cart";
 import Vue from 'vue';

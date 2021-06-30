@@ -32,7 +32,6 @@ const actions = {
             }).catch()
     },
     editComposants: (store, {composant, idComposant}) => {
-        console.log(idComposant)
         axios.put(`api/component/edit/` + idComposant, composant)
             .then(() => {
                 store.commit('editComposants', {composant, idComposant})

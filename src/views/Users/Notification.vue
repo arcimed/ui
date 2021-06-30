@@ -31,7 +31,7 @@
 <script>
 import {mapGetters} from "vuex";
 const _ = require('lodash')
-import format from "../../components/format";
+import format from "@projet-cesi/format-date";
 
 export default {
   name: "Notification",

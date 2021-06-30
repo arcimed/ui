@@ -4,7 +4,8 @@
     <div v-for="order in ordersToDeliver" :key="order.id">
       <OrderCard :isDeliveryMan="true" class="ma-6" :order="order"></OrderCard>
     </div>
-    <p v-if="ordersSort.length > 0" class="display-1"> Toutes les commandes </p>
+
+    <p v-if="ordersSort.length > 0" class="display-1" > Toutes les commandes </p>
     <div v-for="order in ordersSort" :key="order.id">
       <OrderCard :isDeliveryMan="true" class="ma-6" :order="order"></OrderCard>
     </div>

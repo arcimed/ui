@@ -18,7 +18,7 @@
 
 <script>
 import axios from "axios";
-import format from "../../components/format";
+import format from "@projet-cesi/format-date";
 
 export default {
   name: "connectionLog",

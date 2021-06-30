@@ -309,7 +309,6 @@ router.beforeEach((to, from, next) => {
         if (userRole === 5 || userRole === 7) {
           next()
         } else {
-          console.log('home')
           next({name: 'Home'})
         }
       } else if (to.matched.some(record => record.meta.is_Technique)) {

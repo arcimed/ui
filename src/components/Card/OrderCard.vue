@@ -278,9 +278,6 @@ export default {
             return result;
           }).catch(error => {return false})
     }
-  },
-  mounted() {
-    console.log(this.order)
   }
 }
 

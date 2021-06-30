@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import {statusOrders} from "../../config/statusOrders";
+import {statusOrders} from "@/config/statusOrders";
 
 export default {
   name: "Chart",

@@ -8,17 +8,17 @@ import moment from 'moment'
 let formatter = {
   date: function (value, format) {
     if (value) {
-      return moment(String(value)).format(format || 'MM/DD/YY')
+      return moment(String(value)).format('DD/MM/YYYY')
     }
   },
   time: function (value, format) {
     if (value) {
-      return moment(String(value)).format(format || 'h:mm A');
+      return moment(String(value)).format('HH:mm');
     }
   },
   dateTime: function (value, format) {
     if (value) {
-      return moment(String(value)).format(format || 'MMMM Do YYYY, h:mm:ss')
+      return moment(String(value)).format('DD/MM/YYYY, HH:mm')
     }
   },
 };
