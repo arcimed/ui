@@ -27,7 +27,8 @@
               depressed
               v-if="article.Restaurant.restaurateurId === parseInt(this.$session.get('user').id) || parseInt(this.$session.get('user').roleId) === statusRoles.Admin"
               style="margin-left: 10px"
-              @click="deleteArticle(article.id)"
+              @click.stop="dialog = true"
+
           >
             <v-icon left>
               {{ icons.mdiDelete }}
@@ -37,6 +38,37 @@
         </div>
       </v-card-actions>
     </v-card-actions>
+    <v-row justify="center">
+      <v-dialog
+          v-model="dialog"
+          max-width="500"
+      >
+        <v-card>
+          <v-card-title class="text-h5">
+            Souhaitez vous supprimer cet élément ?
+          </v-card-title>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+
+            <v-btn
+                color="green darken-1"
+                text
+                @click="dialog = false"
+            >
+              Annuler
+            </v-btn>
+
+            <v-btn
+                color="green darken-1"
+                text
+                @click="deleteArticle(article.id)"
+            >
+              Supprimer
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </v-row>
   </v-card>
 </template>
 
@@ -53,6 +85,7 @@ export default {
     icons: {
       mdiDelete,
     },
+    dialog: false,
     statusRoles: statusRoles,
   }),
   methods: {
@@ -75,8 +108,7 @@ export default {
           type: 'warning'
         });
       }
-
-
+      this.dialog = false
     }
   }
 }
