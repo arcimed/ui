@@ -113,7 +113,7 @@ import {mapGetters} from "vuex";
 import axios from "axios";
 const {statusRoles} = require('@/config/statusRoles');
 const _ = require('lodash')
-import format from "@projet-cesi/format-date";
+import format from "./Format";
 import {getStatusRoles} from "@/config/statusRoles";
 
 export default {
