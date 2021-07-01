@@ -88,7 +88,7 @@ export default {
       name: '',
       description: '',
     },
-    home: "Home",
+    home: "composants",
     retourButton: "< Retour",
     temp : {}
   }),

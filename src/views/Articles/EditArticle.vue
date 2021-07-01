@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-row class="mb-10">
-      <Button :name="retourButton" :routeName="home"/>
+      <Button :name="retourButton" :routeName="home" :id="this.id"/>
     </v-row>
     <validation-observer ref="observer" v-slot="{ invalid }">
 
@@ -105,7 +105,7 @@ export default {
       price: ''
     },
     type: [],
-    home: "Home",
+    home: "menuArticle",
     retourButton: "< Retour",
   }),
   props: {

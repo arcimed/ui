@@ -12,11 +12,14 @@ export default {
     },
     name: {
       required: true
+    },
+    id: {
+      required: false
     }
   },
   methods: {
     redirect() {
-      this.$router.push({name: this.routeName})
+      this.$router.push({name: this.routeName, params: {id: this.id}})
     }
   }
 }
