@@ -9,7 +9,7 @@
       <template v-slot:item="row">
         <tr>
           <td class="align-center">{{ row.item.message }}</td>
-          <td class="align-center"><format :value="row.item.createdAt" fn="date" /></td>
+          <td class="align-center"><format :value="row.item.createdAt" fn="dateTime" /></td>
         </tr>
       </template>
     </v-data-table>
