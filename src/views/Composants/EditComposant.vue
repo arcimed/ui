@@ -59,7 +59,7 @@ extend('digits', {
 
 extend('required', {
   ...required,
-  message: '{_field_} can not be empty',
+  message: '{_field_} ne peut pas être vide',
 })
 
 extend('max', {
@@ -74,7 +74,7 @@ extend('regex', {
 
 extend('email', {
   ...email,
-  message: 'Email must be valid',
+  message: 'L\'email doit être valide.',
 })
 
 export default {

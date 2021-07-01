@@ -96,7 +96,7 @@ export default {
       try {
         this.$store.dispatch('articles/deleteArticle', articleId);
         this.$toast.open({
-          message: "L'article a bien été suprimer",
+          message: "L'article a bien été suprimé",
           type: 'success'
         });
       } catch (error) {
