@@ -189,10 +189,33 @@ export default {
   },
   methods: {
     deleteArticle(restaurantCartId, articleId) {
-      this.$store.dispatch('cart/deleteArticleToCart', {restaurantCartId , articleId})
+      try {
+        this.$toast.open({
+          message: "L'article a bien été suprimer du panier",
+          type: 'success'
+        });
+        this.$store.dispatch('cart/deleteArticleToCart', {restaurantCartId , articleId})
+      } catch (e) {
+        this.$toast.open({
+          message: e,
+          type: 'warning'
+        });
+      }
     },
     deleteMenu(restaurantCartId, menuId) {
-      this.$store.dispatch('cart/deleteMenuToCart', {restaurantCartId , menuId})
+      try {
+        this.$toast.open({
+          message: "Le menu a bien été suprimer du panier",
+          type: 'success'
+        });
+        this.$store.dispatch('cart/deleteMenuToCart', {restaurantCartId , menuId})
+      } catch (e) {
+        this.$toast.open({
+          message: e,
+          type: 'warning'
+        });
+      }
+
     },
     async checkout(restaurantsCart, totalPriceCart) {
 

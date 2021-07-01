@@ -14,7 +14,7 @@
 
     <v-card-actions>
       <v-card-actions style="display: block">
-        <v-btn v-if="parseInt(this.$session.get('user').roleId) === statusRoles.User || parseInt(this.$session.get('user').roleId) === statusRoles.Admin " outlined rounded text @click="addArticleToCart(article)">
+        <v-btn v-if="parseInt(this.$session.get('user').roleId) === statusRoles.User || parseInt(this.$session.get('user').roleId) === statusRoles.Admin " outlined rounded text @click="addToCart(article)">
           Ajouter
         </v-btn>
         <div class="my-4 text-subtitle-1" style="display: flex">
@@ -89,9 +89,6 @@ export default {
     statusRoles: statusRoles,
   }),
   methods: {
-    ...mapActions('cart', [
-      'addArticleToCart'
-    ]),
     editArticle(articleId) {
       this.$router.push({name: 'EditArticle', params: {id: articleId}})
     },
@@ -109,6 +106,20 @@ export default {
         });
       }
       this.dialog = false
+    },
+    addToCart(article) {
+      try {
+        this.$store.dispatch('cart/addArticleToCart', article);
+        this.$toast.open({
+          message: "L'article a bien été ajouté",
+          type: 'success'
+        });
+      } catch (error) {
+        this.$toast.open({
+          message: error,
+          type: 'warning'
+        });
+      }
     }
   }
 }
