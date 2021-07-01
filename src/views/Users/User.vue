@@ -34,7 +34,7 @@
         </v-btn>
       </div>
     </v-row>
-    <v-card class="mx-auto" style="margin-top: 200px">
+    <div class="mx-auto" style="margin-top: 200px">
       <form @submit.prevent="sendEmail" style="margin: 20px">
         <v-text-field
             type="email"
@@ -64,7 +64,7 @@
           style="margin: 20px"
       >
       </v-data-table>
-    </v-card>
+    </div>
     </div>
     <v-row justify="center">
       <v-dialog
