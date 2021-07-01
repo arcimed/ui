@@ -8,7 +8,7 @@
         <RestaurantCard :restaurant="restaurant"></RestaurantCard>
       </div>
     </div>
-    <div class="row" v-else>
+    <div class="col" v-else>
       <p class="display-2">Bienvenue sur CesiTonPlat</p>
       <p class="display-1">Veuillez vous connecter ou créer un nouveau compte.</p>
     </div>
