@@ -1,5 +1,6 @@
 <template>
   <div class="row">
+    <p v-if="ordersSort.length < 1" class="display-1"> Il n'y a pas de commande pour le moment</p>
     <div v-for="order in ordersSort" :key="order.id">
       <div class="row ma-6">
         <OrderCard :isUser="true" class="ma-6" :order="order"></OrderCard>

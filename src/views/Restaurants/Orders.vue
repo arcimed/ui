@@ -1,5 +1,6 @@
 <template>
   <div class="row">
+    <p v-if="restaurateurRestaurantsOrders.length < 1" class="display-1"> Il n'y a pas de commande pour le moment</p>
     <div v-for="data in restaurateurRestaurantsOrders" :key="data.restaurant.id">
       <p class="display-1">{{ data.restaurant.name }}</p>
 

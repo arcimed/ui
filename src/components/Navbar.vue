@@ -47,6 +47,9 @@
                 :key="'Notification'"
                 v-text="'Notification'"
             ></v-subheader>
+            <v-list-item v-if="ordersSort.length < 1">
+              <v-list-item-title v-html="'Vous n\'avez pas recu de notification' "></v-list-item-title>
+            </v-list-item>
             <template v-for="(notification, index) in ordersSort">
               <template v-if="index <= 4">
                 <v-divider
