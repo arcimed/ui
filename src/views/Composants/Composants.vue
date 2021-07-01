@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-btn  @click="addComposant" v-if="parseInt(this.$session.get('user').roleId) === statusRoles.Technique || parseInt(this.$session.get('user').roleId) === statusRoles.Admin">
+    <v-btn  @click="addComposant" class="mb-5" v-if="parseInt(this.$session.get('user').roleId) === statusRoles.Technique || parseInt(this.$session.get('user').roleId) === statusRoles.Admin">
       Ajout de composant
     </v-btn>
     <v-data-table

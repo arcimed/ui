@@ -10,16 +10,16 @@
           v-if="login"
       >
       </createAccount>
-      <v-container>
-        <v-row>
-          <v-col style="margin-top: 40px">
-            <router-view/>
-          </v-col>
-          <v-col v-if="this.$session.exists() && this.$session.get('user').roleId === roleUser">
-            <Cart/>
-          </v-col>
-        </v-row>
-      </v-container>
+        <v-container>
+          <v-row>
+            <v-col style="margin-top: 40px">
+              <router-view/>
+            </v-col>
+            <v-col v-if="this.$session.exists() && this.$session.get('user').roleId === roleUser">
+              <Cart/>
+            </v-col>
+          </v-row>
+        </v-container>
     </v-main>
     <Footer></Footer>
   </v-app>

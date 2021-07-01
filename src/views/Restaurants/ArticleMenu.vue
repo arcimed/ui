@@ -7,7 +7,7 @@
     <p class="display-4">{{ restaurant.name }}</p>
 
     <p class="display-3 pt-5"> Menu </p>
-    <v-btn @click="addMenu" v-if="restaurant.restaurateurId === parseInt(this.$session.get('user').id) || parseInt(this.$session.get('user').roleId) === statusRoles.Admin">
+    <v-btn @click="addMenu" class="mb-5" v-if="restaurant.restaurateurId === parseInt(this.$session.get('user').id) || parseInt(this.$session.get('user').roleId) === statusRoles.Admin">
       Ajout de menu
     </v-btn>
     <v-row class="pa-6" v-for="menu in menus" :key="menu.name">
@@ -15,7 +15,7 @@
     </v-row>
 
     <p class="display-3 pt-5"> Articles </p>
-    <v-btn @click="addArticle" v-if="restaurant.restaurateurId === parseInt(this.$session.get('user').id) || parseInt(this.$session.get('user').roleId) === statusRoles.Admin">
+    <v-btn @click="addArticle" class="mb-5" v-if="restaurant.restaurateurId === parseInt(this.$session.get('user').id) || parseInt(this.$session.get('user').roleId) === statusRoles.Admin">
       Ajout d'article
     </v-btn>
     <v-row class="pa-6" v-for="article in articles" :key="article.name">

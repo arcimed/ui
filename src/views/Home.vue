@@ -1,9 +1,9 @@
 <template>
   <div>
-    <v-btn @click="addRestaurant" v-if="this.$session.exists() && (this.$session.get('user').roleId === statusRoles.Restaurateur || parseInt(this.$session.get('user').roleId) === statusRoles.Admin)">
+    <v-btn @click="addRestaurant" class="mb-5" v-if="this.$session.exists() && (this.$session.get('user').roleId === statusRoles.Restaurateur || parseInt(this.$session.get('user').roleId) === statusRoles.Admin)">
       Ajout de restaurant
     </v-btn>
-    <div class="row" v-if="this.$session.exists()">
+    <div class="row mb-5" v-if="this.$session.exists()">
       <div v-for="restaurant in restaurants" :key="restaurant.name">
         <RestaurantCard :restaurant="restaurant"></RestaurantCard>
       </div>
