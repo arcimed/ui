@@ -129,6 +129,9 @@ const routes = [
     path: '/orders-to-be-delivered',
     name: 'OrdersToBeDelivered',
     component: () => import('../views/DeleveryMan/Orders'),
+    props: (route) => ({
+      ...route.params
+    }),
     meta: {
       requiresAuth: true,
       is_livreur: true

@@ -22,9 +22,6 @@ export default {
     }
   },
   sockets: {
-    connect: function () {
-      console.log('socket connected')
-    },
     newDashboardData: function() {
       this.$store.dispatch('dashboard/setOrdersDashboard');
     }

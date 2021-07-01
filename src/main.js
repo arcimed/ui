@@ -13,7 +13,7 @@ import SocketIO from 'socket.io-client'
 const socketConnection = SocketIO('http://localhost:3000');
 
 Vue.use(new VueSocketIO({
-      debug: true,
+      debug: false,
       connection:socketConnection
     })
 );

@@ -231,7 +231,7 @@ export default {
     },
 
     setOrderDelivered() {
-      this.$store.dispatch('orders/setrderDelivered', this.order.id)
+      this.$store.dispatch('orders/setDelivered', this.order.id)
 
       let order = this.order;
       let username = this.$session.get('user').firstname;

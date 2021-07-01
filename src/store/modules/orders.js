@@ -76,7 +76,7 @@ const actions = {
             }
         }).catch()
     },
-    setrderDelivered (store, orderId) {
+    setDelivered (store, orderId) {
         axios.put(`api/order/edit/` + orderId, {
             ordersStatusId: statusOrders.delivered
         }).then((response) => {

@@ -12,7 +12,6 @@
 
     <p class="display-1" v-if="ordersSort.length <= 0 && ordersToDeliver.length <= 0"> Il n'y a pas de commande(s) à traitée(s). </p>
   </div>
-
 </template>
 
 
@@ -29,6 +28,29 @@ export default {
   mounted() {
     this.$store.dispatch('orders/setDeliveryManOrders');
     this.$store.dispatch('orders/setDeliveryManOrdersToDeliver', this.$session.get('user').id);
+
+    let orderId = this.$route.query.orderId;
+
+    if (orderId !== undefined) {
+      this.$store.dispatch('orders/setDelivered', orderId)
+      let username = this.$session.get('user').firstname;
+
+      this.$http
+          .get(`/api/order/` + orderId)
+          .then(response => {
+            let order = response.data.data;
+
+            this.$store.dispatch('notifications/addOrderDelivered', {order, username})
+
+            this.$toast.open({
+              message: 'Vous avez livré la commande.',
+              type: 'success'
+            });
+
+            this.$router.push({name: "Home"})
+          })
+          .catch(error => { console.log(error) })
+    }
   },
   computed: {
     ...mapGetters('orders', {

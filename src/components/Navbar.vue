@@ -240,9 +240,6 @@ export default {
     }
   },
   sockets: {
-    connect: function () {
-      console.log('socket connected')
-    },
     newNotification: function(notification){
       if (this.$session.exists() && this.$session.get("user").id === parseInt(notification.userId)) {
         this.count += 1;
