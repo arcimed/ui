@@ -6,6 +6,8 @@
       Restaurant : {{ order.Restaurant.name }}
       <br>
       Client : {{ order.Restaurant.name }}
+      <br>
+      <format :value="order.Restaurant.createdAt" fn="dateTime" />
     </v-card-title>
 
     <v-data-table
@@ -109,11 +111,13 @@
 
 import { getStatusOrders, statusOrders } from "@/config/statusOrders";
 import { StripeCheckout } from '@vue-stripe/vue-stripe';
+import format from "../../components/Format";
 
 export default {
   name: "articleCard",
   components: {
     StripeCheckout,
+    format
   },
   props: {
     order: {
