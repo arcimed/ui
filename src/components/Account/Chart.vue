@@ -101,7 +101,8 @@ export default {
           0,
           0,
       ],
-      priceCount: []
+      priceCount: [],
+      price: {}
     }
   },
   mounted() {
@@ -163,12 +164,20 @@ export default {
         monthPrice.push(tempPrice)
       })
 
+      console.log(monthPrice)
 
-
-      let price = {name: 'Revenue', janvier: 0, fevrier: 0, mars: 0, avril: 0, mai: 0, juin: monthPrice[0] + " €", juillet: monthPrice[1] + " €"  }
+      if(monthPrice.length === 0) {
+        this.price = {name: 'Revenue', janvier: 0 + " €", fevrier: 0 + " €", mars: 0 + " €", avril: 0 + " €", mai: 0 + " €", juin: 0 + " €", juillet: 0 + " €"}
+      }
+      if(monthPrice.length === 1) {
+        this.price = {name: 'Revenue', janvier: 0 + " €", fevrier: 0 + " €", mars: 0 + " €", avril: 0 + " €", mai: 0 + " €", juin: monthPrice[0] + " €", juillet: 0 + " €"}
+      }
+      if (monthPrice.length === 2) {
+        this.price = {name: 'Revenue', janvier: 0 + " €", fevrier: 0 + " €", mars: 0 + " €", avril: 0 + " €", mai: 0 + " €", juin: monthPrice[0] + " €", juillet: monthPrice[1] + " €"}
+      }
       let donne = {name: 'Nombre de commande', cree: tempCree, refuser: tempRefuser, livrer: tempLivrer}
       this.stats.push(donne)
-      this.priceCount.push(price)
+      this.priceCount.push(this.price)
     }
   }
 }
