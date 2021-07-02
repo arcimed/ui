@@ -168,10 +168,10 @@ export default {
         this.price = {name: 'Revenue', janvier: 0 + " €", fevrier: 0 + " €", mars: 0 + " €", avril: 0 + " €", mai: 0 + " €", juin: 0 + " €", juillet: 0 + " €"}
       }
       if(monthPrice.length === 1) {
-        this.price = {name: 'Revenue', janvier: 0 + " €", fevrier: 0 + " €", mars: 0 + " €", avril: 0 + " €", mai: 0 + " €", juin: monthPrice[0] + " €", juillet: 0 + " €"}
+        this.price = {name: 'Revenue', janvier: 0 + " €", fevrier: 0 + " €", mars: 0 + " €", avril: 0 + " €", mai: 0 + " €", juin: 0 + " €", juillet: monthPrice[0] + " €"}
       }
       if (monthPrice.length === 2) {
-        this.price = {name: 'Revenue', janvier: 0 + " €", fevrier: 0 + " €", mars: 0 + " €", avril: 0 + " €", mai: 0 + " €", juin: monthPrice[0] + " €", juillet: monthPrice[1] + " €"}
+        this.price = {name: 'Revenue', janvier: 0 + " €", fevrier: 0 + " €", mars: 0 + " €", avril: 0 + " €", mai: 0 + " €", juin: monthPrice[1] + " €", juillet: monthPrice[0] + " €"}
       }
       let donne = {name: 'Nombre de commande', cree: tempCree, refuser: tempRefuser, livrer: tempLivrer}
       this.stats.push(donne)
