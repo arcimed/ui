@@ -164,8 +164,6 @@ export default {
         monthPrice.push(tempPrice)
       })
 
-      console.log(monthPrice)
-
       if(monthPrice.length === 0) {
         this.price = {name: 'Revenue', janvier: 0 + " €", fevrier: 0 + " €", mars: 0 + " €", avril: 0 + " €", mai: 0 + " €", juin: 0 + " €", juillet: 0 + " €"}
       }
