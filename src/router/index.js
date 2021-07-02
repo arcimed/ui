@@ -182,7 +182,7 @@ const routes = [
     component: () => import('../views/Restaurants/Statistiques.vue'),
     meta: {
       requiresAuth: true,
-      is_restaurateur: true
+      nothing: true
     },
     props: (route) => ({
       ...route.params

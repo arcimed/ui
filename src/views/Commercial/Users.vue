@@ -30,7 +30,7 @@
             <v-icon v-else @click="suspendUser(row.item.id, row.item.isSuspended)">mdi-account-multiple-minus</v-icon>
           </td>
           <td>
-            <v-icon @click="statsUser(row.item.id)">mdi-chart-line</v-icon>
+            <v-icon v-if="row.item.Role.name === 'Restaurateur'" @click="statsUser(row.item.id)">mdi-chart-line</v-icon>
           </td>
         </tr>
       </template>
