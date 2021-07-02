@@ -193,7 +193,7 @@ export default {
 
         if (this.referralCode) {
           this.$http
-              .get(`/getByReferralCode/` + String(this.referralCode))
+              .get(`/api/getByReferralCode/` + String(this.referralCode))
               .then(response => {
                 this.user.referralUserId = response.data.data.id;
                 this.user.roleId = parseInt(this.role)
